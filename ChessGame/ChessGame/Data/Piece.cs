@@ -11,6 +11,5 @@ namespace ChessGame.Data
         int id;
         PieceColor color;
         PieceType type;
-
     }
 }

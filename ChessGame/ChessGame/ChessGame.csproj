@@ -59,6 +59,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resource1.resx</DependentUpon>
     </Compile>
+    <Compile Include="TypeDefine.cs" />
     <Compile Include="ResourceManager\BasicPiece.cs" />
     <Compile Include="ResourceManager\ColorfulPiece.cs" />
     <Compile Include="ResourceManager\CommonPiece.cs" />

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ChessGame.ResourceManager;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -27,6 +28,7 @@ namespace ChessGame
             var clr1 = Color.DarkGray;
             var clr2 = Color.White;
             chessBoard = new Panel[gridSize, gridSize];
+            PieceStrategy pieceStrategy = new PieceStrategy(new BasicPiece());
             for (var i = 0; i < gridSize; i++)
             {
                 for (var j = 0; j < gridSize; j++)
@@ -36,7 +38,7 @@ namespace ChessGame
                         Size = new Size(tileSize, tileSize),
                         Location = new Point(tileSize * i + distance, tileSize * j + distance)
                     };
-                    var bm = new Bitmap(Resource1.BlackKing, new Size(newPanel.Width, newPanel.Height));
+                    var bm = new Bitmap(pieceStrategy.GetPiece(PIECE.BlackBishop), new Size(newPanel.Width, newPanel.Height));
                     newPanel.BackgroundImage = bm;
                     
                     Controls.Add(newPanel);

@@ -59,6 +59,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resource1.resx</DependentUpon>
     </Compile>
+    <Compile Include="ResourceManager\BasicPiece.cs" />
+    <Compile Include="ResourceManager\ColorfulPiece.cs" />
+    <Compile Include="ResourceManager\CommonPiece.cs" />
+    <Compile Include="ResourceManager\PieceStrategy.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
@@ -89,40 +93,76 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="PieceChess\BlackBishop.png" />
+    <None Include="PieceChess\BasicPiece\BlackBishop.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="PieceChess\BlackKing.png" />
+    <None Include="PieceChess\BasicPiece\BlackKing.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="PieceChess\BlackKnight.png" />
+    <None Include="PieceChess\BasicPiece\BlackKnight.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="PieceChess\BlackPawn.png" />
+    <None Include="PieceChess\BasicPiece\BlackPawn.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="PieceChess\BlackQueen.png" />
+    <None Include="PieceChess\BasicPiece\BlackQueen.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="PieceChess\BlackRook.png" />
+    <None Include="PieceChess\BasicPiece\BlackRook.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="PieceChess\WhiteBishop.png" />
+    <None Include="PieceChess\BasicPiece\WhiteBishop.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="PieceChess\WhiteKing.png" />
+    <None Include="PieceChess\BasicPiece\WhiteKing.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="PieceChess\WhiteKnight.png" />
+    <None Include="PieceChess\BasicPiece\WhiteKnight.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="PieceChess\WhitePawn.png" />
+    <None Include="PieceChess\BasicPiece\WhitePawn.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="PieceChess\WhiteQueen.png" />
+    <None Include="PieceChess\BasicPiece\WhiteQueen.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="PieceChess\WhiteRook.png" />
+    <None Include="PieceChess\BasicPiece\WhiteRook.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="PieceChess\ColorfulPiece\GreenBishop.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="PieceChess\ColorfulPiece\GreenKing.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="PieceChess\ColorfulPiece\GreenKnight.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="PieceChess\ColorfulPiece\GreenPawn.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="PieceChess\ColorfulPiece\GreenRook.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="PieceChess\ColorfulPiece\RedBishop.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="PieceChess\ColorfulPiece\RedKing.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="PieceChess\ColorfulPiece\RedKnight.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="PieceChess\ColorfulPiece\RedPawn.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="PieceChess\ColorfulPiece\RedQueen.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="PieceChess\ColorfulPiece\RedRook.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="PieceChess\ColorfulPiece\GreenQueen.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

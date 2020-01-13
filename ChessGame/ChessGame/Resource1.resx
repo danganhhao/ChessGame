@@ -119,39 +119,75 @@
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="BlackBishop" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>PieceChess\BlackBishop.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>PieceChess\BasicPiece\BlackBishop.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="BlackKing" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>PieceChess\BlackKing.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>PieceChess\BasicPiece\BlackKing.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="BlackKnight" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>PieceChess\BlackKnight.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>PieceChess\BasicPiece\BlackKnight.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="BlackPawn" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>PieceChess\BlackPawn.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>PieceChess\BasicPiece\BlackPawn.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="BlackQueen" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>PieceChess\BlackQueen.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>PieceChess\BasicPiece\BlackQueen.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="BlackRook" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>PieceChess\BlackRook.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>PieceChess\BasicPiece\BlackRook.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="GreenBishop" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>PieceChess\ColorfulPiece\GreenBishop.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="GreenKing" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>PieceChess\ColorfulPiece\GreenKing.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="GreenKnight" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>PieceChess\ColorfulPiece\GreenKnight.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="GreenPawn" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>PieceChess\ColorfulPiece\GreenPawn.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="GreenQueen" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>PieceChess\ColorfulPiece\GreenQueen.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="GreenRook" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>PieceChess\ColorfulPiece\GreenRook.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RedBishop" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>PieceChess\ColorfulPiece\RedBishop.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RedKing" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>PieceChess\ColorfulPiece\RedKing.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RedKnight" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>PieceChess\ColorfulPiece\RedKnight.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RedPawn" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>PieceChess\ColorfulPiece\RedPawn.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RedQueen" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>PieceChess\ColorfulPiece\RedQueen.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RedRook" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>PieceChess\ColorfulPiece\RedRook.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="WhiteBishop" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>PieceChess\WhiteBishop.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>PieceChess\BasicPiece\WhiteBishop.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="WhiteKing" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>PieceChess\WhiteKing.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>PieceChess\BasicPiece\WhiteKing.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="WhiteKnight" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>PieceChess\WhiteKnight.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>PieceChess\BasicPiece\WhiteKnight.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="WhitePawn" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>PieceChess\WhitePawn.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>PieceChess\BasicPiece\WhitePawn.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="WhiteQueen" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>PieceChess\WhiteQueen.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>PieceChess\BasicPiece\WhiteQueen.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="WhiteRook" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>PieceChess\WhiteRook.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>PieceChess\BasicPiece\WhiteRook.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

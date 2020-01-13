@@ -21,4 +21,10 @@ namespace ChessGame
         KNIGHT,
         PAWN
     }
+
+    public enum Direction
+    {
+        UP,
+        DOWN
+    }
 }

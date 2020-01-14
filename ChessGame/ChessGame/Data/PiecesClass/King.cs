@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ChessGame.Data.PiecesClass
 {
-    class King : Piece
+    public class King : Piece
     {
         public King()
         {

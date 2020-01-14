@@ -7,15 +7,15 @@ using System.Threading.Tasks;
 
 namespace ChessGame.Data
 {
-    abstract class Piece
+    public abstract class Piece
     {
-        protected int id;
-        protected PieceColor color;
-        protected PieceType type;
-        protected List<Position> moveCells;
-        protected List<Position> attackCells;
-        protected Position position;
-        protected bool isMoved;
+        public int id;
+        public PieceColor color;
+        public PieceType type;
+        public List<Position> moveCells;
+        public List<Position> attackCells;
+        public Position position;
+        public bool isMoved;
 
         public Piece()
         {

@@ -57,7 +57,6 @@
     <Compile Include="GameEngine\ChessBoard.cs" />
     <Compile Include="GameEngine\AI.cs" />
     <Compile Include="GameEngine\LegalMoveSet.cs" />
-    <Compile Include="GameEngine\Types.cs" />
     <Compile Include="GameEngine\UIBoard.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -14,6 +14,7 @@ namespace ChessGame.GameEngine
         public static bool STOP = false;
         private static TURN MAX = TURN.BLACK;
 
+        /*
         public static Move MiniMaxAB(BoardData board, TURN turn)
         {
             RUNNING = true; // we've started running
@@ -80,7 +81,8 @@ namespace ChessGame.GameEngine
             }
             return m;
         }
-
+        */
+        /*
         private static int mimaab(BoardData board, TURN turn, int depth, int alpha, int beta)
         {
             // base case, at maximum depth return board fitness
@@ -127,6 +129,6 @@ namespace ChessGame.GameEngine
                     return a;
                 }
             }
-        }
+        } */
     }
 }

@@ -79,6 +79,8 @@
     <Compile Include="Network\CmdDefine.cs" />
     <Compile Include="Network\NetworkModule.cs" />
     <Compile Include="Network\Packet.cs" />
+    <Compile Include="Network\ConnectionState.cs" />
+    <Compile Include="Network\NetworkInfo.cs" />
     <Compile Include="UI\BoardUi.cs" />
     <Compile Include="UI\PieceUi.cs">
       <SubType>Component</SubType>

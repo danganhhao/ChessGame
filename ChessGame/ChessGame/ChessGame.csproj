@@ -46,6 +46,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Data\Cell.cs" />
+    <Compile Include="Data\PiecesClass\King.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -59,19 +61,23 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resource1.resx</DependentUpon>
     </Compile>
+    <Compile Include="ResourceManager\ResourceModule.cs" />
     <Compile Include="TypeDefine.cs" />
     <Compile Include="ResourceManager\BasicPiece.cs" />
     <Compile Include="ResourceManager\ColorfulPiece.cs" />
     <Compile Include="ResourceManager\CommonPiece.cs" />
     <Compile Include="ResourceManager\PieceStrategy.cs" />
     <Compile Include="Data\BoardData.cs" />
-    <Compile Include="Data\Cell.cs" />
     <Compile Include="Data\Move.cs" />
     <Compile Include="Data\Piece.cs" />
     <Compile Include="Data\Player.cs" />
     <Compile Include="Network\CmdDefine.cs" />
     <Compile Include="Network\NetworkModule.cs" />
     <Compile Include="Network\Packet.cs" />
+    <Compile Include="UI\BoardUi.cs" />
+    <Compile Include="UI\PieceUi.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
@@ -173,5 +179,6 @@
   <ItemGroup>
     <None Include="PieceChess\ColorfulPiece\GreenQueen.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

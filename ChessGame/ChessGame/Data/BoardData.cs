@@ -8,5 +8,18 @@ namespace ChessGame.Data
 {
     class BoardData
     {
+        List<Piece> pieces;
+        int idAvailable = 0;
+
+        public List<Piece> ListPiece { get => pieces; set => pieces = value; }
+
+        public BoardData()
+        {
+        }
+
+        public void InitListPiece()
+        {
+            
+        }
     }
 }

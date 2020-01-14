@@ -17,7 +17,12 @@ namespace ChessGame
         public Form1()
         {
             InitializeComponent();
-            InitChessBoard();
+            ShowChessBoard();
+        }
+
+        private void ShowChessBoard()
+        {
+            throw new NotImplementedException();
         }
 
         private void InitChessBoard()

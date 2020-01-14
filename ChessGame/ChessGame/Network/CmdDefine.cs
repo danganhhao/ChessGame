@@ -10,5 +10,7 @@ namespace ChessGame.Network
     {
         public static int JOIN = 1000;
         public static int MOVE = 1001;
+        public static int LEAVE = 1002;
+        public static int SURRENDER = 1003;
     }
 }

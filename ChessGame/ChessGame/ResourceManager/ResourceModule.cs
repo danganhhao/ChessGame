@@ -20,9 +20,9 @@ namespace ChessGame.ResourceManager
             return instance;
         }
 
-        public Bitmap GetPieceResourceByType(PieceType type, PieceColor color)
+        public Bitmap GetPieceResourceByType(PieceType type, PieceSide color)
         {
-            return Resource1.BlackKing;
+            return new Bitmap(Resource1.BlackKing, Const.TileSize);
         }
     }
 }

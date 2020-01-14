@@ -46,8 +46,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Data\Cell.cs" />
     <Compile Include="Data\PiecesClass\King.cs" />
+    <Compile Include="Data\PiecesClass\Knight.cs" />
+    <Compile Include="Data\PiecesClass\Pawn.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -9,51 +9,33 @@ namespace ChessGame.Data
 {
     abstract class Piece
     {
-        protected int id;
-        protected PieceColor color;
-        protected PieceType type;
-        protected List<Cell> moveCells;
-        protected List<Cell> attackCells;
-        protected Cell position;
-        protected bool isMoved;
+        PieceSide side;
+        PieceType type;
+        Point position;
+        bool isMoved = false;
+
+        public PieceSide Side { get => side; set => side = value; }
+        public PieceType Type { get => type; set => type = value; }
+        public Point Position { get => position; set => position = value; }
+        public bool IsMoved { get => isMoved; set => isMoved = value; }
 
         public Piece()
         {
+
         }
 
-        public Piece(int id, PieceColor color, PieceType type, Cell pos)
+        public Piece(PieceSide side, PieceType type, bool isMoved = false)
         {
-            this.InitListMoveCell();
-            this.InitListAttackCell();
-            this.id = id;
-            this.color = color;
+            this.side = side;
             this.type = type;
-            this.SetCell(pos);
+            this.isMoved = isMoved;
         }
 
-        protected abstract void InitListMoveCell();
+        public abstract List<Point> GetPossibleMove();
 
-        public void SetCell(Cell pos)
+        internal bool IsAvailableMove(Point des)
         {
-            this.position = pos;
-            this.CalcMoveCell();
-            this.CalcAttackCell();
-        }
-
-        protected abstract void CalcMoveCell();
-        protected abstract Bitmap GetResource();
-
-        public List<Cell> GetMoveCell()
-        {
-            return this.moveCells;
-        }
-
-
-        protected virtual void CalcAttackCell() { }
-        protected virtual void InitListAttackCell() { }
-        public virtual List<Cell> GetAttackCell()
-        {
-            return this.moveCells;
+            return true;
         }
     }
 }

@@ -17,7 +17,7 @@ namespace ChessGame
         public Form1()
         {
             InitializeComponent();
-            ShowChessBoard();
+            //ShowChessBoard();
         }
 
         private void ShowChessBoard()
@@ -33,7 +33,6 @@ namespace ChessGame
             var clr1 = Color.DarkGray;
             var clr2 = Color.White;
             chessBoard = new Panel[gridSize, gridSize];
-            PieceStrategy pieceStrategy = new PieceStrategy(new BasicPiece());
             for (var i = 0; i < gridSize; i++)
             {
                 for (var j = 0; j < gridSize; j++)
@@ -43,8 +42,6 @@ namespace ChessGame
                         Size = new Size(tileSize, tileSize),
                         Location = new Point(tileSize * i + distance, tileSize * j + distance)
                     };
-                    var bm = new Bitmap(pieceStrategy.GetPiece(PIECE.BlackBishop), new Size(newPanel.Width, newPanel.Height));
-                    newPanel.BackgroundImage = bm;
                     
                     Controls.Add(newPanel);
                     chessBoard[i, j] = newPanel;

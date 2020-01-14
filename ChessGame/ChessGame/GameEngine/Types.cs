@@ -4,48 +4,36 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ChessGame
+namespace ChessGame.GameEngine
 {
-    public enum PieceColor
-    {
-        WHITE,
-        BLACK
-    }
-
-    public enum PieceType
+    public enum Piece
     {
         NONE = -1,
-        KING,
-        QUEEN,
+        PAWN,
         ROOK,
-        BISHOP,
         KNIGHT,
-        PAWN
+        BISHOP,
+        QUEEN,
+        KING
     }
 
-    public enum Direction
-    {
-        UP,
-        DOWN
-    }
-
-    public enum TURN
+    public enum Player
     {
         BLACK,
         WHITE
     }
 
-    public struct Position
+    public struct position_t
     {
         public int letter;
         public int number;
 
-        public Position(int letter, int number)
+        public position_t(int letter, int number)
         {
             this.letter = letter;
             this.number = number;
         }
-        public Position(Position copy)
+        public position_t(position_t copy)
         {
             this.letter = copy.letter;
             this.number = copy.number;
@@ -53,21 +41,21 @@ namespace ChessGame
 
         public override bool Equals(object obj)
         {
-            return letter == ((Position)obj).letter && number == ((Position)obj).number;
+            return letter == ((position_t)obj).letter && number == ((position_t)obj).number;
         }
     }
 
     public struct piece_t
     {
-        public PieceType piece;
-        public TURN player;
-        public Position lastPosition;
+        public Piece piece;
+        public Player player;
+        public position_t lastPosition;
 
-        public piece_t(PieceType piece, TURN player)
+        public piece_t(Piece piece, Player player)
         {
             this.piece = piece;
             this.player = player;
-            this.lastPosition = new Position(-1, -1);
+            this.lastPosition = new position_t(-1, -1);
         }
 
         public piece_t(piece_t copy)
@@ -78,12 +66,12 @@ namespace ChessGame
         }
     }
 
-    public struct Move
+    public struct move_t
     {
-        public Position from;
-        public Position to;
+        public position_t from;
+        public position_t to;
 
-        public Move(Position from, Position to)
+        public move_t(position_t from, position_t to)
         {
             this.from = from;
             this.to = to;

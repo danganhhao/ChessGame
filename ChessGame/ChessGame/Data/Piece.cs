@@ -12,16 +12,16 @@ namespace ChessGame.Data
         protected int id;
         protected PieceColor color;
         protected PieceType type;
-        protected List<Cell> moveCells;
-        protected List<Cell> attackCells;
-        protected Cell position;
+        protected List<Position> moveCells;
+        protected List<Position> attackCells;
+        protected Position position;
         protected bool isMoved;
 
         public Piece()
         {
         }
 
-        public Piece(int id, PieceColor color, PieceType type, Cell pos)
+        public Piece(int id, PieceColor color, PieceType type, Position pos)
         {
             this.InitListMoveCell();
             this.InitListAttackCell();
@@ -33,7 +33,7 @@ namespace ChessGame.Data
 
         protected abstract void InitListMoveCell();
 
-        public void SetCell(Cell pos)
+        public void SetCell(Position pos)
         {
             this.position = pos;
             this.CalcMoveCell();
@@ -43,7 +43,7 @@ namespace ChessGame.Data
         protected abstract void CalcMoveCell();
         protected abstract Bitmap GetResource();
 
-        public List<Cell> GetMoveCell()
+        public List<Position> GetMoveCell()
         {
             return this.moveCells;
         }
@@ -51,7 +51,7 @@ namespace ChessGame.Data
 
         protected virtual void CalcAttackCell() { }
         protected virtual void InitListAttackCell() { }
-        public virtual List<Cell> GetAttackCell()
+        public virtual List<Position> GetAttackCell()
         {
             return this.moveCells;
         }

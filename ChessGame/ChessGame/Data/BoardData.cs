@@ -8,10 +8,11 @@ namespace ChessGame.Data
 {
     class BoardData
     {
-        List<Piece> pieces;
+        //List<Piece> pieces;
         int idAvailable = 0;
 
-        public List<Piece> ListPiece { get => pieces; set => pieces = value; }
+        //public List<Piece> ListPiece { get => pieces; set => pieces = value; }
+        Piece[][] gridPiece = new Piece[8][];
 
         public BoardData()
         {
@@ -20,6 +21,11 @@ namespace ChessGame.Data
         public void InitListPiece()
         {
             
+        }
+
+        public Piece[][] GetGridPiece()
+        {
+            return gridPiece;
         }
     }
 }

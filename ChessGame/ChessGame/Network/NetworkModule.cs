@@ -9,7 +9,9 @@ namespace ChessGame.Network
     partial class NetworkModule
     {
         ConnectionState cState = ConnectionState.StandingBy;
-        NetworkInfo networkInfo = new NetworkInfo();
+        PacketTranferState ptState = PacketTranferState.None;
+        NetworkInfo senderInfo = new NetworkInfo();
+        NetworkInfo receiverInfo;
 
         private NetworkModule() { }
         public static NetworkModule instance = null;
@@ -29,7 +31,15 @@ namespace ChessGame.Network
 
         void ConnectTo(NetworkInfo receiverInfo)
         {
-            cState = ConnectionState.Connecting;
+            ListenForConnection();
+            if (cState == ConnectionState.Listening)
+            {
+                if (receiverInfo != null)
+                {
+                    cState = ConnectionState.Connecting;
+                    this.receiverInfo = new NetworkInfo(receiverInfo);
+                }
+            }
         }
 
         void ListenForConnection()
@@ -37,15 +47,50 @@ namespace ChessGame.Network
             cState = ConnectionState.Listening;
         }
 
-        public void SendPacket(RequestPacket packet)
+        void Disconnect()
         {
-            
+            receiverInfo = null;
+            cState = ConnectionState.Disconnected;
         }
 
-        public void ReceivePacket(ResponsePacket packet)
+       
+        public RequestPacket SendPacket(RequestPacket packet)
         {
-            
+            if (cState == ConnectionState.Connected)
+            {
+                ptState = PacketTranferState.Sending;
+            }
+            return null;
         }
+
+
+        public ResponsePacket ReceivePacket()
+        {
+            if (cState == ConnectionState.Connected)
+            {
+                ptState = PacketTranferState.Receiving;
+            }
+            return null;
+        }
+
+        public void CheckConnection()
+        {
+            if (receiverInfo == null)
+            {
+                cState = ConnectionState.StandingBy;
+            }
+            else
+            {
+
+            }
+        }
+
+        void ResetState()
+        {
+            cState = ConnectionState.StandingBy;
+            ptState = PacketTranferState.None;
+        }
+
 
 
     }

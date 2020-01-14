@@ -14,7 +14,7 @@ namespace ChessGame.Data.PiecesClass
         {
         }
 
-        public King(int id, PieceColor color, PieceType type, Cell pos) : base(id, color, type, pos)
+        public King(int id, PieceColor color, PieceType type, Position pos) : base(id, color, type, pos)
         {
         }
 
@@ -31,13 +31,13 @@ namespace ChessGame.Data.PiecesClass
         protected override void InitListAttackCell()
         {
             for (int i = 0; i < 8; i++)
-                attackCells.Add(new Cell(0, 0));
+                attackCells.Add(new Position(0, 0));
         }
 
         protected override void InitListMoveCell()
         {
             for (int i = 0; i < 8; i++)
-                attackCells.Add(new Cell(0, 0));
+                attackCells.Add(new Position(0, 0));
         }
     }
 }

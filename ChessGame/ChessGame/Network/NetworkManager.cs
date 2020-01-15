@@ -6,20 +6,21 @@ using System.Threading.Tasks;
 
 namespace ChessGame.Network
 {
-    partial class NetworkModule
+    partial class NetworkManager
     {
         ConnectionState cState = ConnectionState.StandingBy;
         PacketTranferState ptState = PacketTranferState.None;
         NetworkInfo senderInfo = new NetworkInfo();
         NetworkInfo receiverInfo;
+        CombineConnection connection;
 
-        private NetworkModule() { }
-        public static NetworkModule instance = null;
-        public static NetworkModule GetInstance()
+        private NetworkManager() { }
+        public static NetworkManager instance = null;
+        public static NetworkManager GetInstance()
         {
             if (instance == null)
             {
-                instance = new NetworkModule();
+                instance = new NetworkManager();
             }
             return instance;
         }
@@ -89,6 +90,11 @@ namespace ChessGame.Network
         {
             cState = ConnectionState.StandingBy;
             ptState = PacketTranferState.None;
+        }
+
+        public string GetMessageFromPackage(Packet packet)
+        {
+            return packet.GetMessage();
         }
 
 

@@ -1,6 +1,6 @@
 ﻿namespace ChessGame.Network
 {
-    partial class NetworkModule
+    partial class NetworkManager
     {
         public enum ConnectionState
         {

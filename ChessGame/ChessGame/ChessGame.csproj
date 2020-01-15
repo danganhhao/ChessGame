@@ -60,6 +60,12 @@
     <Compile Include="GameEngine\Helper.cs" />
     <Compile Include="GameEngine\LegalMoveSet.cs" />
     <Compile Include="GameEngine\UIBoard.cs" />
+    <Compile Include="Network\CombineConnection.cs" />
+    <Compile Include="Network\ConnectionProtocol.cs" />
+    <Compile Include="Network\ConnectionState.cs" />
+    <Compile Include="Network\NetworkInfo.cs" />
+    <Compile Include="Network\UDPConnection.cs" />
+    <Compile Include="Network\TCPConnection.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resource1.Designer.cs">
@@ -77,10 +83,8 @@
     <Compile Include="Data\Piece.cs" />
     <Compile Include="Data\Player.cs" />
     <Compile Include="Network\CmdDefine.cs" />
-    <Compile Include="Network\NetworkModule.cs" />
+    <Compile Include="Network\NetworkManager.cs" />
     <Compile Include="Network\Packet.cs" />
-    <Compile Include="Network\ConnectionState.cs" />
-    <Compile Include="Network\NetworkInfo.cs" />
     <Compile Include="UI\BoardUi.cs" />
     <Compile Include="UI\PieceUi.cs">
       <SubType>Component</SubType>

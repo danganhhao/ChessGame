@@ -6,16 +6,17 @@ using System.Threading.Tasks;
 
 namespace ChessGame.Network
 {
-    class RequestPacket
+    class Packet
     {
         NetworkInfo networkInfo;
         string message;
 
-        public RequestPacket() {
-            
+        public Packet()
+        {
+
         }
 
-        public RequestPacket(NetworkInfo networkInfo, string message)
+        public Packet(NetworkInfo networkInfo, string message)
         {
             this.networkInfo = new NetworkInfo(networkInfo);
             this.message = message;
@@ -27,39 +28,24 @@ namespace ChessGame.Network
         { return message; }
     }
 
-    class ResponsePacket
+    class RequestPacket : Packet
     {
-        NetworkInfo networkInfo;
-        string message;
-
-        public ResponsePacket()
+        public RequestPacket() : base()
         {
-
         }
 
-        public ResponsePacket(NetworkInfo networkInfo, string message)
-        {
-            this.networkInfo = new NetworkInfo(networkInfo);
-            this.message = message;
-        }
-
-        public NetworkInfo GetNetworkInfo()
-        { return networkInfo; }
-        public string GetMessage()
-        { return message; }
-
-    }
-
-    class MoveRequestPacket : RequestPacket
-    {
-        public MoveRequestPacket()
+        public RequestPacket(NetworkInfo networkInfo, string message) : base(networkInfo, message)
         {
         }
     }
 
-    class MoveResponsePacket : ResponsePacket
+    class ResponsePacket : Packet
     {
-        public MoveResponsePacket()
+        public ResponsePacket() : base()
+        {
+        }
+
+        public ResponsePacket(NetworkInfo networkInfo, string message) : base(networkInfo, message)
         {
         }
     }

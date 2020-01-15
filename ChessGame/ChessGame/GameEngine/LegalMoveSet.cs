@@ -12,10 +12,10 @@ namespace ChessGame.GameEngine
         /// <param name="b">The state of the game.</param>
         /// <param name="m">The desired move.</param>
         /// <returns>The new state of the game.</returns>
-        public static BoardData move(BoardData b, Move m)
+        public static BoardHelper move(BoardHelper b, Move m)
         {
             // create a copy of the board
-            BoardData b2 = new BoardData(b);
+            BoardHelper b2 = new BoardHelper(b);
 
             // determine if move is enpassant or castling
             bool enpassant = (b2.Grid[m.from.number][m.from.letter].piece == PieceType.PAWN && isEnPassant(b2, m));
@@ -30,7 +30,7 @@ namespace ChessGame.GameEngine
             else if (enpassant)
             {
                 // if kill was through enpassant determine which direction and remove the killed pawn
-                int step = (b.Grid[m.from.number][m.from.letter].player == TURN.WHITE) ? -1 : 1;
+                int step = (b.Grid[m.from.number][m.from.letter].player == PieceSide.WHITE) ? -1 : 1;
                 b2.Pieces[b2.Grid[m.to.number + step][m.to.letter].player].Remove(new Position(m.to.letter, m.to.number + step));
             }
             else if (castle)
@@ -58,7 +58,7 @@ namespace ChessGame.GameEngine
             if (enpassant)
             {
                 // if kill was through enpassant determine which direction and remove the killed pawn
-                int step = (b.Grid[m.from.number][m.from.letter].player == TURN.WHITE) ? -1 : 1;
+                int step = (b.Grid[m.from.number][m.from.letter].player == PieceSide.WHITE) ? -1 : 1;
                 b2.Grid[m.to.number + step][m.to.letter].piece = PieceType.NONE;
             }
             else if (castle)
@@ -107,7 +107,7 @@ namespace ChessGame.GameEngine
         /// <param name="b">The state of the game.</param>
         /// <param name="player">The player.</param>
         /// <returns>True if the player has moves.</returns>
-        public static bool hasMoves(BoardData b, TURN player)
+        public static bool hasMoves(BoardHelper b, PieceSide player)
         {
             foreach (Position pos in b.Pieces[player])
                 if (b.Grid[pos.number][pos.letter].piece != PieceType.NONE &&
@@ -122,7 +122,7 @@ namespace ChessGame.GameEngine
         /// <param name="b">The state of the game.</param>
         /// <param name="player">The player whose moves you want.</param>
         /// <returns>A 1-to-many dictionary of moves from one position to many</returns>
-        public static Dictionary<Position, List<Position>> getPlayerMoves(BoardData b, TURN player)
+        public static Dictionary<Position, List<Position>> getPlayerMoves(BoardHelper b, PieceSide player)
         {
             Dictionary<Position, List<Position>> moves = new Dictionary<Position, List<Position>>();
             foreach (Position pos in b.Pieces[player])
@@ -141,7 +141,7 @@ namespace ChessGame.GameEngine
         /// <param name="pos">The piece/position to check for valid moves.</param>
         /// <param name="verify_check">Whether or not to recurse and check if the current move puts you in check.</param>
         /// <returns>A list of positions the piece can move to.</returns>
-        public static List<Position> getLegalMove(BoardData board, Position pos, bool verify_check = true)
+        public static List<Position> getLegalMove(BoardHelper board, Position pos, bool verify_check = true)
         {
             piece_t p = board.Grid[pos.number][pos.letter];
             if (p.piece == PieceType.NONE) return new List<Position>();
@@ -168,7 +168,7 @@ namespace ChessGame.GameEngine
         /// <summary>
         /// Slide along the path steps until you hit something. Return path to point and if it ends attacking with the attack.
         /// </summary>
-        private static List<Position> Slide(BoardData board, TURN p, Position pos, Position step)
+        private static List<Position> Slide(BoardHelper board, PieceSide p, Position pos, Position step)
         {
             List<Position> moves = new List<Position>();
             for (int i = 1; i < 8; i++)
@@ -197,7 +197,7 @@ namespace ChessGame.GameEngine
         /// <param name="b">Board state</param>
         /// <param name="king">the currnet player</param>
         /// <returns>Is in check</returns>
-        public static bool isCheck(BoardData b, TURN king)
+        public static bool isCheck(BoardHelper b, PieceSide king)
         {
             if (b.Kings.Count == 0) return true;
 
@@ -206,7 +206,7 @@ namespace ChessGame.GameEngine
 
             PieceType[] pieces = { PieceType.PAWN, PieceType.ROOK, PieceType.KNIGHT, PieceType.BISHOP, PieceType.QUEEN, PieceType.KING };
 
-            BoardData tempBoard = new BoardData(b);
+            BoardHelper tempBoard = new BoardHelper(b);
 
             for (int i = 0; i < 6; i++)
             {
@@ -225,7 +225,7 @@ namespace ChessGame.GameEngine
             return false;
         }
 
-        private static List<Position> King(BoardData board, Position pos, bool verify_check = true)
+        private static List<Position> King(BoardHelper board, Position pos, bool verify_check = true)
         {
             List<Position> moves = new List<Position>();
 
@@ -260,7 +260,7 @@ namespace ChessGame.GameEngine
                 {
                     if (verify_check) // make sure we don't put ourselves in check
                     {
-                        BoardData b2 = LegalMoveSet.move(board, new Move(pos, moved));
+                        BoardHelper b2 = LegalMoveSet.move(board, new Move(pos, moved));
                         if (!isCheck(b2, p.player))
                         {
                             moves.Add(moved);
@@ -305,7 +305,7 @@ namespace ChessGame.GameEngine
             return moves;
         }
 
-        private static bool allowCastle(BoardData board, TURN player, Position pos, bool isRight)
+        private static bool allowCastle(BoardHelper board, PieceSide player, Position pos, bool isRight)
         {
             bool isValid = true;
             int rookPos;
@@ -343,7 +343,7 @@ namespace ChessGame.GameEngine
                     {
                         // Move kings postion over i squares to check if king is passing over an attackable
                         // square
-                        BoardData b2 = LegalMoveSet.move(board, new Move(pos, new Position(pos.letter + (i + 1) * kingDirection, pos.number)));
+                        BoardHelper b2 = LegalMoveSet.move(board, new Move(pos, new Position(pos.letter + (i + 1) * kingDirection, pos.number)));
 
                         // Attackable square is in between king and rook so
                         // its not possible to castle to the right rook
@@ -362,7 +362,7 @@ namespace ChessGame.GameEngine
             return isValid;
         }
 
-        private static List<Position> Queen(BoardData board, Position pos, bool verify_check = true)
+        private static List<Position> Queen(BoardHelper board, Position pos, bool verify_check = true)
         {
             List<Position> moves = new List<Position>();
 
@@ -385,7 +385,7 @@ namespace ChessGame.GameEngine
             {
                 for (int i = moves.Count - 1; i >= 0; i--)
                 {
-                    BoardData b2 = LegalMoveSet.move(board, new Move(pos, moves[i]));
+                    BoardHelper b2 = LegalMoveSet.move(board, new Move(pos, moves[i]));
                     if (isCheck(b2, p.player))
                     {
                         moves.RemoveAt(i);
@@ -395,7 +395,7 @@ namespace ChessGame.GameEngine
             return moves;
         }
 
-        private static List<Position> Bishop(BoardData board, Position pos, bool verify_check = true)
+        private static List<Position> Bishop(BoardHelper board, Position pos, bool verify_check = true)
         {
             List<Position> moves = new List<Position>();
 
@@ -412,7 +412,7 @@ namespace ChessGame.GameEngine
             {
                 for (int i = moves.Count - 1; i >= 0; i--)
                 {
-                    BoardData b2 = LegalMoveSet.move(board, new Move(pos, moves[i]));
+                    BoardHelper b2 = LegalMoveSet.move(board, new Move(pos, moves[i]));
                     if (isCheck(b2, p.player))
                     {
                         moves.RemoveAt(i);
@@ -422,7 +422,7 @@ namespace ChessGame.GameEngine
             return moves;
         }
 
-        private static List<Position> Knight(BoardData board, Position pos, bool verify_check = true)
+        private static List<Position> Knight(BoardHelper board, Position pos, bool verify_check = true)
         {
             List<Position> moves = new List<Position>();
 
@@ -463,7 +463,7 @@ namespace ChessGame.GameEngine
             {
                 for (int i = moves.Count - 1; i >= 0; i--)
                 {
-                    BoardData b2 = LegalMoveSet.move(board, new Move(pos, moves[i]));
+                    BoardHelper b2 = LegalMoveSet.move(board, new Move(pos, moves[i]));
                     if (isCheck(b2, p.player))
                     {
                         moves.RemoveAt(i);
@@ -473,7 +473,7 @@ namespace ChessGame.GameEngine
             return moves;
         }
 
-        private static List<Position> Rook(BoardData board, Position pos, bool verify_check = true)
+        private static List<Position> Rook(BoardHelper board, Position pos, bool verify_check = true)
         {
             List<Position> moves = new List<Position>();
 
@@ -490,7 +490,7 @@ namespace ChessGame.GameEngine
             {
                 for (int i = moves.Count - 1; i >= 0; i--)
                 {
-                    BoardData b2 = LegalMoveSet.move(board, new Move(pos, moves[i]));
+                    BoardHelper b2 = LegalMoveSet.move(board, new Move(pos, moves[i]));
                     if (isCheck(b2, p.player))
                     {
                         moves.RemoveAt(i);
@@ -500,7 +500,7 @@ namespace ChessGame.GameEngine
             return moves;
         }
 
-        private static List<Position> Pawn(BoardData board, Position pos, bool verify_check = true)
+        private static List<Position> Pawn(BoardHelper board, Position pos, bool verify_check = true)
         {
             List<Position> moves = new List<Position>();
 
@@ -509,10 +509,10 @@ namespace ChessGame.GameEngine
 
             // gather relative moves
             List<Position> relative = new List<Position>();
-            relative.Add(new Position(-1, 1 * ((p.player == TURN.BLACK) ? -1 : 1)));
-            relative.Add(new Position(0, 1 * ((p.player == TURN.BLACK) ? -1 : 1)));
-            relative.Add(new Position(0, 2 * ((p.player == TURN.BLACK) ? -1 : 1)));
-            relative.Add(new Position(1, 1 * ((p.player == TURN.BLACK) ? -1 : 1)));
+            relative.Add(new Position(-1, 1 * ((p.player == PieceSide.BLACK) ? -1 : 1)));
+            relative.Add(new Position(0, 1 * ((p.player == PieceSide.BLACK) ? -1 : 1)));
+            relative.Add(new Position(0, 2 * ((p.player == PieceSide.BLACK) ? -1 : 1)));
+            relative.Add(new Position(1, 1 * ((p.player == PieceSide.BLACK) ? -1 : 1)));
 
             // iterate moves
             foreach (Position move in relative)
@@ -528,7 +528,7 @@ namespace ChessGame.GameEngine
                 {
                     // check the first step
                     int step = -((moved.number - pos.number) / (Math.Abs(moved.number - pos.number)));
-                    bool hasnt_moved = pos.number == ((p.player == TURN.BLACK) ? 6 : 1);
+                    bool hasnt_moved = pos.number == ((p.player == PieceSide.BLACK) ? 6 : 1);
                     if (board.Grid[moved.number + step][moved.letter].piece == PieceType.NONE && hasnt_moved)
                     {
                         moves.Add(moved);
@@ -555,7 +555,7 @@ namespace ChessGame.GameEngine
             {
                 for (int i = moves.Count - 1; i >= 0; i--)
                 {
-                    BoardData b2 = LegalMoveSet.move(board, new Move(pos, moves[i]));
+                    BoardHelper b2 = LegalMoveSet.move(board, new Move(pos, moves[i]));
                     if (isCheck(b2, p.player))
                     {
                         moves.RemoveAt(i);
@@ -565,10 +565,10 @@ namespace ChessGame.GameEngine
             return moves;
         }
 
-        public static bool isEnPassant(BoardData b, Move m)
+        public static bool isEnPassant(BoardHelper b, Move m)
         {
             // step = where opposite pawn is
-            int step = ((b.Grid[m.from.number][m.from.letter].player == TURN.WHITE) ? -1 : 1);
+            int step = ((b.Grid[m.from.number][m.from.letter].player == PieceSide.WHITE) ? -1 : 1);
 
             // true if
             // move is pawn
@@ -582,7 +582,7 @@ namespace ChessGame.GameEngine
                 b.Grid[m.to.number][m.to.letter].piece == PieceType.NONE &&
                 m.to.letter != m.from.letter &&
                 b.Grid[m.to.number + step][m.to.letter].piece == PieceType.PAWN &&
-                b.LastMove[(b.Grid[m.from.number][m.from.letter].player == TURN.WHITE) ? TURN.BLACK : TURN.WHITE].Equals(new Position(m.to.letter, m.to.number + step)) &&
+                b.LastMove[(b.Grid[m.from.number][m.from.letter].player == PieceSide.WHITE) ? PieceSide.BLACK : PieceSide.WHITE].Equals(new Position(m.to.letter, m.to.number + step)) &&
                 Math.Abs(b.Grid[m.to.number + step][m.to.letter].lastPosition.number - (m.to.number + step)) == 2 //jumped from last position
                 );
         }

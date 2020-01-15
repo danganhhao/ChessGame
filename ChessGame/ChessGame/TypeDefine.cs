@@ -45,12 +45,6 @@ namespace ChessGame
         public static Color ColorWhiteHighlightTile = Color.FromArgb(246, 246, 130);
     }
 
-    public enum TURN
-    {
-        BLACK,
-        WHITE
-    }
-
     public struct Position
     {
         public int letter;
@@ -76,10 +70,10 @@ namespace ChessGame
     public struct piece_t
     {
         public PieceType piece;
-        public TURN player;
+        public PieceSide player;
         public Position lastPosition;
 
-        public piece_t(PieceType piece, TURN player)
+        public piece_t(PieceType piece, PieceSide player)
         {
             this.piece = piece;
             this.player = player;

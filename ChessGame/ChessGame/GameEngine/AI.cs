@@ -9,13 +9,19 @@ namespace ChessGame.GameEngine
 {
     public class AI
     {
+        private static bool firstCall = true;
         public static int DEPTH = 4;
         public static bool RUNNING = false;
         public static bool STOP = false;
-        private static TURN MAX = TURN.BLACK;
+        private static PieceSide MAX = PieceSide.BLACK;
 
-        /*
-        public static Move MiniMaxAB(BoardData board, TURN turn)
+        
+        public static Move DoMove(BoardData board, PieceSide turn)
+        {
+            BoardHelper.GetInstance().Config(firstCall);
+            return MiniMaxAB(BoardHelper.GetInstance(), turn);
+        }
+        private static Move MiniMaxAB(BoardHelper board, PieceSide turn)
         {
             RUNNING = true; // we've started running
             STOP = false; // no interupt command sent
@@ -51,8 +57,8 @@ namespace ChessGame.GameEngine
                     }
 
                     // make initial move and start recursion
-                    BoardData b2 = LegalMoveSet.move(board, new Move(movelist.Key, move));
-                    int result = mimaab(b2, (turn == TURN.WHITE) ? TURN.BLACK : TURN.WHITE, 1, Int32.MinValue, Int32.MaxValue);
+                    BoardHelper b2 = LegalMoveSet.move(board, new Move(movelist.Key, move));
+                    int result = mimaab(b2, (turn == PieceSide.WHITE) ? PieceSide.BLACK : PieceSide.WHITE, 1, Int32.MinValue, Int32.MaxValue);
 
                     // if result is better or best hasn't been set yet
                     if (bestresults[index] < result || (bestmoves[index].to.Equals(new Position(-1, -1)) && bestresults[index] == int.MinValue))
@@ -81,16 +87,15 @@ namespace ChessGame.GameEngine
             }
             return m;
         }
-        */
-        /*
-        private static int mimaab(BoardData board, TURN turn, int depth, int alpha, int beta)
+         
+        private static int mimaab(BoardHelper board, PieceSide turn, int depth, int alpha, int beta)
         {
             // base case, at maximum depth return board fitness
             if (depth >= DEPTH)
                 return board.fitness(MAX);
             else
             {
-                List<BoardData> boards = new List<BoardData>();
+                List<BoardHelper> boards = new List<BoardHelper>();
 
                 // get available moves / board states from moves for the current player
                 foreach (Position pos in board.Pieces[turn])
@@ -100,7 +105,7 @@ namespace ChessGame.GameEngine
                     foreach (Position move in moves)
                     {
                         if (STOP) return -1; // interupts
-                        BoardData b2 = LegalMoveSet.move(board, new Move(pos, move));
+                        BoardHelper b2 = LegalMoveSet.move(board, new Move(pos, move));
                         boards.Add(b2);
                     }
                 }
@@ -108,10 +113,10 @@ namespace ChessGame.GameEngine
                 int a = alpha, b = beta;
                 if (turn != MAX) // minimize
                 {
-                    foreach (BoardData b2 in boards)
+                    foreach (BoardHelper b2 in boards)
                     {
                         if (STOP) return -1; // interupt
-                        b = Math.Min(b, mimaab(b2, (turn == TURN.WHITE) ? TURN.BLACK : TURN.WHITE, depth + 1, a, b));
+                        b = Math.Min(b, mimaab(b2, (turn == PieceSide.WHITE) ? PieceSide.BLACK : PieceSide.WHITE, depth + 1, a, b));
                         if (a >= b)
                             return a;
                     }
@@ -119,16 +124,20 @@ namespace ChessGame.GameEngine
                 }
                 else // maximize
                 {
-                    foreach (BoardData b2 in boards)
+                    foreach (BoardHelper b2 in boards)
                     {
                         if (STOP) return -1; // interupt
-                        a = Math.Max(a, mimaab(b2, (turn == TURN.WHITE) ? TURN.BLACK : TURN.WHITE, depth + 1, a, b));
+                        a = Math.Max(a, mimaab(b2, (turn == PieceSide.WHITE) ? PieceSide.BLACK : PieceSide.WHITE, depth + 1, a, b));
                         if (a >= b)
                             return b;
                     }
                     return a;
                 }
             }
-        } */
+        }
+        public static void UpdateFirstCall(bool value)
+        {
+            firstCall = value;
+        }
     }
 }

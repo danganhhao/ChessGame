@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ChessGame.Data
 {
-    abstract class Piece
+    public abstract class Piece
     {
         PieceSide side;
         PieceType type;

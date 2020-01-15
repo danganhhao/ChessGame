@@ -56,8 +56,8 @@
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="GameEngine\Chess.cs" />
-    <Compile Include="GameEngine\ChessBoard.cs" />
     <Compile Include="GameEngine\AI.cs" />
+    <Compile Include="GameEngine\Helper.cs" />
     <Compile Include="GameEngine\LegalMoveSet.cs" />
     <Compile Include="GameEngine\UIBoard.cs" />
     <Compile Include="Program.cs" />

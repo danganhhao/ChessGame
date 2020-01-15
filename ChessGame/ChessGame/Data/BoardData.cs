@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ChessGame.Data
 {
-    class BoardData
+    public class BoardData
     {
         Piece[,] arrPiece = new Piece[Const.RowCount + 1, Const.ColCount + 1];
         private static BoardData instance = null;

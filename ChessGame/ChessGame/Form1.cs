@@ -16,141 +16,177 @@ namespace ChessGame
 {
     public partial class Form1 : Form
     {
-        PieceUi[,] pieceUis;
-        PieceUi CurrentSelected = null;
-        List<PieceUi> LegalPieceUis = new List<PieceUi>();
-        BoardData boardData;
-        GameManager game = new GameManager();
+        Tile[,] tiles;
+        Tile selectedTile;
+        List<Tile> availableMoveTiles, lastMoveTiles;
+        GameManager gameManager;
+        BoardState state;
+        PieceSide turn;
+        bool isBlocked;
+
         public Form1()
         {
             InitializeComponent();
-            boardData = BoardData.GetInstance();
+            InitFieldValue();
             InitBoardUi();
-            ShowPiece();
+            LayoutComponent();
+        }
+
+        private void InitFieldValue()
+        {
+            state = BoardState.NoSelectedPiece;
+            gameManager = GameManager.GetInstance();
+            gameManager.SetForm(this);
+            selectedTile = null;
+            availableMoveTiles = new List<Tile>();
+            lastMoveTiles = new List<Tile>();
+            isBlocked = false;
         }
 
         private void InitBoardUi()
         {
-
-            pieceUis = new PieceUi[Const.ColCount, Const.RowCount];
-
+            tiles = new Tile[Const.ColCount, Const.RowCount];
+            Piece[,] arrPiece = gameManager.GetArrayPiece();
             int w = Const.TileSize.Width;
             int h = Const.TileSize.Height;
             for (var x = 0; x < 8; x++)
                 for (var y = 0; y < 8; y++)
                 {
-                    TileColor color;
-                    if ((x + y) % 2 != 0)
-                        color = TileColor.WHITE;
-                    else color = TileColor.BLACK;
-                    PieceUi ui = new PieceUi(color, new Point(x, y));
-                    ui.Location = new Point(w * x, h * (7 - y));
-                    ui.MouseClick += new System.Windows.Forms.MouseEventHandler(this.OnClickTile);
-                    pnlBoard.Controls.Add(ui);
-                    pieceUis[x, y] = ui;
+                    TileColor color = GetTileColorAtCoor(x, y);
+                    Tile tile = new Tile(color, new Point(x, y));
+
+                    //Set position depend on My piece color
+                    if (gameManager.MySide == PieceSide.Black)
+                        tile.Location = new Point(Const.TileSize.Width * (7 - x), Const.TileSize.Height * y);
+                    else tile.Location = new Point(Const.TileSize.Width * x, Const.TileSize.Height * (7 - y));
+
+                    //Set mouse click handler
+                    tile.MouseClick += new System.Windows.Forms.MouseEventHandler(this.OnClickTile);
+
+                    //Set piece data
+                    if (arrPiece[x, y] != null)
+                        tile.SetPiece(arrPiece[x, y]);
+
+                    //Add tile to form and array
+                    pnlBoard.Controls.Add(tile);
+                    tiles[x, y] = tile;
                 }
+        }
+
+        internal void SetBlockBoard(bool block)
+        {
+            isBlocked = block;
+        }
+
+        private static TileColor GetTileColorAtCoor(int x, int y)
+        {
+            TileColor color;
+            if ((x + y) % 2 != 0)
+                color = TileColor.White;
+            else color = TileColor.Black;
+            return color;
+        }
+
+        internal void SetTurn(PieceSide turn)
+        {
+            this.turn = turn;
+            SwitchRunningClock(turn);
+        }
+
+        private void SwitchRunningClock(PieceSide turn)
+        {
+            //TODO: run and pause clock
+        }
+
+        private void LayoutComponent()
+        {
+            int w = Const.TileSize.Width;
+            int h = Const.TileSize.Height;
+
+            int marginRight = 250;
+            int marginBottom = 100;
 
             pnlBoard.Width = Const.ColCount * w;
             pnlBoard.Height = Const.RowCount * h;
-        }
+            pnlBoard.Location = new Point(30, 30);
 
-        private void ShowPiece()
-        {
-            Piece[,] arrPiece = boardData.ArrPiece;
-            for (var x = 0; x < Const.ColCount; x++)
-                for (var y = 0; y < Const.RowCount; y++)
-                {
-                    if (arrPiece[x, y] != null)
-                    {
-                        pieceUis[x, y].SetPiece(arrPiece[x, y]);
-                    }
-                }
+            this.Width = pnlBoard.Location.X + marginRight + pnlBoard.Width;
+            this.Height = pnlBoard.Location.Y + marginBottom + pnlBoard.Height;
         }
 
         private void OnClickTile(object sender, MouseEventArgs e)
         {
-            PieceUi selectedTile = (PieceUi)sender;
-            if (selectedTile.IsLegalMove())
+            if (isBlocked)
+                return;
+            Tile clickedTile = (Tile)sender;
+
+            //Nếu có ô đang được chọn, xét xem có phải ô clicked là ô di chuyển hợp lệ:
+            // + nếu ô clicked là ô di chuyển hợp lệ thì xử lý move_request di chuyển quân cờ
+            // + ngược lại, deselect ô hiện tại, chuyển trạng thái sang NoSelectedPiece, xử lý tiếp
+            if (state == BoardState.SelectingAPiece)
             {
-                if (boardData.IsLegalMove(CurrentSelected.Position, selectedTile.Position))
+                if (clickedTile.State == TileState.Selected)
+                    return;
+
+                if (clickedTile.State == TileState.AvalableMove)
+                    gameManager.ProcessMoveRequest(selectedTile.Position, clickedTile.Position);
+                else
                 {
-                    boardData.MovePiece(CurrentSelected.Position, selectedTile.Position);
-                    ShowEffectMovePiece(CurrentSelected, selectedTile);
-                    DeselectCurrentTile();
+                    DeselectSelectedTile();
+                    if (CanSelectTile(clickedTile))
+                        SetSelectTile(clickedTile);
                 }
             }
-            else
+            //Nếu chưa ô nào được chọn, và ô clicked có quân cờ
+            //thì set ô đó là được chọn, hiện các ô di chuyển hợp lệ
+            else if (state == BoardState.NoSelectedPiece && CanSelectTile(clickedTile))
             {
-                if (CurrentSelected != null)
-                {
-                    DeselectCurrentTile();
-                }
-                if (selectedTile.Piece != null)
-                {
-                    CurrentSelected = selectedTile;
-                    CurrentSelected.SetState(TileState.SELECTED);
-                    ShowEffectSelectTile();
-                }
+                    SetSelectTile(clickedTile);
             }
         }
 
-        private void ShowEffectMovePiece(PieceUi currentSelected, PieceUi selectedTile)
+        private bool CanSelectTile(Tile clickedTile)
         {
-            selectedTile.SetPiece(currentSelected.Piece);
-            currentSelected.SetPiece(null);
+            return clickedTile.Piece != null && clickedTile.Piece.Side == this.turn;
         }
 
-        private void ShowEffectSelectTile()
+        public void DoMove(Point src, Point des)
         {
-            List<Point> legalMoves = CurrentSelected.Piece.GetLegalMove();
+            DeselectSelectedTile();
+            Tile tileDes = tiles[des.X, des.Y];
+            Tile tileSrc = tiles[src.X, src.Y];
+            tileDes.Piece = tileSrc.Piece;
+            tileSrc.Piece = null;
+            gameManager.SwitchTurn();
+        }
+
+        private void SetSelectTile(Tile clickedTile)
+        {
+            selectedTile = clickedTile;
+            state = BoardState.SelectingAPiece;
+            selectedTile.SetState(TileState.Selected);
+
+            List<Point> legalMoves = selectedTile.Piece.GetLegalMove();
             foreach (Point pos in legalMoves)
             {
-                LegalPieceUis.Add(pieceUis[pos.X, pos.Y]);
-                pieceUis[pos.X, pos.Y].SetState(TileState.AVAILABLE_MOVE);
+                Tile legalMoveTile = tiles[pos.X, pos.Y];
+                legalMoveTile.SetState(TileState.AvalableMove);
+                availableMoveTiles.Add(legalMoveTile);
             }
         }
 
-        private void DeselectCurrentTile()
+        private void DeselectSelectedTile()
         {
-            CurrentSelected.SetState(TileState.NORMAL);
-            CurrentSelected = null;
+            if (selectedTile == null)
+                return;
+            selectedTile.SetState(TileState.Normal);
+            selectedTile = null;
 
-            foreach (PieceUi pieceUi in LegalPieceUis)
-            {
-                pieceUi.SetState(TileState.NORMAL);
-            }
-            LegalPieceUis.Clear();
+            foreach (Tile pieceUi in availableMoveTiles)
+                pieceUi.SetState(TileState.Normal);
+            availableMoveTiles.Clear();
+
+            state = BoardState.NoSelectedPiece;
         }
-
-        //private void InitChessBoard()
-        //{
-        //    const int distance = 25;
-        //    const int tileSize = 50;
-        //    const int gridSize = 8;
-        //    var clr1 = Color.DarkGray;
-        //    var clr2 = Color.White;
-        //    chessBoard = new Panel[gridSize, gridSize];
-        //    PieceStrategy pieceStrategy = new PieceStrategy(new BasicPiece());
-        //    for (var i = 0; i < gridSize; i++)
-        //    {
-        //        for (var j = 0; j < gridSize; j++)
-        //        {
-        //            var newPanel = new Panel
-        //            {
-        //                Size = new Size(tileSize, tileSize),
-        //                Location = new Point(tileSize * i + distance, tileSize * j + distance)
-        //            };
-        //            var bm = new Bitmap(pieceStrategy.GetPiece(PIECE.BlackBishop), new Size(newPanel.Width, newPanel.Height));
-        //            newPanel.BackgroundImage = bm;
-
-        //            Controls.Add(newPanel);
-        //            chessBoard[i, j] = newPanel;
-        //            if (i % 2 == 0)
-        //                newPanel.BackColor = j % 2 != 0 ? clr1 : clr2;
-        //            else
-        //                newPanel.BackColor = j % 2 != 0 ? clr2 : clr1;
-        //        }
-        //    }
-        //}
     }
 }

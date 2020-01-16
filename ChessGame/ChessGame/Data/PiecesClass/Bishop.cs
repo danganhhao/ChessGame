@@ -9,7 +9,7 @@ namespace ChessGame.Data.PiecesClass
 {
     class Bishop :Piece
     {
-        public Bishop(PieceSide side, Point pos, bool isMoved = false) : base(side, PieceType.BISHOP, pos, isMoved)
+        public Bishop(PieceSide side, Point pos, bool isMoved = false) : base(side, PieceType.Bishop, pos, isMoved)
         {
         }
 

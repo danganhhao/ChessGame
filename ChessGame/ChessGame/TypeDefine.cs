@@ -10,38 +10,46 @@ namespace ChessGame
 
     public enum PieceSide
     {
-        WHITE = 0,
-        BLACK = 1
+        White = 0,
+        Black = 1
     }
 
     public enum TileColor
     {
-        WHITE,
-        BLACK
+        White,
+        Black
     }
 
     public enum PieceType
     {
-        NONE = -1,
-        KING,
-        QUEEN,
-        ROOK,
-        BISHOP,
-        KNIGHT,
-        PAWN
+        None = -1,
+        King,
+        Queen,
+        Rook,
+        Bishop,
+        Knight,
+        Pawn
     }
 
-    public enum Direction
+    public enum GameMode
     {
-        UP,
-        DOWN
+        TwoPlayers,
+        WithComputer,
+        OnLan
     }
 
     public enum TileState
     {
-        NORMAL,
-        SELECTED,
-        AVAILABLE_MOVE
+        Normal,
+        Selected,
+        AvalableMove,
+        LastMove
+    }
+
+    public enum BoardState
+    {
+        NoSelectedPiece,
+        SelectingAPiece
     }
 
     public static class Const
@@ -51,9 +59,11 @@ namespace ChessGame
         public const int ColCount = 8;
 
         //UI
-        public static Size TileSize = new Size(50, 50);
+        public static Size TileSize = new Size(70, 70);
         public static Color ColorBlackTile = Color.FromArgb(119, 149, 86);
         public static Color ColorWhiteTile = Color.FromArgb(235, 236, 208);
+        public static Color ColorLegalWhiteTile = Color.FromArgb(228, 247, 82);
+        public static Color ColorLegalBlackTile = Color.FromArgb(228, 247, 82);
         public static Color ColorBlackHighlightTile = Color.FromArgb(186, 202, 68);
         public static Color ColorWhiteHighlightTile = Color.FromArgb(246, 246, 130);
     }

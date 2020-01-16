@@ -33,16 +33,17 @@
             // 
             // pnlBoard
             // 
-            this.pnlBoard.Location = new System.Drawing.Point(36, 38);
+            this.pnlBoard.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.pnlBoard.Location = new System.Drawing.Point(22, 27);
             this.pnlBoard.Name = "pnlBoard";
-            this.pnlBoard.Size = new System.Drawing.Size(350, 304);
+            this.pnlBoard.Size = new System.Drawing.Size(437, 366);
             this.pnlBoard.TabIndex = 0;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(963, 554);
+            this.ClientSize = new System.Drawing.Size(604, 478);
             this.Controls.Add(this.pnlBoard);
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Form1";

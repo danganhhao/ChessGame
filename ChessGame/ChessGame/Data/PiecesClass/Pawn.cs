@@ -10,9 +10,9 @@ namespace ChessGame.Data.PiecesClass
     class Pawn : Piece
     {
         int signDirection = 1;
-        public Pawn(PieceSide side, Point pos, bool isMoved = false) : base(side, PieceType.PAWN, pos, isMoved)
+        public Pawn(PieceSide side, Point pos, bool isMoved = false) : base(side, PieceType.Pawn, pos, isMoved)
         {
-            this.signDirection = side == PieceSide.WHITE ? 1 : -1;
+            this.signDirection = side == PieceSide.White ? 1 : -1;
         }
 
         public override List<Point> GetPossibleMove()

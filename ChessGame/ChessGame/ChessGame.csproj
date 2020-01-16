@@ -46,7 +46,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Data\Game.cs" />
+    <Compile Include="Data\Manager\GameManager.cs" />
+    <Compile Include="Data\Manager\GameModeStrategy.cs" />
+    <Compile Include="Data\Manager\Mode2Players.cs" />
+    <Compile Include="Data\Manager\ModeOnLan.cs" />
+    <Compile Include="Data\Manager\ModeWithComp.cs" />
     <Compile Include="Data\PiecesClass\Bishop.cs" />
     <Compile Include="Data\PiecesClass\King.cs" />
     <Compile Include="Data\PiecesClass\Knight.cs" />
@@ -58,6 +62,12 @@
     </Compile>
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormSelectMode.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormSelectMode.Designer.cs">
+      <DependentUpon>FormSelectMode.cs</DependentUpon>
     </Compile>
     <Compile Include="GameEngine\Chess.cs" />
     <Compile Include="GameEngine\AI.cs" />
@@ -84,7 +94,7 @@
     <Compile Include="ResourceManager\CommonPiece.cs" />
     <Compile Include="ResourceManager\PieceStrategy.cs" />
     <Compile Include="Data\BoardData.cs" />
-    <Compile Include="Data\Piece.cs" />
+    <Compile Include="Data\PiecesClass\Piece.cs" />
     <Compile Include="Data\Player.cs" />
     <Compile Include="Network\CmdDefine.cs" />
     <Compile Include="Network\NetworkManager.cs" />
@@ -95,6 +105,9 @@
     </Compile>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormSelectMode.resx">
+      <DependentUpon>FormSelectMode.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -109,6 +122,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resource1.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="Data\ClassDiagram1.cd" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

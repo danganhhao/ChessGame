@@ -8,5 +8,6 @@ namespace ChessGame.Data
 {
     class Player
     {
+
     }
 }

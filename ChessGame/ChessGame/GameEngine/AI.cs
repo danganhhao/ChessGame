@@ -13,7 +13,7 @@ namespace ChessGame.GameEngine
         public static int DEPTH = 4;
         public static bool RUNNING = false;
         public static bool STOP = false;
-        private static PieceSide MAX = PieceSide.BLACK;
+        private static PieceSide MAX = PieceSide.Black;
 
         public static Move DoMove(BoardData board, PieceSide turn)
         {
@@ -57,7 +57,7 @@ namespace ChessGame.GameEngine
 
                     // make initial move and start recursion
                     BoardHelper b2 = LegalMoveSet.move(board, new Move(movelist.Key, move));
-                    int result = mimaab(b2, (turn == PieceSide.WHITE) ? PieceSide.BLACK : PieceSide.WHITE, 1, Int32.MinValue, Int32.MaxValue);
+                    int result = mimaab(b2, (turn == PieceSide.White) ? PieceSide.Black : PieceSide.White, 1, Int32.MinValue, Int32.MaxValue);
 
                     // if result is better or best hasn't been set yet
                     if (bestresults[index] < result || (bestmoves[index].to.Equals(new Position(-1, -1)) && bestresults[index] == int.MinValue))
@@ -115,7 +115,7 @@ namespace ChessGame.GameEngine
                     foreach (BoardHelper b2 in boards)
                     {
                         if (STOP) return -1; // interupt
-                        b = Math.Min(b, mimaab(b2, (turn == PieceSide.WHITE) ? PieceSide.BLACK : PieceSide.WHITE, depth + 1, a, b));
+                        b = Math.Min(b, mimaab(b2, (turn == PieceSide.White) ? PieceSide.Black : PieceSide.White, depth + 1, a, b));
                         if (a >= b)
                             return a;
                     }
@@ -126,7 +126,7 @@ namespace ChessGame.GameEngine
                     foreach (BoardHelper b2 in boards)
                     {
                         if (STOP) return -1; // interupt
-                        a = Math.Max(a, mimaab(b2, (turn == PieceSide.WHITE) ? PieceSide.BLACK : PieceSide.WHITE, depth + 1, a, b));
+                        a = Math.Max(a, mimaab(b2, (turn == PieceSide.White) ? PieceSide.Black : PieceSide.White, depth + 1, a, b));
                         if (a >= b)
                             return b;
                     }

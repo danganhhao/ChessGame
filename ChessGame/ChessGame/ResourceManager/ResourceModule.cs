@@ -24,28 +24,28 @@ namespace ChessGame.ResourceManager
         public Bitmap GetPieceResourceByType(PieceType type, PieceSide color)
         {
             PIECE pieceAdapt = PIECE.BlackKnight;
-            if (color == PieceSide.BLACK)
+            if (color == PieceSide.Black)
             {
                 switch (type)
                 {
-                    case PieceType.BISHOP: pieceAdapt = PIECE.BlackBishop; break;
-                    case PieceType.ROOK: pieceAdapt = PIECE.BlackRook; break;
-                    case PieceType.KNIGHT: pieceAdapt = PIECE.BlackKnight; break;
-                    case PieceType.QUEEN: pieceAdapt = PIECE.BlackQueen; break;
-                    case PieceType.KING: pieceAdapt = PIECE.BlackKing; break;
-                    case PieceType.PAWN: pieceAdapt = PIECE.BlackPawn; break;
+                    case PieceType.Bishop: pieceAdapt = PIECE.BlackBishop; break;
+                    case PieceType.Rook: pieceAdapt = PIECE.BlackRook; break;
+                    case PieceType.Knight: pieceAdapt = PIECE.BlackKnight; break;
+                    case PieceType.Queen: pieceAdapt = PIECE.BlackQueen; break;
+                    case PieceType.King: pieceAdapt = PIECE.BlackKing; break;
+                    case PieceType.Pawn: pieceAdapt = PIECE.BlackPawn; break;
                 }
             }
             else
             {
                 switch (type)
                 {
-                    case PieceType.BISHOP: pieceAdapt = PIECE.WhiteBishop; break;
-                    case PieceType.ROOK: pieceAdapt = PIECE.WhiteRook; break;
-                    case PieceType.KNIGHT: pieceAdapt = PIECE.WhiteKnight; break;
-                    case PieceType.QUEEN: pieceAdapt = PIECE.WhiteQueen; break;
-                    case PieceType.KING: pieceAdapt = PIECE.WhiteKing; break;
-                    case PieceType.PAWN: pieceAdapt = PIECE.WhitePawn; break;
+                    case PieceType.Bishop: pieceAdapt = PIECE.WhiteBishop; break;
+                    case PieceType.Rook: pieceAdapt = PIECE.WhiteRook; break;
+                    case PieceType.Knight: pieceAdapt = PIECE.WhiteKnight; break;
+                    case PieceType.Queen: pieceAdapt = PIECE.WhiteQueen; break;
+                    case PieceType.King: pieceAdapt = PIECE.WhiteKing; break;
+                    case PieceType.Pawn: pieceAdapt = PIECE.WhitePawn; break;
                 }
             }
             return this.pieceStrategy.GetPiece(pieceAdapt);

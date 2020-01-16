@@ -9,29 +9,31 @@ using System.Windows.Forms;
 
 namespace ChessGame.UI
 {
-    class PieceUi : Panel
+    class Tile : Panel
     {
         Piece piece;
         Color colorNormal, colorHighlight, colorAvailableMove;
         Point position = new Point(0,0);
-        TileState state = TileState.NORMAL;
-        Panel symbolLegalMove;
-        internal Piece Piece { get => piece; set => piece = value; }
+        TileState state = TileState.Normal;
+        internal Piece Piece { get => piece; set => SetPiece(value); }
         public Point Position { get => position;}
+        public TileState State { get => state; }
 
-        public PieceUi(TileColor color, Point pos)
+        public Tile(TileColor color, Point pos)
         {
             this.position = pos;
             piece = null;
-            if (color == TileColor.BLACK)
+            if (color == TileColor.Black)
             {
                 this.colorNormal = Const.ColorBlackTile;
                 this.colorHighlight = Const.ColorBlackHighlightTile;
+                this.colorAvailableMove = Const.ColorLegalBlackTile;
             }
             else
             {
                 this.colorNormal = Const.ColorWhiteTile;
                 this.colorHighlight = Const.ColorWhiteHighlightTile;
+                this.colorAvailableMove = Const.ColorLegalWhiteTile;
             }
             this.BackColor = this.colorNormal;
             Size = Const.TileSize;
@@ -42,7 +44,7 @@ namespace ChessGame.UI
             this.piece = piece;
             if (piece == null)
             {
-                this.SetState(TileState.NORMAL);
+                this.SetState(TileState.Normal);
                 this.BackgroundImage = null;
                 return;
             }
@@ -52,7 +54,7 @@ namespace ChessGame.UI
 
         public bool IsLegalMove()
         {
-            return this.state == TileState.AVAILABLE_MOVE;
+            return this.state == TileState.AvalableMove;
         }
 
         public void SetState(TileState tileState)
@@ -60,9 +62,9 @@ namespace ChessGame.UI
             if (tileState == this.state)
                 return;
             this.state = tileState;
-            if (tileState == TileState.AVAILABLE_MOVE)
+            if (tileState == TileState.AvalableMove)
                 this.BackColor = this.colorAvailableMove;
-            else if (tileState == TileState.SELECTED)
+            else if (tileState == TileState.Selected)
                 this.BackColor = this.colorHighlight;
             else this.BackColor = this.colorNormal;
         }

@@ -9,7 +9,7 @@ namespace ChessGame.UI
 {
     class BoardUi
     {
-        List<PieceUi> pieceUis;
+        List<Tile> pieceUis;
         Panel[,] board;
 
         public void ShowBoard() { } 

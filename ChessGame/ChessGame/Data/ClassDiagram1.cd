@@ -1,0 +1,153 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="ChessGame.Data.Piece">
+    <Position X="1.25" Y="1.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAACAAAAAAAgAQgAIAAIAAAAAIBAgACAQgAAAAAAAA=</HashCode>
+      <FileName>Data\PiecesClass\Piece.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="side" />
+      <Field Name="type" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="ChessGame.Data.PiecesClass.Bishop" Collapsed="true">
+    <Position X="3.75" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAgQAAAAAAAAAAAAAAAAAAAgAAAAAAAA=</HashCode>
+      <FileName>Data\PiecesClass\Bishop.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ChessGame.Data.PiecesClass.King" Collapsed="true">
+    <Position X="3.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAgAAAAAAAA=</HashCode>
+      <FileName>Data\PiecesClass\King.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ChessGame.Data.PiecesClass.Knight" Collapsed="true">
+    <Position X="3.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAgAAAAAAAA=</HashCode>
+      <FileName>Data\PiecesClass\Knight.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ChessGame.Data.GameManager">
+    <Position X="7.25" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAIAIMCAEgKEgBQCAAAAFARAAQAAIAAAAAAAAAA=</HashCode>
+      <FileName>Data\Manager\GameManager.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="gameModeStrategy" />
+      <Field Name="boardData" />
+      <Field Name="mySide" />
+      <Field Name="ui" />
+      <Field Name="mode" />
+      <Field Name="turn" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="ChessGame.Data.GameModeStrategy">
+    <Position X="10.75" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAAIAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAA=</HashCode>
+      <FileName>Data\Manager\GameModeStrategy.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ChessGame.Data.Mode2Players" Collapsed="true">
+    <Position X="13.5" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAIAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAA=</HashCode>
+      <FileName>Data\Manager\Mode2Players.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ChessGame.Data.ModeOnLan" Collapsed="true">
+    <Position X="13.5" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAIAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAA=</HashCode>
+      <FileName>Data\Manager\ModeOnLan.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ChessGame.Data.ModeWithComp" Collapsed="true">
+    <Position X="13.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAIAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAA=</HashCode>
+      <FileName>Data\Manager\ModeWithComp.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ChessGame.Data.PiecesClass.Pawn" Collapsed="true">
+    <Position X="3.75" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAQAAAAAABAAAAAAAAAAAAgAAAAAAAA=</HashCode>
+      <FileName>Data\PiecesClass\Pawn.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ChessGame.Data.PiecesClass.Queen" Collapsed="true">
+    <Position X="3.75" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAgQAAAAAAAAAAAAAAAAAAAgAAAAAAAA=</HashCode>
+      <FileName>Data\PiecesClass\Queen.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ChessGame.Data.PiecesClass.Rook" Collapsed="true">
+    <Position X="3.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAgQAAAAAAAAAAAAAAAAAAAgAAAAAAAA=</HashCode>
+      <FileName>Data\PiecesClass\Rook.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ChessGame.Data.BoardData" Collapsed="true">
+    <Position X="10.75" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>hAAAQAQAACAAAAAACIABCAAEBIBAAAAAAAAAQAAAAAA=</HashCode>
+      <FileName>Data\BoardData.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ChessGame.Form1">
+    <Position X="10.75" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAQACARAgIEAIyABCACAgUAAiAGBAIAAAAAAAA=</HashCode>
+      <FileName>Form1.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="tiles" />
+      <Field Name="state" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="ChessGame.UI.Tile">
+    <Position X="14.25" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAABIAAAAAAAAAgAAABIAAAAAACAAQsAAAAJAAAAAA=</HashCode>
+      <FileName>UI\PieceUi.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Enum Name="ChessGame.PieceSide" Collapsed="true">
+    <Position X="8.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>TypeDefine.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="ChessGame.PieceType" Collapsed="true">
+    <Position X="6" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAAAAAAAAEggAAAAEAAAAQAAAAAAAAAAAAAAAEAAAA=</HashCode>
+      <FileName>TypeDefine.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="ChessGame.GameMode" Collapsed="true">
+    <Position X="10.25" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAABAAAAAAQAAAAAAAACAAAAA=</HashCode>
+      <FileName>TypeDefine.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="ChessGame.BoardState" Collapsed="true">
+    <Position X="14.5" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAEAIAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>TypeDefine.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

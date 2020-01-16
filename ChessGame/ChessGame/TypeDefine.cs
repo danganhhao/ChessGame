@@ -37,6 +37,13 @@ namespace ChessGame
         DOWN
     }
 
+    public enum TileState
+    {
+        NORMAL,
+        SELECTED,
+        AVAILABLE_MOVE
+    }
+
     public static class Const
     {
         //Logic

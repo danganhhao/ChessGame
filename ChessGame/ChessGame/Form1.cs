@@ -18,6 +18,7 @@ namespace ChessGame
     {
         PieceUi[,] pieceUis;
         PieceUi CurrentSelected = null;
+        List<PieceUi> LegalPieceUis = new List<PieceUi>();
         BoardData boardData;
         GameManager game = new GameManager();
         public Form1()
@@ -42,10 +43,9 @@ namespace ChessGame
                     if ((x + y) % 2 != 0)
                         color = TileColor.WHITE;
                     else color = TileColor.BLACK;
-                    PieceUi ui = new PieceUi(color);
+                    PieceUi ui = new PieceUi(color, new Point(x, y));
                     ui.Location = new Point(w * x, h * (7 - y));
                     ui.MouseClick += new System.Windows.Forms.MouseEventHandler(this.OnClickTile);
-
                     pnlBoard.Controls.Add(ui);
                     pieceUis[x, y] = ui;
                 }
@@ -69,10 +69,57 @@ namespace ChessGame
 
         private void OnClickTile(object sender, MouseEventArgs e)
         {
-            if (CurrentSelected != null)
-                CurrentSelected.SetSelected(false);
-            CurrentSelected = (PieceUi)sender;
-            CurrentSelected.SetSelected(true);
+            PieceUi selectedTile = (PieceUi)sender;
+            if (selectedTile.IsLegalMove())
+            {
+                if (boardData.IsLegalMove(CurrentSelected.Position, selectedTile.Position))
+                {
+                    boardData.MovePiece(CurrentSelected.Position, selectedTile.Position);
+                    ShowEffectMovePiece(CurrentSelected, selectedTile);
+                    DeselectCurrentTile();
+                }
+            }
+            else
+            {
+                if (CurrentSelected != null)
+                {
+                    DeselectCurrentTile();
+                }
+                if (selectedTile.Piece != null)
+                {
+                    CurrentSelected = selectedTile;
+                    CurrentSelected.SetState(TileState.SELECTED);
+                    ShowEffectSelectTile();
+                }
+            }
+        }
+
+        private void ShowEffectMovePiece(PieceUi currentSelected, PieceUi selectedTile)
+        {
+            selectedTile.SetPiece(currentSelected.Piece);
+            currentSelected.SetPiece(null);
+        }
+
+        private void ShowEffectSelectTile()
+        {
+            List<Point> legalMoves = CurrentSelected.Piece.GetLegalMove();
+            foreach (Point pos in legalMoves)
+            {
+                LegalPieceUis.Add(pieceUis[pos.X, pos.Y]);
+                pieceUis[pos.X, pos.Y].SetState(TileState.AVAILABLE_MOVE);
+            }
+        }
+
+        private void DeselectCurrentTile()
+        {
+            CurrentSelected.SetState(TileState.NORMAL);
+            CurrentSelected = null;
+
+            foreach (PieceUi pieceUi in LegalPieceUis)
+            {
+                pieceUi.SetState(TileState.NORMAL);
+            }
+            LegalPieceUis.Clear();
         }
 
         //private void InitChessBoard()

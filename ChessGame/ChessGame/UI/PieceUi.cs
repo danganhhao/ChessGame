@@ -12,50 +12,59 @@ namespace ChessGame.UI
     class PieceUi : Panel
     {
         Piece piece;
-        TileColor color;
+        Color colorNormal, colorHighlight, colorAvailableMove;
+        Point position = new Point(0,0);
+        TileState state = TileState.NORMAL;
         Panel symbolLegalMove;
         internal Piece Piece { get => piece; set => piece = value; }
+        public Point Position { get => position;}
 
-        public PieceUi(TileColor color)
+        public PieceUi(TileColor color, Point pos)
         {
-            this.AddSymbolLegalMove();
+            this.position = pos;
             piece = null;
-            this.color = color;
             if (color == TileColor.BLACK)
-                this.BackColor = Const.ColorBlackTile;
-            else this.BackColor = Const.ColorWhiteTile;
+            {
+                this.colorNormal = Const.ColorBlackTile;
+                this.colorHighlight = Const.ColorBlackHighlightTile;
+            }
+            else
+            {
+                this.colorNormal = Const.ColorWhiteTile;
+                this.colorHighlight = Const.ColorWhiteHighlightTile;
+            }
+            this.BackColor = this.colorNormal;
             Size = Const.TileSize;
-        }
-
-        private void AddSymbolLegalMove()
-        {
-            symbolLegalMove = new Panel();
-            symbolLegalMove.Size = this.Size;
-            symbolLegalMove.BackColor = Color.White;
-            symbolLegalMove.Visible = false;
-            this.Controls.Add(symbolLegalMove);
         }
 
         public void SetPiece(Piece piece)
         {
             this.piece = piece;
+            if (piece == null)
+            {
+                this.SetState(TileState.NORMAL);
+                this.BackgroundImage = null;
+                return;
+            }
             Bitmap resource = ResourceManager.ResourceModule.GetInstance().GetPieceResourceByType(piece.Type, piece.Side);
             this.BackgroundImage = new Bitmap(resource, this.Size);
         }
 
-        public void SetSelected(bool selected)
+        public bool IsLegalMove()
         {
-            if (this.piece != null)
-            {
-                if (selected)
-                    this.BackColor = this.color == TileColor.BLACK ? Const.ColorBlackHighlightTile : Const.ColorWhiteHighlightTile;
-                else this.BackColor = this.color == TileColor.BLACK ? Const.ColorBlackTile : Const.ColorWhiteTile;
-            }
+            return this.state == TileState.AVAILABLE_MOVE;
         }
 
-        public void SetSymboiLegalMoveVisible(bool visible)
+        public void SetState(TileState tileState)
         {
-            this.symbolLegalMove.Visible = visible;
+            if (tileState == this.state)
+                return;
+            this.state = tileState;
+            if (tileState == TileState.AVAILABLE_MOVE)
+                this.BackColor = this.colorAvailableMove;
+            else if (tileState == TileState.SELECTED)
+                this.BackColor = this.colorHighlight;
+            else this.BackColor = this.colorNormal;
         }
     }
 }

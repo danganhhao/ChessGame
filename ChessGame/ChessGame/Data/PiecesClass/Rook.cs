@@ -9,7 +9,7 @@ namespace ChessGame.Data.PiecesClass
 {
     class Rook: Piece
     {
-        public Rook(PieceSide side, bool isMoved = false) : base(side, PieceType.ROOK, isMoved)
+        public Rook(PieceSide side, Point pos, bool isMoved = false) : base(side, PieceType.ROOK, pos, isMoved)
         {
         }
 

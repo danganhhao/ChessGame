@@ -9,7 +9,7 @@ namespace ChessGame.Data.PiecesClass
 {
     class Knight : Piece
     {
-        public Knight(PieceSide side, bool isMoved = false) : base(side, PieceType.KNIGHT, isMoved)
+        public Knight(PieceSide side, Point pos, bool isMoved = false) : base(side, PieceType.KNIGHT, pos, isMoved)
         {
         }
 
@@ -23,7 +23,7 @@ namespace ChessGame.Data.PiecesClass
             for (int i = 0; i < 8; i++)
             {
                 Point newPos = new Point(this.Position.X + dx[i], this.Position.Y + dy[i]);
-                if (newPos.X >= 0 && newPos.Y >= 0 && newPos.X <= Const.ColCount) {
+                if (board.CheckPositionInBoard(newPos.X, newPos.Y)) {
                     Piece piece = board[newPos];
                     if (piece == null || piece.Side != this.Side)
                         ArrPossibleMove.Add(newPos);
@@ -31,6 +31,14 @@ namespace ChessGame.Data.PiecesClass
             }
 
             return ArrPossibleMove;
+        }
+
+        public override bool IsAvailableMove(Point des)
+        {
+            BoardData board = BoardData.GetInstance();
+            if (!board.CheckPositionInBoard(des.X, des.Y))
+                return false;
+            return (Math.Abs(des.X - Position.X) + Math.Abs(des.Y - Position.Y) == 3);            
         }
     }
 }

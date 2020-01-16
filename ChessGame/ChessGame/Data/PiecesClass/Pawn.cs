@@ -9,8 +9,10 @@ namespace ChessGame.Data.PiecesClass
 {
     class Pawn : Piece
     {
-        public Pawn(PieceSide side, bool isMoved = false) : base(side, PieceType.PAWN, isMoved)
+        int signDirection = 1;
+        public Pawn(PieceSide side, Point pos, bool isMoved = false) : base(side, PieceType.PAWN, pos, isMoved)
         {
+            this.signDirection = side == PieceSide.WHITE ? 1 : -1;
         }
 
         public override List<Point> GetPossibleMove()
@@ -18,42 +20,72 @@ namespace ChessGame.Data.PiecesClass
             List<Point> ArrPossibleMove = new List<Point>();
             BoardData board = BoardData.GetInstance();
 
-            List<Point> tempMove = new List<Point>();
-            int sign = this.Side == PieceSide.WHITE ? 1 : -1;
-            if (this.IsMoved)
+            int dy = signDirection * 1;
+            List<Point> listMoveBy = new List<Point>() {
+                new Point(0, 1 * signDirection),
+            };
+
+            if (!this.IsMoved && board[this.Position.X, this.Position.Y + signDirection] == null)
+                listMoveBy.Add(new Point(0, 2 * signDirection));
+
+            List<Point> listAttackBy = new List<Point>() {
+                new Point(-1, 1 * signDirection),
+                new Point(1, 1 * signDirection),
+            };
+
+            foreach(Point p in listMoveBy)
             {
-                int[] dy = new int[2] { 1, 2 };
-                for (int i = 0; i < dy.Length; i++)
+                Point newPos = new Point(Position.X + p.X, Position.Y + p.Y);
+                if (board.CheckPositionInBoard(newPos.X, newPos.Y))
                 {
-                    Point newPos = new Point(Position.X, Position.Y + dy[i] * sign);
                     Piece piece = board[newPos];
                     if (piece == null)
                         ArrPossibleMove.Add(newPos);
                 }
             }
-            else
+
+            foreach (Point p in listAttackBy)
             {
-                Piece piece;
-                if (this.Position.Y >= 2 && this.Position.Y <= 7) //Chỉ xét quân tốt ở từ hàng 2 đến 7 (không phải hàng dưới/trên cùng)
+                Point newPos = new Point(Position.X + p.X, Position.Y + p.Y);
+                if (board.CheckPositionInBoard(newPos.X, newPos.Y))
                 {
-                    int dy = sign * 1;
-                    //Xét ô trước mặt: phải trống
-                    piece = board[this.Position.X, this.Position.Y + dy];
-                    if (piece == null)
-                        ArrPossibleMove.Add(new Point(this.Position.X, this.Position.Y + dy));
-
-                    //Xét 2 ô chéo 2 bên: có quân khác phe
-                    piece = board[this.Position.X + 1, this.Position.Y + dy];
+                    Piece piece = board[newPos];
                     if (piece != null && piece.Side != this.Side)
-                        ArrPossibleMove.Add(new Point(this.Position.X + 1, this.Position.Y + dy));
-
-                    piece = board[this.Position.X - 1, this.Position.Y + dy];
-                    if (piece != null && piece.Side != this.Side)
-                        ArrPossibleMove.Add(new Point(this.Position.X - 1, this.Position.Y + dy));
+                        ArrPossibleMove.Add(newPos);
                 }
             }
 
             return ArrPossibleMove;
+        }
+
+        public override bool IsAvailableMove(Point des) {
+            BoardData board = BoardData.GetInstance();
+            if (!board.CheckPositionInBoard(des.X, des.Y))
+                return false;
+
+            //Nếu là nước tấn công: ô tấn công phải có quân và là quân khác phe
+            if (des.Y - this.Position.Y == signDirection && Math.Abs(des.X - this.Position.X) == 1)
+            {
+                Piece piece = board[des];
+                if (piece != null && piece.Side != this.Side)
+                    return true;
+                return false;
+            }
+
+            //Nếu là nước di chuyển
+            if (des.X == this.Position.X)
+            {
+                if (this.IsMoved)
+                {
+                    return (des.Y - Position.Y == signDirection);
+                }
+                else
+                {
+                    return ((des.Y - Position.Y) / signDirection <= 2 && (des.Y - Position.Y) / signDirection >= 1);
+                }
+            }
+
+            return false;
         }
     }
 }

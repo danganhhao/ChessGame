@@ -24,11 +24,12 @@ namespace ChessGame.Data
 
         }
 
-        public Piece(PieceSide side, PieceType type, bool isMoved = false)
+        public Piece(PieceSide side, PieceType type, Point pos, bool isMoved = false)
         {
             this.side = side;
             this.type = type;
             this.isMoved = isMoved;
+            this.position = pos;
         }
 
         public abstract List<Point> GetPossibleMove();
@@ -40,14 +41,16 @@ namespace ChessGame.Data
             List<Point> possibleMove = this.GetPossibleMove();
             foreach(Point p in possibleMove)
             {
-                if (board.CheckMove(this.position, p))
+                if (board.IsLegalMove(this.position, p))
                     res.Add(p);
             }
             return res;
         }
 
-        internal bool IsAvailableMove(Point des)
-        {
+        public virtual bool IsAvailableMove(Point des) {
+            BoardData board = BoardData.GetInstance();
+            if (!board.CheckPositionInBoard(des.X, des.Y))
+                return false;
             return true;
         }
     }

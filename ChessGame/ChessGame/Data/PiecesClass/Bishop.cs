@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace ChessGame.Data.PiecesClass
 {
-    class Bishop:Piece
+    class Bishop :Piece
     {
-        public Bishop(PieceSide side, bool isMoved = false) : base(side, PieceType.BISHOP, isMoved)
+        public Bishop(PieceSide side, Point pos, bool isMoved = false) : base(side, PieceType.BISHOP, pos, isMoved)
         {
         }
 

@@ -10,7 +10,7 @@ namespace ChessGame.Data.PiecesClass
 {
     class King : Piece
     {
-        public King(PieceSide side, bool isMoved = false) : base(side, PieceType.KING, isMoved)
+        public King(PieceSide side, Point pos, bool isMoved = false) : base(side, PieceType.KING, pos, isMoved)
         {
         }
 
@@ -20,11 +20,11 @@ namespace ChessGame.Data.PiecesClass
             BoardData board = BoardData.GetInstance();
 
             int[] dx = new int[8] { 1, 1, 1, 0, 0, -1, -1, -1 };
-            int[] dy = new int[8] { 0, 0, 0, 1, -1, 0, 0, 0 };
+            int[] dy = new int[8] { -1, 0, 1, 1, -1, -1, 0, 1 };
             for (int i = 0; i < 8; i++)
             {
                 Point newPos = new Point(this.Position.X + dx[i], this.Position.Y + dy[i]);
-                if (newPos.X >= 0 && newPos.Y >= 0 && newPos.X <= Const.ColCount)
+                if (board.CheckPositionInBoard(newPos.X, newPos.Y))
                 {
                     Piece piece = board[newPos];
                     if (piece == null || piece.Side != this.Side)
@@ -32,6 +32,17 @@ namespace ChessGame.Data.PiecesClass
                 }
             }
             return ArrPossibleMove;
+        }
+
+        public override bool IsAvailableMove(Point des)
+        {
+            BoardData board = BoardData.GetInstance();
+            if (!board.CheckPositionInBoard(des.X, des.Y))
+                return false;
+            int dx = Math.Abs(des.X - Position.X);
+            int dy = Math.Abs(des.Y - Position.Y);
+            int sum = dx * dx + dy * dy;
+            return (dx + dy <= 2 && sum != 0);
         }
     }
 }

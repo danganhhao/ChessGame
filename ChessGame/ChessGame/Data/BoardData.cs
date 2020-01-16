@@ -12,6 +12,7 @@ namespace ChessGame.Data
     {
         Piece[,] arrPiece = new Piece[Const.ColCount, Const.RowCount];
         private static BoardData instance = null;
+        Dictionary<PieceSide, Piece> kingPiece = new Dictionary<PieceSide, Piece>();
 
         public static BoardData GetInstance()
         {
@@ -50,7 +51,9 @@ namespace ChessGame.Data
             arrPiece[3, 0] = new Queen(PieceSide.WHITE, new Point(3, 0));
             arrPiece[3, 7] = new Queen(PieceSide.BLACK, new Point(3, 7));
             arrPiece[4, 0] = new King(PieceSide.WHITE, new Point(4, 0));
+            kingPiece.Add(PieceSide.WHITE, arrPiece[4, 0]);
             arrPiece[4, 7] = new King(PieceSide.BLACK, new Point(4, 7));
+            kingPiece.Add(PieceSide.BLACK, arrPiece[4, 7]);
         }
 
         internal Piece[,] ArrPiece { get => arrPiece; set => arrPiece = value; }
@@ -66,8 +69,7 @@ namespace ChessGame.Data
         {
             Piece piece = arrPiece[p1.X, p1.Y];
             piece.IsMoved = true;
-            piece.Position = new Point(p2.X, p2.Y);
-            arrPiece[p2.X, p2.Y] = piece;
+            this.PutPieceAt(piece, p2);
             arrPiece[p1.X, p1.Y] = null;
         }
 
@@ -86,6 +88,16 @@ namespace ChessGame.Data
         public bool IsChecked(PieceSide side)
         {
             Point KingPosition = this.GetKingPosition(side);
+            for (int x = 0; x < 8; x++)
+            for (int y = 0; y < 8; y++)
+                {
+                    if (arrPiece[x, y] != null && arrPiece[x, y].Side != side)
+                    {
+                        if (arrPiece[x, y].IsAvailableMove(KingPosition))
+                            return true;
+                    }
+                }
+
             return false;
         }
 
@@ -104,14 +116,14 @@ namespace ChessGame.Data
             //Thử đi nước cờ và kiểm tra xem nước cờ có làm cho quân vua bị chiếu
             PieceSide side = pieceSrc.Side;
             Piece tmp = this.arrPiece[des.X, des.Y]; //Lưu quân cờ ở vị trí mới
-            this.arrPiece[des.X, des.Y] = this.arrPiece[src.X, src.Y]; //Chuyển cờ từ vị trí cũ sang vị trí mới
+            this.PutPieceAt(this.arrPiece[src.X, src.Y], des);
             this.arrPiece[src.X, src.Y] = null; //Xóa quân cờ ở vị trí cũ
             bool result = true;
             if (this.IsChecked(side))
                 result = false; //Nếu phe mình bị chiếu, nước đi là không hợp lệ
 
             //rollback lại trạng thái trước
-            this.arrPiece[src.X, src.Y] = this.arrPiece[des.X, des.Y];
+            this.PutPieceAt(this.arrPiece[des.X, des.Y], src);
             this.arrPiece[des.X, des.Y] = tmp;
 
             //trả về kết quả
@@ -128,7 +140,13 @@ namespace ChessGame.Data
 
         private Point GetKingPosition(PieceSide side)
         {
-            return new Point(4, 0);
+            return kingPiece[side].Position;
+        }
+
+        private void PutPieceAt(Piece piece, Point p)
+        {
+            arrPiece[p.X, p.Y] = piece;
+            piece.SetPosition(p);
         }
     }
 }

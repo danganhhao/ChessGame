@@ -47,11 +47,11 @@ namespace ChessGame.Data
             return res;
         }
 
-        public virtual bool IsAvailableMove(Point des) {
-            BoardData board = BoardData.GetInstance();
-            if (!board.CheckPositionInBoard(des.X, des.Y))
-                return false;
-            return true;
+        public abstract bool IsAvailableMove(Point des);
+        public void SetPosition(Point p)
+        {
+            this.position.X = p.X;
+            this.position.Y = p.Y;
         }
     }
 }

@@ -27,6 +27,33 @@ namespace ChessGame.Data.PiecesClass
             return ArrPossibleMove;
         }
 
+        public override bool IsAvailableMove(Point des)
+        {
+            int dx = des.X - Position.X;
+            int dy = des.Y - Position.Y;
+            if (dx * dy != 0 && Math.Abs(dx) != Math.Abs(dy))
+                return false;
+            if (dx != 0)
+                dx = dx / Math.Abs(dx);
+            if (dy != 0)
+                dy = dy / Math.Abs(dy);
+
+            BoardData board = BoardData.GetInstance();
+            int x = Position.X;
+            int y = Position.Y;
+            while (true)
+            {
+                x += dx;
+                y += dy;
+                if (x == des.X && y == des.Y)
+                    break;
+                if (board[x, y] != null)
+                    return false;
+            }
+
+            return true;
+        }
+
         private void CheckLoop(ref List<Point> arrPossibleMove, int v1, int v2)
         {
             BoardData board = BoardData.GetInstance();

@@ -72,8 +72,8 @@ namespace ChessGame.Data.PiecesClass
                 return false;
             }
 
-            //Nếu là nước di chuyển
-            if (des.X == this.Position.X)
+            //Nếu là nước di chuyển: ô đó phải trống và nằm trong vùng đi được
+            if (des.X == this.Position.X && board[des] == null)
             {
                 if (this.IsMoved)
                 {

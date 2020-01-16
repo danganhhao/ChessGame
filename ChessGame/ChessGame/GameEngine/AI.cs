@@ -15,7 +15,6 @@ namespace ChessGame.GameEngine
         public static bool STOP = false;
         private static PieceSide MAX = PieceSide.BLACK;
 
-        
         public static Move DoMove(BoardData board, PieceSide turn)
         {
             BoardHelper.GetInstance().Config(firstCall);

@@ -9,6 +9,10 @@ namespace ChessGame.Data.PiecesClass
 {
     class Knight : Piece
     {
+        public Knight(PieceSide side, bool isMoved = false) : base(side, PieceType.KNIGHT, isMoved)
+        {
+        }
+
         public override List<Point> GetPossibleMove()
         {
             List<Point> ArrPossibleMove = new List<Point>();

@@ -33,6 +33,19 @@ namespace ChessGame.Data
 
         public abstract List<Point> GetPossibleMove();
 
+        public virtual List<Point> GetLegalMove()
+        {
+            List<Point> res = new List<Point>();
+            BoardData board = BoardData.GetInstance();
+            List<Point> possibleMove = this.GetPossibleMove();
+            foreach(Point p in possibleMove)
+            {
+                if (board.CheckMove(this.position, p))
+                    res.Add(p);
+            }
+            return res;
+        }
+
         internal bool IsAvailableMove(Point des)
         {
             return true;

@@ -17,35 +17,62 @@ namespace ChessGame
     public partial class Form1 : Form
     {
         PieceUi[,] pieceUis;
+        PieceUi CurrentSelected = null;
         BoardData boardData;
+        GameManager game = new GameManager();
         public Form1()
         {
             InitializeComponent();
-            ShowChessBoard();
+            boardData = BoardData.GetInstance();
+            InitBoardUi();
+            ShowPiece();
         }
 
-        private void ShowChessBoard()
+        private void InitBoardUi()
         {
-            //pieceUis = new PieceUi[Const.RowCount, Const.ColCount];
 
-            //for (var i = 0; i < 8; i++)
-            //    for (var j = 0; j < 8; j++)
-            //    {
-            //        PieceUi ui = new PieceUi();
-            //        ui.Location = new Point(10 + 50*i, 10 + 50*j);
-            //        if ((i % 2 + j % 2) % 2 == 0)
-            //            ui.BackColor = Const.ColorWhiteTile;
-            //        else ui.BackColor = Const.ColorBlackTile;
-            //        Controls.Add(ui);
-            //        pieceUis[i, j] = ui;
-            //    }
+            pieceUis = new PieceUi[Const.ColCount, Const.RowCount];
 
-            //List<Piece> listPiece = boardData.ListPiece;
-            //for (int i = 0; i < listPiece.Count; i++)
-            //{
-            //    Cell pos = listPiece[i].GetPosition();
-            //    pieceUis[pos.row, pos.col].SetPiece(listPiece[i]);
-            //}
+            int w = Const.TileSize.Width;
+            int h = Const.TileSize.Height;
+            for (var x = 0; x < 8; x++)
+                for (var y = 0; y < 8; y++)
+                {
+                    TileColor color;
+                    if ((x + y) % 2 != 0)
+                        color = TileColor.WHITE;
+                    else color = TileColor.BLACK;
+                    PieceUi ui = new PieceUi(color);
+                    ui.Location = new Point(w * x, h * (7 - y));
+                    ui.MouseClick += new System.Windows.Forms.MouseEventHandler(this.OnClickTile);
+
+                    pnlBoard.Controls.Add(ui);
+                    pieceUis[x, y] = ui;
+                }
+
+            pnlBoard.Width = Const.ColCount * w;
+            pnlBoard.Height = Const.RowCount * h;
+        }
+
+        private void ShowPiece()
+        {
+            Piece[,] arrPiece = boardData.ArrPiece;
+            for (var x = 0; x < Const.ColCount; x++)
+                for (var y = 0; y < Const.RowCount; y++)
+                {
+                    if (arrPiece[x, y] != null)
+                    {
+                        pieceUis[x, y].SetPiece(arrPiece[x, y]);
+                    }
+                }
+        }
+
+        private void OnClickTile(object sender, MouseEventArgs e)
+        {
+            if (CurrentSelected != null)
+                CurrentSelected.SetSelected(false);
+            CurrentSelected = (PieceUi)sender;
+            CurrentSelected.SetSelected(true);
         }
 
         //private void InitChessBoard()

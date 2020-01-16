@@ -10,7 +10,7 @@ namespace ChessGame.Data.PiecesClass
 {
     class King : Piece
     {
-        public King(PieceSide side, PieceType type, bool isMoved = false) : base(side, type, isMoved)
+        public King(PieceSide side, bool isMoved = false) : base(side, PieceType.KING, isMoved)
         {
         }
 

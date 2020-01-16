@@ -14,6 +14,12 @@ namespace ChessGame
         BLACK = 1
     }
 
+    public enum TileColor
+    {
+        WHITE,
+        BLACK
+    }
+
     public enum PieceType
     {
         NONE = -1,

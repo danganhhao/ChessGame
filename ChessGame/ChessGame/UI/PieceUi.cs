@@ -12,17 +12,50 @@ namespace ChessGame.UI
     class PieceUi : Panel
     {
         Piece piece;
-        //internal Piece Piece { get => piece; set => piece = value; }
-        public PieceUi()
+        TileColor color;
+        Panel symbolLegalMove;
+        internal Piece Piece { get => piece; set => piece = value; }
+
+        public PieceUi(TileColor color)
         {
+            this.AddSymbolLegalMove();
             piece = null;
+            this.color = color;
+            if (color == TileColor.BLACK)
+                this.BackColor = Const.ColorBlackTile;
+            else this.BackColor = Const.ColorWhiteTile;
             Size = Const.TileSize;
         }
 
-        //public void SetPiece(Piece piece)
-        //{
-        //    this.piece = piece;
-        //    this.BackgroundImage = piece.GetResource();
-        //}
+        private void AddSymbolLegalMove()
+        {
+            symbolLegalMove = new Panel();
+            symbolLegalMove.Size = this.Size;
+            symbolLegalMove.BackColor = Color.White;
+            symbolLegalMove.Visible = false;
+            this.Controls.Add(symbolLegalMove);
+        }
+
+        public void SetPiece(Piece piece)
+        {
+            this.piece = piece;
+            Bitmap resource = ResourceManager.ResourceModule.GetInstance().GetPieceResourceByType(piece.Type, piece.Side);
+            this.BackgroundImage = new Bitmap(resource, this.Size);
+        }
+
+        public void SetSelected(bool selected)
+        {
+            if (this.piece != null)
+            {
+                if (selected)
+                    this.BackColor = this.color == TileColor.BLACK ? Const.ColorBlackHighlightTile : Const.ColorWhiteHighlightTile;
+                else this.BackColor = this.color == TileColor.BLACK ? Const.ColorBlackTile : Const.ColorWhiteTile;
+            }
+        }
+
+        public void SetSymboiLegalMoveVisible(bool visible)
+        {
+            this.symbolLegalMove.Visible = visible;
+        }
     }
 }

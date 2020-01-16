@@ -11,6 +11,7 @@ namespace ChessGame.ResourceManager
     {
         private ResourceModule() { }
         public static ResourceModule instance = null;
+        PieceStrategy pieceStrategy = new PieceStrategy(new BasicPiece());
         public static ResourceModule GetInstance()
         {
             if (instance == null)
@@ -22,7 +23,32 @@ namespace ChessGame.ResourceManager
 
         public Bitmap GetPieceResourceByType(PieceType type, PieceSide color)
         {
-            return new Bitmap(Resource1.BlackKing, Const.TileSize);
+            PIECE pieceAdapt = PIECE.BlackKnight;
+            if (color == PieceSide.BLACK)
+            {
+                switch (type)
+                {
+                    case PieceType.BISHOP: pieceAdapt = PIECE.BlackBishop; break;
+                    case PieceType.ROOK: pieceAdapt = PIECE.BlackRook; break;
+                    case PieceType.KNIGHT: pieceAdapt = PIECE.BlackKnight; break;
+                    case PieceType.QUEEN: pieceAdapt = PIECE.BlackQueen; break;
+                    case PieceType.KING: pieceAdapt = PIECE.BlackKing; break;
+                    case PieceType.PAWN: pieceAdapt = PIECE.BlackPawn; break;
+                }
+            }
+            else
+            {
+                switch (type)
+                {
+                    case PieceType.BISHOP: pieceAdapt = PIECE.WhiteBishop; break;
+                    case PieceType.ROOK: pieceAdapt = PIECE.WhiteRook; break;
+                    case PieceType.KNIGHT: pieceAdapt = PIECE.WhiteKnight; break;
+                    case PieceType.QUEEN: pieceAdapt = PIECE.WhiteQueen; break;
+                    case PieceType.KING: pieceAdapt = PIECE.WhiteKing; break;
+                    case PieceType.PAWN: pieceAdapt = PIECE.WhitePawn; break;
+                }
+            }
+            return this.pieceStrategy.GetPiece(pieceAdapt);
         }
     }
 }

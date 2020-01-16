@@ -109,5 +109,31 @@ namespace ChessGame.Data
                 this.ui.SetBlockBoard(true);
             }
         }
+
+        public void SendMoveRequest(Point src, Point des)
+        {
+            //Gửi gói tin chứa nước đi của mình
+        }
+
+        public void ReceiveMoveResponse(Point src, Point des)
+        {
+            //Nếu các client đều đồng thuận với nước đi này
+            //if (true)
+            //{
+            //    this.DoMove(src, des);
+            //}
+        }
+
+        public void ReceiveMoveRequest(Point src, Point des)
+        {
+            if (boardData.IsLegalMove(src, des))
+                this.SendMoveResponse(src, des, true);
+            else this.SendMoveResponse(src, des, false);
+        }
+
+        public void SendMoveResponse(Point src, Point des, bool result)
+        {
+            //Send response
+        }
     }
 }

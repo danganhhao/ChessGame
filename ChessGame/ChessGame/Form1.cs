@@ -19,6 +19,7 @@ namespace ChessGame
         Tile[,] tiles;
         Tile selectedTile;
         List<Tile> availableMoveTiles, lastMoveTiles;
+        Dictionary<PieceSide, Label> lblClocks;
         GameManager gameManager;
         BoardState state;
         PieceSide turn;
@@ -41,6 +42,9 @@ namespace ChessGame
             availableMoveTiles = new List<Tile>();
             lastMoveTiles = new List<Tile>();
             isBlocked = false;
+            lblClocks = new Dictionary<PieceSide, Label>();
+            lblClocks.Add(PieceSide.Black, this.lblClockBlack);
+            lblClocks.Add(PieceSide.White, this.lblClockWhite);
         }
 
         private void InitBoardUi()
@@ -87,6 +91,23 @@ namespace ChessGame
             return color;
         }
 
+        internal void SetLabelClock(PieceSide turn, int v)
+        {
+            string s = FormatTime(v);
+            this.lblClocks[turn].Text = s;
+        }
+
+        private string FormatTime(int v)
+        {
+            string mm = "";
+            string ss = "";
+            int m = v / 60;
+            int s = v % 60;
+            mm = m < 10 ? "0" + m.ToString() : m.ToString();
+            ss = s < 10 ? "0" + s.ToString() : s.ToString();
+            return mm + ":" + ss;
+        }
+
         internal void SetTurn(PieceSide turn)
         {
             this.turn = turn;
@@ -95,6 +116,15 @@ namespace ChessGame
 
         private void SwitchRunningClock(PieceSide turn)
         {
+            if (turn == PieceSide.Black)
+            {
+                lblClocks[PieceSide.White].BackColor = Const.ColorPauseClock;
+                lblClocks[PieceSide.Black].BackColor = Const.ColorRunningClock;
+            } else
+            {
+                lblClocks[PieceSide.Black].BackColor = Const.ColorPauseClock;
+                lblClocks[PieceSide.White].BackColor = Const.ColorRunningClock;
+            }
             //TODO: run and pause clock
         }
 
@@ -109,6 +139,21 @@ namespace ChessGame
             pnlBoard.Width = Const.ColCount * w;
             pnlBoard.Height = Const.RowCount * h;
             pnlBoard.Location = new Point(30, 30);
+
+            int xClock = pnlBoard.Location.X + pnlBoard.Width + 70;
+            int yClockAbove = pnlBoard.Location.Y + Const.RowCount * h / 4;
+            int yClockBelow = pnlBoard.Location.Y + Const.RowCount * h / 4 * 3;
+
+            if (gameManager.MySide == PieceSide.White)
+            {
+                this.lblClockWhite.Location = new Point(xClock, yClockBelow);
+                this.lblClockBlack.Location = new Point(xClock, yClockAbove);
+            }
+            else
+            {
+                this.lblClockBlack.Location = new Point(xClock, yClockAbove);
+                this.lblClockWhite.Location = new Point(xClock, yClockBelow);
+            }
 
             this.Width = pnlBoard.Location.X + marginRight + pnlBoard.Width;
             this.Height = pnlBoard.Location.Y + marginBottom + pnlBoard.Height;

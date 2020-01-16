@@ -24,8 +24,18 @@ namespace ChessGame.Data
         internal override void SetTurn(PieceSide turn)
         {
             if (turn != this.gameManager.MySide)
+            {
                 this.gameManager.SetBlockBoard(true);
+                Move move = GetAIMove();
+                //this.gameManager.ProcessMoveRequest(move);
+            }
             else this.gameManager.SetBlockBoard(false);
+        }
+
+        private Move GetAIMove()
+        {
+            return new Move();
+            //TODO: set AI return a Move
         }
     }
 }

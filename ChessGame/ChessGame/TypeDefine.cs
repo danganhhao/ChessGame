@@ -66,6 +66,9 @@ namespace ChessGame
         public static Color ColorLegalBlackTile = Color.FromArgb(228, 247, 82);
         public static Color ColorBlackHighlightTile = Color.FromArgb(186, 202, 68);
         public static Color ColorWhiteHighlightTile = Color.FromArgb(246, 246, 130);
+
+        public static Color ColorRunningClock = Color.FromArgb(192, 255, 192);
+        public static Color ColorPauseClock = SystemColors.Control;
     }
 
     public struct Position

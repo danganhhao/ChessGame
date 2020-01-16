@@ -12,12 +12,14 @@ namespace ChessGame.Data
     {
         GameMode mode = GameMode.TwoPlayers;
         PieceSide turn = PieceSide.White;
-        PieceSide mySide = PieceSide.Black;
+        PieceSide mySide = PieceSide.White;
+        int time = 60 * 30;
+        Timer timer;
         BoardData boardData = BoardData.GetInstance();
         Form1 ui;
         GameModeStrategy gameModeStrategy;
 
-        private Dictionary<PieceSide, int> timePerPlayer = new Dictionary<PieceSide, int>();
+        private Dictionary<PieceSide, int> timePerPlayer;
         public PieceSide Turn { get => turn; set => turn = value; }
         public PieceSide MySide { get => mySide; set => mySide = value; }
         public GameMode Mode { get => mode; set => SetMode(value); }
@@ -33,6 +35,23 @@ namespace ChessGame.Data
         private GameManager()
         {
             this.SetMode(GameMode.TwoPlayers);
+            this.InitFieldValue();
+            this.InitTimer();
+        }
+
+        private void InitFieldValue()
+        {
+            timePerPlayer = new Dictionary<PieceSide, int>();
+            timePerPlayer.Add(PieceSide.Black, this.time);
+            timePerPlayer.Add(PieceSide.White, this.time);
+        }
+
+        private void InitTimer()
+        {
+            timer = new Timer();
+            timer.Interval = 1000;
+            timer.Tick += new EventHandler(this.CountDown);
+            timer.Start();
         }
 
         private void SetMode(GameMode value)
@@ -69,7 +88,6 @@ namespace ChessGame.Data
             ui = form;
         }
 
-
         internal void ProcessMoveRequest(Point src, Point des)
         {
             gameModeStrategy.ProcessMoveRequest(src, des);
@@ -79,6 +97,17 @@ namespace ChessGame.Data
         {
             boardData.MovePiece(src, des);
             ui.DoMove(src, des);
+        }
+
+        private void CountDown(object sender, EventArgs e)
+        {
+            this.timePerPlayer[turn] -= 1;
+            this.ui.SetLabelClock(turn, this.timePerPlayer[turn]);
+            if (this.timePerPlayer[turn] <= 0)
+            {
+                timer.Stop();
+                this.ui.SetBlockBoard(true);
+            }
         }
     }
 }

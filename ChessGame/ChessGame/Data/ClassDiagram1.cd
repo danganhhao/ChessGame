@@ -35,16 +35,16 @@
   <Class Name="ChessGame.Data.GameManager">
     <Position X="7.25" Y="3" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AEAAAAIAIMCAEgKEgBQCAAAAFARAAQAAIAAAAAAAAAA=</HashCode>
+      <HashCode>AEQBAAIAIMCAEkKEgBQSAAAAFARAAwEEAAAAAAAAAAA=</HashCode>
       <FileName>Data\Manager\GameManager.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
-      <Field Name="gameModeStrategy" />
-      <Field Name="boardData" />
-      <Field Name="mySide" />
-      <Field Name="ui" />
       <Field Name="mode" />
       <Field Name="turn" />
+      <Field Name="mySide" />
+      <Field Name="boardData" />
+      <Field Name="ui" />
+      <Field Name="gameModeStrategy" />
     </ShowAsAssociation>
   </Class>
   <Class Name="ChessGame.Data.GameModeStrategy">
@@ -71,7 +71,7 @@
   <Class Name="ChessGame.Data.ModeWithComp" Collapsed="true">
     <Position X="13.5" Y="4.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAIAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAIAAAAAACAAAAAAAAAAAAACAAAAAAAAAAAAA=</HashCode>
       <FileName>Data\Manager\ModeWithComp.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -106,7 +106,7 @@
   <Class Name="ChessGame.Form1">
     <Position X="10.75" Y="6.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AEAAAAAQACARAgIEAIyABCACAgUAAiAGBAIAAAAAAAA=</HashCode>
+      <HashCode>AEAAAAAQACARggIEAIyABCACAgUAAiBGBAIAAAAgAAA=</HashCode>
       <FileName>Form1.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>

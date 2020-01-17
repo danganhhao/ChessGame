@@ -136,6 +136,21 @@
   <data name="BlackRook" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>PieceChess\BasicPiece\BlackRook.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="CircleTile" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>PieceChess\Tiles\CircleTile.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ColorBlackHighlightTile" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>PieceChess\Tiles\ColorBlackHighlightTile.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ColorBlackTile" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>PieceChess\Tiles\ColorBlackTile.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ColorWhiteHighlightTile" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>PieceChess\Tiles\ColorWhiteHighlightTile.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ColorWhiteTile" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>PieceChess\Tiles\ColorWhiteTile.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="GreenBishop" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>PieceChess\ColorfulPiece\GreenBishop.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>

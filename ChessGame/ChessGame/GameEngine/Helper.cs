@@ -1,6 +1,7 @@
 ﻿using ChessGame.Data;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -27,18 +28,20 @@ namespace ChessGame.GameEngine
             return instance;
         }
 
-        public void Config(bool firstCall)
+        public void Config(bool firstCall, BoardData board, PieceSide turn)
         {
             if (firstCall)
             {
-                AI.UpdateFirstCall(false);
-                // init blank board grid
+                AI.GetInstance().UpdateFirstCall(false);
                 Grid = new piece_t[Const.RowCount][];
                 for (int i = 0; i < Const.RowCount; i++)
                 {
                     Grid[i] = new piece_t[Const.ColCount];
                     for (int j = 0; j < Const.ColCount; j++)
-                        Grid[i][j] = new piece_t(BoardData.GetInstance().ArrPiece[i, j].Type, BoardData.GetInstance().ArrPiece[i, j].Side);
+                        if (board.ArrPiece[j, i] != null)
+                            Grid[i][j] = new piece_t(board.ArrPiece[j, i].Type, board.ArrPiece[j, i].Side);
+                        else
+                            Grid[i][j] = new piece_t(PieceType.None, PieceSide.White);
                 }
 
                 LastMove = new Dictionary<PieceSide, Position>();
@@ -53,22 +56,25 @@ namespace ChessGame.GameEngine
                 {
                     for (int j = 0; j < Const.ColCount; j++)
                     {
-                        Piece temp = BoardData.GetInstance().ArrPiece[i, j];
-                        if (temp.Side == PieceSide.Black)
+                        Piece temp = BoardData.GetInstance().ArrPiece[j, i];
+                        if (temp != null)
                         {
-                            if (temp.Type == PieceType.King)
+                            if (temp.Side == PieceSide.Black)
                             {
-                                Kings[PieceSide.Black] = new Position(temp.Position.X, temp.Position.Y);
+                                if (temp.Type == PieceType.King)
+                                {
+                                    Kings[PieceSide.Black] = new Position(temp.Position.X, temp.Position.Y);
+                                }
+                                blackPos.Add(new Position(temp.Position.X, temp.Position.Y));
                             }
-                            blackPos.Add(new Position(temp.Position.X, temp.Position.Y));
-                        }
-                        else
-                        {
-                            if (temp.Type == PieceType.King)
+                            else
                             {
-                                Kings[PieceSide.White] = new Position(temp.Position.X, temp.Position.Y);
+                                if (temp.Type == PieceType.King)
+                                {
+                                    Kings[PieceSide.White] = new Position(temp.Position.X, temp.Position.Y);
+                                }
+                                whitePos.Add(new Position(temp.Position.X, temp.Position.Y));
                             }
-                            whitePos.Add(new Position(temp.Position.X, temp.Position.Y));
                         }
                     }
                 }
@@ -160,5 +166,33 @@ namespace ChessGame.GameEngine
         }
 
 
+        public void Update(Point src, Point des)
+        {
+            PieceSide turn = Grid[src.Y][src.X].player;
+
+            // Update King
+            if (Grid[src.Y][src.X].piece == PieceType.King) {
+                Kings[turn] = new Position(des.X, des.Y);
+            }
+
+            // Update LastMove
+            LastMove[turn] = new Position(des.X, des.Y);
+
+            // Update Grid
+            Grid[des.Y][des.X].lastPosition = new Position(src.Y, src.X);
+            Grid[des.Y][des.X].piece = Grid[src.Y][src.X].piece;
+            Grid[des.Y][des.X].player = Grid[src.Y][src.X].player;
+            Grid[src.Y][src.X].piece = PieceType.None;
+
+            // Update piece list
+            for (int i =0; i< Pieces[turn].Count; i++)
+            {
+                if (Pieces[turn][i].letter == src.X && Pieces[turn][i].number == src.Y)
+                {
+                    Pieces[turn][i] = new Position(des.X, des.Y);
+                    break;
+                }
+            } 
+        }
     }
 }

@@ -42,7 +42,7 @@ namespace ChessGame
     {
         Normal,
         Selected,
-        AvailableMove,
+        AvalableMove,
         LastMove
     }
 

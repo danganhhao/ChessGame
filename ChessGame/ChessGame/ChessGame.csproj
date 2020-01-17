@@ -69,9 +69,21 @@
     <Compile Include="FormSelectMode.Designer.cs">
       <DependentUpon>FormSelectMode.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmFindGame.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmFindGame.Designer.cs">
+      <DependentUpon>frmFindGame.cs</DependentUpon>
+    </Compile>
     <Compile Include="GameEngine\AI.cs" />
     <Compile Include="GameEngine\Helper.cs" />
     <Compile Include="GameEngine\LegalMoveSet.cs" />
+    <Compile Include="LanGame.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LanGame.Designer.cs">
+      <DependentUpon>LanGame.cs</DependentUpon>
+    </Compile>
     <Compile Include="Network\CombineConnection.cs" />
     <Compile Include="Network\ConnectionProtocol.cs" />
     <Compile Include="Network\ConnectionState.cs" />
@@ -109,6 +121,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormSelectMode.resx">
       <DependentUpon>FormSelectMode.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmFindGame.resx">
+      <DependentUpon>frmFindGame.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LanGame.resx">
+      <DependentUpon>LanGame.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

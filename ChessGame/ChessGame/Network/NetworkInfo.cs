@@ -17,19 +17,23 @@ namespace ChessGame.Network
         public NetworkInfo()
         {
             //NetworkInfo defaultInfo = new NetworkInfo(Dns.GetHostName(), Dns.GetHostAddresses(Dns.GetHostName())[0].MapToIPv4().ToString(), FreeTcpPort());
-            IPHostEntry _ipHostEntry = Dns.GetHostEntry(this.hostName);
+            this.hostName = Dns.GetHostName();
+            this.port = FreeTcpPort();
+            this.broadcastAddress = GetHostAddress(this.hostName);
+        }
+
+        private string GetHostAddress(string hostName)
+        {
+            IPHostEntry _ipHostEntry = Dns.GetHostEntry(hostName);
             foreach (IPAddress ip in _ipHostEntry.AddressList)
             {
                 if (ip.AddressFamily == AddressFamily.InterNetwork)
                 {
-                    this.broadcastAddress = ip.MapToIPv4().ToString();
-                    break;
+                    return ip.MapToIPv4().ToString();
                 }
             }
-            this.hostName = Dns.GetHostName();
-            this.port = FreeTcpPort();
+            return "";
         }
-
 
         public NetworkInfo(string broadcastAddress, int port)
         {

@@ -30,9 +30,9 @@
         {
             this.components = new System.ComponentModel.Container();
             this.lstHost = new System.Windows.Forms.ListView();
-            this.btnsend = new System.Windows.Forms.Button();
+            this.btnSend = new System.Windows.Forms.Button();
             this.lstChat = new System.Windows.Forms.ListBox();
-            this.txtchat = new System.Windows.Forms.TextBox();
+            this.txtChat = new System.Windows.Forms.TextBox();
             this.btnJoinGame = new System.Windows.Forms.Button();
             this.btnHostGame = new System.Windows.Forms.Button();
             this.lblRoomList = new System.Windows.Forms.Label();
@@ -55,16 +55,17 @@
             this.lstHost.UseCompatibleStateImageBehavior = false;
             this.lstHost.View = System.Windows.Forms.View.Tile;
             // 
-            // btnsend
+            // btnSend
             // 
-            this.btnsend.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnsend.Location = new System.Drawing.Point(605, 235);
-            this.btnsend.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.btnsend.Name = "btnsend";
-            this.btnsend.Size = new System.Drawing.Size(64, 22);
-            this.btnsend.TabIndex = 20;
-            this.btnsend.Text = "G&ửi";
-            this.btnsend.UseVisualStyleBackColor = true;
+            this.btnSend.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSend.Location = new System.Drawing.Point(605, 235);
+            this.btnSend.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.btnSend.Name = "btnSend";
+            this.btnSend.Size = new System.Drawing.Size(64, 22);
+            this.btnSend.TabIndex = 20;
+            this.btnSend.Text = "G&ửi";
+            this.btnSend.UseVisualStyleBackColor = true;
+            this.btnSend.Click += new System.EventHandler(this.btnSend_Click);
             // 
             // lstChat
             // 
@@ -75,13 +76,14 @@
             this.lstChat.Size = new System.Drawing.Size(416, 134);
             this.lstChat.TabIndex = 19;
             // 
-            // txtchat
+            // txtChat
             // 
-            this.txtchat.Location = new System.Drawing.Point(253, 235);
-            this.txtchat.Name = "txtchat";
-            this.txtchat.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtchat.Size = new System.Drawing.Size(346, 22);
-            this.txtchat.TabIndex = 18;
+            this.txtChat.Location = new System.Drawing.Point(253, 235);
+            this.txtChat.Name = "txtChat";
+            this.txtChat.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txtChat.Size = new System.Drawing.Size(346, 22);
+            this.txtChat.TabIndex = 18;
+            this.txtChat.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtChat_KeyDown);
             // 
             // btnJoinGame
             // 
@@ -95,6 +97,7 @@
             this.btnJoinGame.Text = "Vào phòng chơi";
             this.btnJoinGame.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnJoinGame.UseVisualStyleBackColor = true;
+            this.btnJoinGame.Click += new System.EventHandler(this.btnJoinGame_Click);
             // 
             // btnHostGame
             // 
@@ -108,6 +111,7 @@
             this.btnHostGame.Text = "Tạo phòng chơi";
             this.btnHostGame.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnHostGame.UseVisualStyleBackColor = true;
+            this.btnHostGame.Click += new System.EventHandler(this.btnHostGame_Click);
             // 
             // lblRoomList
             // 
@@ -129,6 +133,14 @@
             this.lblMsg.TabIndex = 23;
             this.lblMsg.Text = "Gửi tin nhắn LAN:";
             // 
+            // timerSendBroadcast
+            // 
+            this.timerSendBroadcast.Tick += new System.EventHandler(this.timerSendBroadcast_Tick);
+            // 
+            // timerUpdateHost
+            // 
+            this.timerUpdateHost.Tick += new System.EventHandler(this.timerUpdateHost_Tick);
+            // 
             // frmFindGame
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -137,9 +149,9 @@
             this.Controls.Add(this.lblMsg);
             this.Controls.Add(this.lblRoomList);
             this.Controls.Add(this.lstHost);
-            this.Controls.Add(this.btnsend);
+            this.Controls.Add(this.btnSend);
             this.Controls.Add(this.lstChat);
-            this.Controls.Add(this.txtchat);
+            this.Controls.Add(this.txtChat);
             this.Controls.Add(this.btnJoinGame);
             this.Controls.Add(this.btnHostGame);
             this.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -154,9 +166,9 @@
         #endregion
 
         private System.Windows.Forms.ListView lstHost;
-        private System.Windows.Forms.Button btnsend;
+        private System.Windows.Forms.Button btnSend;
         private System.Windows.Forms.ListBox lstChat;
-        private System.Windows.Forms.TextBox txtchat;
+        private System.Windows.Forms.TextBox txtChat;
         private System.Windows.Forms.Button btnJoinGame;
         private System.Windows.Forms.Button btnHostGame;
         private System.Windows.Forms.Label lblRoomList;

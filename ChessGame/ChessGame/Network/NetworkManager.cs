@@ -10,12 +10,15 @@ namespace ChessGame.Network
     {
         public ConnectionState connectionState = ConnectionState.StandingBy;
         public PacketTranferState ptState = PacketTranferState.None;
-        public NetworkInfo senderInfo = new NetworkInfo();
+        public NetworkInfo senderInfo;
         public NetworkInfo receiverInfo;
         public UDPConnection UDP;
         public TCPConnection TCP;
 
-        private NetworkManager() { }
+        private NetworkManager() {
+            senderInfo = new NetworkInfo();
+            UDP = new UDPConnection(senderInfo);
+        }
         public static NetworkManager instance = null;
         public static NetworkManager GetInstance()
         {

@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -40,20 +41,23 @@ namespace ChessGame
         {
             while (ActiveListener)
             {
-                string message = networkManager.UDP.ReceiveDataBroadCast();
+                string message = networkManager.UDP.ReceivePacketBroadCast();
                 if (message != "")
                 {
+                   
                     Dictionary<string, string> receivedString =
                     networkManager.UDP.AnalysisReceiveString(message);
 
-                    if (receivedString["ReceiverIP"] != networkManager.senderInfo.broadcastAddress)
+                    if (receivedString["ReceiverIP"] != networkManager.senderInfo.broadcastAddress ||
+                        int.Parse(receivedString["ReceiverPort"]) != networkManager.senderInfo.port)
                     {
+
                         switch (receivedString["Type"].ToUpper())
                         {
                             case "HOST":
                                 if (this.AlHost.IndexOf(receivedString["ReceiverName"]) != 1)
                                 {
-                                    this.AlHost.Add(receivedString["ReceiverName"] + ":" + receivedString["ReceiverIP"]);
+                                    this.AlHost.Add(receivedString["ReceiverName"] + ":" + receivedString["ReceiverIP"] + ":" + receivedString["ReceiverPort"]);
                                 }
                                 break;
                             case "CHAT":
@@ -74,13 +78,16 @@ namespace ChessGame
             networkManager.UDP.SendPacket(broadCast,packet);
         }
 
-        private void btnsend_Click(object sender, EventArgs e)
+        private void btnSend_Click(object sender, EventArgs e)
         {
-            Packet packet = new Packet("CHAT", "txtchat.Text");
-            networkManager.UDP.SendPacket(broadCast, packet);
-            this.lstChat.Items.Add(networkManager.senderInfo.hostName + ": " + txtchat.Text);
-            this.lstChat.TopIndex = lstChat.Items.Count - 1;
-            txtchat.Clear();
+            if (txtChat.Text != "")
+            {
+                Packet packet = new Packet("CHAT", txtChat.Text);
+                networkManager.UDP.SendPacket(broadCast, packet);
+                this.lstChat.Items.Add(networkManager.senderInfo.broadcastAddress+":"+ networkManager.senderInfo.port + ": " + txtChat.Text);
+                this.lstChat.TopIndex = lstChat.Items.Count - 1;
+                txtChat.Clear();
+            }
         }
 
         private void btnHostGame_Click(object sender, EventArgs e)
@@ -91,7 +98,6 @@ namespace ChessGame
             timerUpdateHost.Stop();
 
             networkManager.UDP.Disconnect();
-            networkManager.Function = 1;
             this.Hide();
             this.AlHost = new ArrayList();
             lstHost.Items.Clear();
@@ -118,8 +124,6 @@ namespace ChessGame
                 timerSendBroadcast.Stop();
                 timerUpdateHost.Stop();
                 networkManager.UDP.Disconnect();
-                networkManager.connectionState = 1;
-                networkManager.Function = 2;
 
                 ListViewItem li = lstHost.SelectedItems[0];
                 string strHost = li.Text;
@@ -188,6 +192,14 @@ namespace ChessGame
         private void frmFindGame_FormClosing(object sender, FormClosingEventArgs e)
         {
             networkManager.UDP.Disconnect(); ;
+        }
+
+        private void txtChat_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                btnSend_Click(sender, e);
+            }
         }
     }
 }

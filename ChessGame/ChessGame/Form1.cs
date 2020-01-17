@@ -249,6 +249,34 @@ namespace ChessGame
             }
         }
 
+        private void button1_Click(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void RefreshBoard()
+        {
+            for(int i = 0; i< 8; i++)
+            {
+                for (int j = 0; j< 8; j++)
+                {
+                    tiles[i, j].RefreshPiece();
+                }
+            }
+        }
+
+        private void defaultToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ResourceModule.GetInstance().UpdatePieceResource(new BasicPiece());
+            this.RefreshBoard();
+        }
+
+        private void colorfulToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ResourceModule.GetInstance().UpdatePieceResource(new ColorfulPiece());
+            this.RefreshBoard();
+        }
+
         private void DeselectSelectedTile()
         {
             if (selectedTile == null)

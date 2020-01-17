@@ -1,116 +1,70 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
-  <Class Name="ChessGame.ResourceManager.ResourceModule">
-    <Position X="23.5" Y="0.5" Width="1.5" />
+  <Class Name="ChessGame.Data.GameManager" Collapsed="true">
+    <Position X="4" Y="3.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAIAAAAAAAABChAAAAAAQAAAAAAAAA=</HashCode>
-      <FileName>ResourceManager\ResourceModule.cs</FileName>
+      <HashCode>AEQBAAIAIMCAEkKEgBQSABQAFARBAwEEAAAAAAAQAQA=</HashCode>
+      <FileName>Data\Manager\GameManager.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
-      <Field Name="pieceStrategy" />
-      <Field Name="tileStrategy" />
+      <Field Name="boardData" />
+      <Field Name="ui" />
+      <Field Name="gameModeStrategy" />
     </ShowAsAssociation>
   </Class>
-  <Class Name="ChessGame.ResourceManager.PieceStrategy">
-    <Position X="25.75" Y="1.5" Width="1.75" />
+  <Class Name="ChessGame.Data.BoardData" Collapsed="true">
+    <Position X="1.5" Y="3.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAACAAAAAAAAAAAAAAAAAAAAAAIAAAACAAAAAAAAA=</HashCode>
-      <FileName>ResourceManager\PieceStrategy.cs</FileName>
+      <HashCode>hAAAQAQAACAAAAAACIABCAAEBIBAAAAAAAAAQAAAAAA=</HashCode>
+      <FileName>Data\BoardData.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
-      <Field Name="commonPiece" />
+      <Field Name="arrPiece" />
     </ShowAsAssociation>
   </Class>
-  <Class Name="ChessGame.ResourceManager.TileStrategy">
-    <Position X="20.75" Y="1.5" Width="1.75" />
-    <TypeIdentifier>
-      <HashCode>AQAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAQAAAAAAAA=</HashCode>
-      <FileName>ResourceManager\TileStrategy.cs</FileName>
-    </TypeIdentifier>
-    <ShowAsAssociation>
-      <Field Name="commonTile" />
-    </ShowAsAssociation>
-  </Class>
-  <Class Name="ChessGame.ResourceManager.CommonTile" Collapsed="true">
-    <Position X="20.75" Y="3.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AQAgAAAAAAAAAABAAAAAAAAAAggAAAAAAQAAAAAAAAA=</HashCode>
-      <FileName>ResourceManager\CommonTile.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="ChessGame.ResourceManager.CommonPiece" Collapsed="true">
-    <Position X="25.75" Y="3.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AgAAAAAAAAAABBIAAAAAAAAAAAAAIAAgAAAAAAAAAAA=</HashCode>
-      <FileName>ResourceManager\CommonPiece.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="ChessGame.ResourceManager.BasicPiece" Collapsed="true">
-    <Position X="24.5" Y="4.5" Width="1.5" />
-    <InheritanceLine Type="ChessGame.ResourceManager.CommonPiece" ManuallyRouted="true">
-      <Path>
-        <Point X="26.5" Y="4.062" />
-        <Point X="26.5" Y="4.308" />
-        <Point X="25.25" Y="4.308" />
-        <Point X="25.25" Y="4.5" />
-      </Path>
-    </InheritanceLine>
-    <TypeIdentifier>
-      <HashCode>AgAAAAAAAAAABBIAAAAAAAAAAAAAIAAAAAAAAAAAAAA=</HashCode>
-      <FileName>ResourceManager\BasicPiece.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="ChessGame.ResourceManager.ColorfulPiece" Collapsed="true">
-    <Position X="26.75" Y="4.5" Width="1.5" />
-    <InheritanceLine Type="ChessGame.ResourceManager.CommonPiece" ManuallyRouted="true">
-      <Path>
-        <Point X="26.5" Y="4.062" />
-        <Point X="26.5" Y="4.298" />
-        <Point X="27.5" Y="4.298" />
-        <Point X="27.5" Y="4.5" />
-      </Path>
-    </InheritanceLine>
-    <TypeIdentifier>
-      <HashCode>AgAAAAAAAAAABBIAAAAAAAAAAAAAIAAAAAAAAAAAAAA=</HashCode>
-      <FileName>ResourceManager\ColorfulPiece.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="ChessGame.ResourceManager.BasicTile" Collapsed="true">
-    <Position X="20.75" Y="4.5" Width="1.5" />
-    <InheritanceLine Type="ChessGame.ResourceManager.CommonTile" FixedFromPoint="true" FixedToPoint="true">
-      <Path>
-        <Point X="21.562" Y="4.062" />
-        <Point X="21.562" Y="4.5" />
-      </Path>
-    </InheritanceLine>
-    <TypeIdentifier>
-      <HashCode>AAAgAAAAAAAAAABAAAAAAAAAAAgAAAAAAQAAAAAAAAA=</HashCode>
-      <FileName>ResourceManager\BasicTile.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="ChessGame.GameEngine.AI">
-    <Position X="23.25" Y="6.25" Width="1.5" />
-    <Compartments>
-      <Compartment Name="Fields" Collapsed="true" />
-    </Compartments>
+  <Class Name="ChessGame.GameEngine.AI" Collapsed="true">
+    <Position X="1.5" Y="5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>ICCAADAAAAAAACAECAQAAAAABABAAAACAAAAAAAAAAA=</HashCode>
       <FileName>GameEngine\AI.cs</FileName>
     </TypeIdentifier>
+  </Class>
+  <Class Name="ChessGame.Data.GameModeStrategy" Collapsed="true">
+    <Position X="4" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAAIAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAA=</HashCode>
+      <FileName>Data\Manager\GameModeStrategy.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ChessGame.ResourceManager.ResourceModule" Collapsed="true">
+    <Position X="8.25" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAIAAAAAAAABChAAAAAASAAAAAAAAA=</HashCode>
+      <FileName>ResourceManager\ResourceModule.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ChessGame.UI.Tile" Collapsed="true">
+    <Position X="6.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAABIAAAAAAAAAgAAABIACAAAACAiSsAAAAJAAAABA=</HashCode>
+      <FileName>UI\Tile.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ChessGame.Form1" Collapsed="true">
+    <Position X="6.25" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAQACARggIEAIyQBCACAgUAAihGBAYAAAAwAAA=</HashCode>
+      <FileName>Form1.cs</FileName>
+    </TypeIdentifier>
     <ShowAsAssociation>
-      <Field Name="boardHelper" />
+      <Field Name="tiles" />
     </ShowAsAssociation>
   </Class>
-  <Class Name="ChessGame.GameEngine.BoardHelper">
-    <Position X="25.5" Y="6.25" Width="1.5" />
-    <Compartments>
-      <Compartment Name="Fields" Collapsed="true" />
-      <Compartment Name="Properties" Collapsed="true" />
-      <Compartment Name="Methods" Collapsed="true" />
-    </Compartments>
+  <Class Name="ChessGame.Data.Piece" Collapsed="true">
+    <Position X="1.5" Y="4.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAQAAgAAIgAAAAAQAAAAAAAABIJAAAAAAAAAIAAAAAA=</HashCode>
-      <FileName>GameEngine\Helper.cs</FileName>
+      <HashCode>AAAACAAAAAAAgAQgAIAAIAAAAAIBAgACAQgAAAAAAAA=</HashCode>
+      <FileName>Data\PiecesClass\Piece.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Font Name="Segoe UI" Size="9" />

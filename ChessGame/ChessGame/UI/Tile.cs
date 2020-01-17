@@ -92,5 +92,13 @@ namespace ChessGame.UI
             this.mouseClickHandler = onClick;
             this.MouseClick += new MouseEventHandler(onClick);
         }
+
+        internal void RefreshPiece()
+        {
+            if (this.Piece == null)
+                return;
+            Bitmap resource = ResourceManager.ResourceModule.GetInstance().GetPieceResourceByType(piece.Type, piece.Side);
+            this.BackgroundImage = new Bitmap(resource, this.Size);
+        }
     }
 }

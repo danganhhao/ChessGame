@@ -21,32 +21,46 @@ namespace ChessGame.Network
         private IPEndPoint iep;
         private Thread tActiveListenTCP;
 
+        public TCPConnection(NetworkInfo host)
+        {
+            thisPC = host;
+        }
+
         public void Initial(NetworkInfo receiver)
         {
-            if (NetworkManager.GetInstance().connectionState == NetworkManager.ConnectionState.Listening)
+            if (NetworkManager.GetInstance().role == NetworkManager.Role.Server)
             {
-                iep = ListenForConnection();
+                ListenForConnection();
             }
-            else if (NetworkManager.GetInstance().connectionState == NetworkManager.ConnectionState.Connecting)
+            else
             {
-                iep = ConnectTo(receiver);
+                ConnectTo(receiver);
             }
             client = new TcpClient();
-            tActiveListenTCP = new Thread(new ThreadStart(ActiveListenTCP));
-            tActiveListenTCP.IsBackground = true;
-            tActiveListenTCP.Start();
         }
 
         public override IPEndPoint ConnectTo(NetworkInfo receiver)
         {
-            return new IPEndPoint(IPAddress.Parse(receiver.broadcastAddress), receiver.port);
+            iep = new IPEndPoint(IPAddress.Parse(receiver.IPAddress), receiver.port);
+
+            tActiveListenTCP = new Thread(new ThreadStart(ActiveListenTCP));
+            tActiveListenTCP.IsBackground = true;
+            tActiveListenTCP.Start();
+
+            return iep;
         }
 
         public override IPEndPoint ListenForConnection()
         {
-            IPEndPoint iep = new IPEndPoint(IPAddress.Any.Address, thisPC.port);
+            iep = new IPEndPoint(IPAddress.Any, thisPC.port);
             server = new TcpListener(iep);
             server.Start();
+            NetworkManager.GetInstance().UDP.SendPacket(NetworkManager.GetInstance().receiverInfo, new Packet("SERVERREADY", ""));
+
+            tActiveListenTCP = new Thread(new ThreadStart(ActiveListenTCP));
+            tActiveListenTCP.IsBackground = true;
+            tActiveListenTCP.Start();
+
             return iep;
         }
 
@@ -61,13 +75,14 @@ namespace ChessGame.Network
                     sw = new StreamWriter(ns);
                     return;
                 }
-                if (NetworkManager.GetInstance().connectionState == NetworkManager.ConnectionState.Listening)
+                if (NetworkManager.GetInstance().role == NetworkManager.Role.Server)
                 {
                     client = server.AcceptTcpClient();
                 }
                 else
                 {
                     client.Connect(iep);
+                    NetworkManager.GetInstance().UDP.SendPacket(NetworkManager.GetInstance().receiverInfo, new Packet("CLIENTREADY", ""));
                 }
             }
         }
@@ -77,7 +92,7 @@ namespace ChessGame.Network
             sw = new StreamWriter(client.GetStream());
             if (this.sw != null)
             {
-                this.sw.WriteLine(requestPacket.GetMessage());
+                this.sw.WriteLine(requestPacket.GetType() + "#" + thisPC.IPAddress + "#" + thisPC.port + "#" + thisPC.hostName + "#" + requestPacket.GetMessage());
                 this.sw.Flush();
             }
         }
@@ -126,6 +141,18 @@ namespace ChessGame.Network
         public override Dictionary<string, string> AnalysisReceiveString(string message)
         {
             Dictionary<string, string> receivedString = new Dictionary<string, string>();
+            int iType = message.IndexOf('#');
+            int iReceiverIP = message.IndexOf('#', iType + 1);
+            int iReceiverPort = message.IndexOf('#', iReceiverIP + 1);
+            int iReceiverName = message.IndexOf('#', iReceiverPort + 1);
+            int iMessage = message.IndexOf('#', iReceiverName + 1);
+
+            receivedString.Add("Type", message.Substring(0, iType));
+            receivedString.Add("ReceiverIP", message.Substring(iType + 1, iReceiverIP - iType - 1));
+            receivedString.Add("ReceiverPort", message.Substring(iReceiverIP + 1, iReceiverPort - iReceiverIP - 1));
+            receivedString.Add("ReceiverName", message.Substring(iReceiverPort + 1, iReceiverName - iReceiverPort - 1));
+            receivedString.Add("Message", message.Substring(iReceiverName + 1, message.Length - iReceiverName - 1));
+
             return receivedString;
         }
     }

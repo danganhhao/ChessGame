@@ -78,11 +78,11 @@
     <Compile Include="GameEngine\AI.cs" />
     <Compile Include="GameEngine\Helper.cs" />
     <Compile Include="GameEngine\LegalMoveSet.cs" />
-    <Compile Include="LanGame.cs">
+    <Compile Include="frmLanGame.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="LanGame.Designer.cs">
-      <DependentUpon>LanGame.cs</DependentUpon>
+    <Compile Include="frmLanGame.Designer.cs">
+      <DependentUpon>frmLanGame.cs</DependentUpon>
     </Compile>
     <Compile Include="Network\CombineConnection.cs" />
     <Compile Include="Network\ConnectionProtocol.cs" />
@@ -125,8 +125,8 @@
     <EmbeddedResource Include="frmFindGame.resx">
       <DependentUpon>frmFindGame.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="LanGame.resx">
-      <DependentUpon>LanGame.cs</DependentUpon>
+    <EmbeddedResource Include="frmLanGame.resx">
+      <DependentUpon>frmLanGame.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

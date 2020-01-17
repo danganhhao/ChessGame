@@ -21,5 +21,11 @@
             Received,
         }
 
+        public enum Role
+        {
+            Client,
+            Server,
+        }
+
     }
 }

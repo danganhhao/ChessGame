@@ -7,6 +7,7 @@ using System.Data;
 using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -20,7 +21,7 @@ namespace ChessGame
         bool ActiveListener = true;
         ArrayList AlHost = new ArrayList();
         NetworkManager networkManager = NetworkManager.GetInstance();
-        NetworkInfo broadCast = new NetworkInfo("BroadCast", "255.255.255.255", 0);
+        NetworkInfo broadCast = new NetworkInfo("BroadCast", IPAddress.Broadcast.MapToIPv4().ToString(), 0);
 
         public frmFindGame()
         {
@@ -41,16 +42,16 @@ namespace ChessGame
         {
             while (ActiveListener)
             {
-                string message = networkManager.UDP.ReceivePacketBroadCast();
+                string message = networkManager.UDP.ReceivePacket(broadCast);
                 if (message != "")
                 {
                    
                     Dictionary<string, string> receivedString =
                     networkManager.UDP.AnalysisReceiveString(message);
 
-                    if (receivedString["ReceiverIP"] != networkManager.senderInfo.broadcastAddress ||
+                    if (receivedString["ReceiverIP"] != networkManager.senderInfo.IPAddress ||
                         int.Parse(receivedString["ReceiverPort"]) != networkManager.senderInfo.port)
-                    {
+                    {   
 
                         switch (receivedString["Type"].ToUpper())
                         {
@@ -84,7 +85,7 @@ namespace ChessGame
             {
                 Packet packet = new Packet("CHAT", txtChat.Text);
                 networkManager.UDP.SendPacket(broadCast, packet);
-                this.lstChat.Items.Add(networkManager.senderInfo.broadcastAddress+":"+ networkManager.senderInfo.port + ": " + txtChat.Text);
+                this.lstChat.Items.Add(networkManager.senderInfo.IPAddress+":"+ networkManager.senderInfo.port + ": " + txtChat.Text);
                 this.lstChat.TopIndex = lstChat.Items.Count - 1;
                 txtChat.Clear();
             }
@@ -101,9 +102,12 @@ namespace ChessGame
             this.Hide();
             this.AlHost = new ArrayList();
             lstHost.Items.Clear();
+
+
             ///Join Game
-            Form1 frmlangame = new Form1();
-            frmlangame.ShowDialog();
+            networkManager.role = NetworkManager.Role.Server;
+            frmLanGame frmLanGame = new frmLanGame();
+            frmLanGame.ShowDialog();
             ///Escape Game
 
             this.Show();
@@ -130,20 +134,19 @@ namespace ChessGame
                 string[] arrHostEntry = strHost.Split(':');
                 networkManager.receiverInfo = new NetworkInfo(arrHostEntry[0], arrHostEntry[1], int.Parse(arrHostEntry[2]));
 
-                //clsProfile profile = new clsProfile(networkManager.Profile);
-                //string a = profile.TotalWin.ToString();
-                //string b = profile.TotalDraw.ToString();
-                //string c = profile.TotalLose.ToString();
-                //string d = profile.Rating.ToString();
-
                 Packet packet = new Packet("JOIN", "");
                 networkManager.UDP.SendPacket(networkManager.receiverInfo, packet);
                 this.Hide();
                 this.AlHost = new ArrayList();
                 lstHost.Items.Clear();
+
+
                 ///Join Game
+                networkManager.role = NetworkManager.Role.Client;
                 Form1 frmlangame = new Form1();
                 frmlangame.ShowDialog();
+
+
                 ///Escape Game
                 this.Show();
                 this.ActiveListener = true;

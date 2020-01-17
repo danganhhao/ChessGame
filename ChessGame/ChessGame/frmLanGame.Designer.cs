@@ -1,6 +1,6 @@
 ﻿namespace ChessGame
 {
-    partial class LanGame
+    partial class frmLanGame
     {
         /// <summary>
         /// Required designer variable.
@@ -30,7 +30,7 @@
         {
             this.btnExit = new System.Windows.Forms.Button();
             this.btnPlay = new System.Windows.Forms.Button();
-            this.btnSanSang = new System.Windows.Forms.Button();
+            this.btnReady = new System.Windows.Forms.Button();
             this.lblloi = new System.Windows.Forms.Label();
             this.btnChat = new System.Windows.Forms.Button();
             this.txtchat = new System.Windows.Forms.TextBox();
@@ -39,27 +39,30 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.pnlHost = new System.Windows.Forms.Panel();
             this.pnlGuest = new System.Windows.Forms.Panel();
+            this.btnLose = new System.Windows.Forms.Button();
+            this.btnDraw = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // btnExit
             // 
-            this.btnExit.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnExit.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnExit.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnExit.Location = new System.Drawing.Point(768, 497);
+            this.btnExit.Location = new System.Drawing.Point(850, 497);
             this.btnExit.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnExit.Name = "btnExit";
             this.btnExit.Size = new System.Drawing.Size(80, 35);
             this.btnExit.TabIndex = 48;
             this.btnExit.Text = "Thoát";
             this.btnExit.UseVisualStyleBackColor = true;
+            this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
             // 
             // btnPlay
             // 
             this.btnPlay.Enabled = false;
-            this.btnPlay.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnPlay.ForeColor = System.Drawing.Color.Red;
+            this.btnPlay.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnPlay.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
             this.btnPlay.Location = new System.Drawing.Point(832, 20);
             this.btnPlay.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnPlay.Name = "btnPlay";
@@ -67,19 +70,21 @@
             this.btnPlay.TabIndex = 44;
             this.btnPlay.Text = "Bắt Đầu";
             this.btnPlay.UseVisualStyleBackColor = true;
+            this.btnPlay.Click += new System.EventHandler(this.btnPlay_Click);
             // 
-            // btnSanSang
+            // btnReady
             // 
-            this.btnSanSang.Enabled = false;
-            this.btnSanSang.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSanSang.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
-            this.btnSanSang.Location = new System.Drawing.Point(684, 20);
-            this.btnSanSang.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.btnSanSang.Name = "btnSanSang";
-            this.btnSanSang.Size = new System.Drawing.Size(92, 35);
-            this.btnSanSang.TabIndex = 42;
-            this.btnSanSang.Text = "Sẵn Sàng";
-            this.btnSanSang.UseVisualStyleBackColor = true;
+            this.btnReady.Enabled = false;
+            this.btnReady.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnReady.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
+            this.btnReady.Location = new System.Drawing.Point(684, 20);
+            this.btnReady.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.btnReady.Name = "btnReady";
+            this.btnReady.Size = new System.Drawing.Size(92, 35);
+            this.btnReady.TabIndex = 42;
+            this.btnReady.Text = "Sẵn Sàng";
+            this.btnReady.UseVisualStyleBackColor = true;
+            this.btnReady.Click += new System.EventHandler(this.btnReady_Click);
             // 
             // lblloi
             // 
@@ -97,6 +102,7 @@
             this.btnChat.TabIndex = 41;
             this.btnChat.Text = "Gửi  Tin";
             this.btnChat.UseVisualStyleBackColor = true;
+            this.btnChat.Click += new System.EventHandler(this.btnChat_Click);
             // 
             // txtchat
             // 
@@ -152,24 +158,53 @@
             this.pnlGuest.Size = new System.Drawing.Size(142, 209);
             this.pnlGuest.TabIndex = 50;
             // 
-            // LanGame
+            // btnLose
+            // 
+            this.btnLose.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnLose.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnLose.Location = new System.Drawing.Point(755, 497);
+            this.btnLose.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.btnLose.Name = "btnLose";
+            this.btnLose.Size = new System.Drawing.Size(80, 35);
+            this.btnLose.TabIndex = 51;
+            this.btnLose.Text = "Đầu hàng";
+            this.btnLose.UseVisualStyleBackColor = true;
+            this.btnLose.Click += new System.EventHandler(this.btnLose_Click);
+            // 
+            // btnDraw
+            // 
+            this.btnDraw.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnDraw.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnDraw.Location = new System.Drawing.Point(661, 497);
+            this.btnDraw.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.btnDraw.Name = "btnDraw";
+            this.btnDraw.Size = new System.Drawing.Size(80, 35);
+            this.btnDraw.TabIndex = 52;
+            this.btnDraw.Text = "Xin hòa";
+            this.btnDraw.UseVisualStyleBackColor = true;
+            this.btnDraw.Click += new System.EventHandler(this.btnDraw_Click);
+            // 
+            // frmLanGame
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(952, 536);
+            this.Controls.Add(this.btnDraw);
+            this.Controls.Add(this.btnLose);
             this.Controls.Add(this.pnlGuest);
             this.Controls.Add(this.pnlHost);
             this.Controls.Add(this.btnExit);
             this.Controls.Add(this.btnPlay);
-            this.Controls.Add(this.btnSanSang);
+            this.Controls.Add(this.btnReady);
             this.Controls.Add(this.lblloi);
             this.Controls.Add(this.btnChat);
             this.Controls.Add(this.txtchat);
             this.Controls.Add(this.lstChatBox);
             this.Controls.Add(this.panel1);
             this.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Name = "LanGame";
+            this.Name = "frmLanGame";
             this.Text = "LanGame";
+            this.Load += new System.EventHandler(this.frmLanGame_Load);
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
@@ -180,7 +215,7 @@
         #endregion
         private System.Windows.Forms.Button btnExit;
         private System.Windows.Forms.Button btnPlay;
-        private System.Windows.Forms.Button btnSanSang;
+        private System.Windows.Forms.Button btnReady;
         private System.Windows.Forms.Label lblloi;
         private System.Windows.Forms.Button btnChat;
         private System.Windows.Forms.TextBox txtchat;
@@ -189,5 +224,7 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Panel pnlHost;
         private System.Windows.Forms.Panel pnlGuest;
+        private System.Windows.Forms.Button btnLose;
+        private System.Windows.Forms.Button btnDraw;
     }
 }

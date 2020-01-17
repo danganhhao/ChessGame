@@ -12,12 +12,14 @@ namespace ChessGame.Network
         public PacketTranferState ptState = PacketTranferState.None;
         public NetworkInfo senderInfo;
         public NetworkInfo receiverInfo;
+        public Role role;
         public UDPConnection UDP;
         public TCPConnection TCP;
 
         private NetworkManager() {
             senderInfo = new NetworkInfo();
             UDP = new UDPConnection(senderInfo);
+            TCP = new TCPConnection(senderInfo);
         }
         public static NetworkManager instance = null;
         public static NetworkManager GetInstance()
@@ -100,8 +102,6 @@ namespace ChessGame.Network
         {
             return packet.GetMessage();
         }
-
-
 
     }
 }

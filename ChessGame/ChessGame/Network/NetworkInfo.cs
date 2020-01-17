@@ -11,15 +11,14 @@ namespace ChessGame.Network
     public class NetworkInfo
     {
         public string hostName;
-        public string broadcastAddress;
+        public string IPAddress;
         public int port;
 
         public NetworkInfo()
         {
-            //NetworkInfo defaultInfo = new NetworkInfo(Dns.GetHostName(), Dns.GetHostAddresses(Dns.GetHostName())[0].MapToIPv4().ToString(), FreeTcpPort());
             this.hostName = Dns.GetHostName();
-            this.port = FreeTcpPort();
-            this.broadcastAddress = GetHostAddress(this.hostName);
+            this.port = FreePort();
+            this.IPAddress = GetHostAddress(this.hostName);
         }
 
         private string GetHostAddress(string hostName)
@@ -38,27 +37,27 @@ namespace ChessGame.Network
         public NetworkInfo(string broadcastAddress, int port)
         {
             this.hostName = "";
-            this.broadcastAddress = broadcastAddress;
+            this.IPAddress = broadcastAddress;
             this.port = port;
         }
 
         public NetworkInfo(string hostName, string broadcastAddress, int port)
         {
             this.hostName = hostName;
-            this.broadcastAddress = broadcastAddress;
+            this.IPAddress = broadcastAddress;
             this.port = port;
         }
 
         public NetworkInfo(NetworkInfo networkInfo)
         {
             this.hostName = networkInfo.hostName;
-            this.broadcastAddress = networkInfo.broadcastAddress;
+            this.IPAddress = networkInfo.IPAddress;
             this.port = networkInfo.port;
         }
 
-        static int FreeTcpPort()
+        static int FreePort()
         {
-            TcpListener l = new TcpListener(IPAddress.Loopback, 0);
+            TcpListener l = new TcpListener(System.Net.IPAddress.Loopback, 0);
             l.Start();
             int port = ((IPEndPoint)l.LocalEndpoint).Port;
             l.Stop();

@@ -11,68 +11,18 @@ namespace ChessGame.Network
     class UDPConnection : ConnectionProtocol
     {
         UdpClient uClient;
-        IPEndPoint RemoteIpEndPoint;
 
         public UDPConnection(NetworkInfo host)
         {
             thisPC = host;
         }
 
-        public string ReceivePacketBroadCast()
+        public string ReceivePacket(NetworkInfo sender)
         {
             try
             {
                 uClient = new UdpClient(thisPC.port);
-                IPEndPoint RemoteIpEndPoint = new IPEndPoint(IPAddress.Any, 0);
-
-                Byte[] data = uClient.Receive(ref RemoteIpEndPoint);
-                uClient.Close();
-                string message = Encoding.UTF8.GetString(data);
-                return message;
-            }
-            catch
-            { return ""; }
-
-        }
-
-        public void Initial(NetworkInfo receiver)
-        {
-            try
-            {
-                RemoteIpEndPoint = ConnectTo(receiver);
-            }
-            catch
-            {
-                try
-                {
-                    RemoteIpEndPoint = ListenForConnection();
-                }
-                catch
-                { 
-                }
-            }
-        }
-
-        public override IPEndPoint ConnectTo(NetworkInfo receiver)
-        {
-            uClient = new UdpClient(thisPC.port);
-            IPEndPoint RemoteIpEndPoint = new IPEndPoint(IPAddress.Parse(receiver.broadcastAddress), 0);
-            return RemoteIpEndPoint;
-        }
-
-        public override IPEndPoint ListenForConnection()
-        {
-            uClient = new UdpClient(thisPC.port);
-            IPEndPoint RemoteIpEndPoint = new IPEndPoint(IPAddress.Any, 0);
-            return RemoteIpEndPoint;
-        }
-
-        public override string ReceivePacket()
-        {
-            try
-            {
-                uClient = new UdpClient(thisPC.port);
-                IPEndPoint RemoteIpEndPoint = new IPEndPoint(IPAddress.Parse(thisPC.broadcastAddress), 0);
+                IPEndPoint RemoteIpEndPoint = new IPEndPoint(IPAddress.Parse(sender.IPAddress), 0);
 
                 Byte[] data = uClient.Receive(ref RemoteIpEndPoint);
                 uClient.Close();
@@ -89,8 +39,8 @@ namespace ChessGame.Network
         public override void SendPacket(NetworkInfo receiver, Packet requestPacket)
         {
             UdpClient udp = new UdpClient();
-            udp.Connect(receiver.broadcastAddress, thisPC.port);
-            Byte[] data = Encoding.UTF8.GetBytes(requestPacket.GetType() + "#" + thisPC.broadcastAddress + "#" + thisPC.port + "#" + thisPC.hostName + "#" + requestPacket.GetMessage());
+            udp.Connect(receiver.IPAddress, thisPC.port);
+            Byte[] data = Encoding.UTF8.GetBytes(requestPacket.GetType() + "#" + thisPC.IPAddress + "#" + thisPC.port + "#" + thisPC.hostName + "#" + requestPacket.GetMessage());
             udp.Send(data, data.Length);
             udp.Close();
         }

@@ -23,11 +23,11 @@ namespace ChessGame.Network
 
         public void Initial(NetworkInfo receiver)
         {
-            if (NetworkManager.GetInstance().cState == NetworkManager.ConnectionState.Listening)
+            if (NetworkManager.GetInstance().connectionState == NetworkManager.ConnectionState.Listening)
             {
                 iep = ListenForConnection();
             }
-            else if (NetworkManager.GetInstance().cState == NetworkManager.ConnectionState.Connecting)
+            else if (NetworkManager.GetInstance().connectionState == NetworkManager.ConnectionState.Connecting)
             {
                 iep = ConnectTo(receiver);
             }
@@ -61,7 +61,7 @@ namespace ChessGame.Network
                     sw = new StreamWriter(ns);
                     return;
                 }
-                if (NetworkManager.GetInstance().cState == NetworkManager.ConnectionState.Listening)
+                if (NetworkManager.GetInstance().connectionState == NetworkManager.ConnectionState.Listening)
                 {
                     client = server.AcceptTcpClient();
                 }
@@ -72,12 +72,12 @@ namespace ChessGame.Network
             }
         }
 
-        public void SendPacket(string type, string item)
+        public override void SendPacket(NetworkInfo receiver, Packet requestPacket)
         {
             sw = new StreamWriter(client.GetStream());
             if (this.sw != null)
             {
-                this.sw.WriteLine(type + "#" + item);
+                this.sw.WriteLine(requestPacket.GetMessage());
                 this.sw.Flush();
             }
         }
@@ -95,10 +95,10 @@ namespace ChessGame.Network
 
         public override void Disconnect()
         {
-            if (NetworkManager.GetInstance().cState == NetworkManager.ConnectionState.Disconnected)
+            if (NetworkManager.GetInstance().connectionState == NetworkManager.ConnectionState.Disconnected)
             {
                 tActiveListenTCP.Abort();
-                if (NetworkManager.GetInstance().cState == NetworkManager.ConnectionState.Connected)
+                if (NetworkManager.GetInstance().connectionState == NetworkManager.ConnectionState.Connected)
                 {
                     server.Stop();
                 }
@@ -123,12 +123,10 @@ namespace ChessGame.Network
             }
         }
 
-        public void AnalysisReceiveString(string message, out string strT, out string strI)
+        public override Dictionary<string, string> AnalysisReceiveString(string message)
         {
-            int iType = message.IndexOf('#');
-            int iItem = message.IndexOf('#', iType + 1);
-            strT = message.Substring(0, iType);
-            strI = message.Substring(iType + 1, message.Length - iType - 1);
+            Dictionary<string, string> receivedString = new Dictionary<string, string>();
+            return receivedString;
         }
     }
 }

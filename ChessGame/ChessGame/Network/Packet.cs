@@ -9,16 +9,20 @@ namespace ChessGame.Network
     public class Packet
     {
         NetworkInfo networkInfo;
+        string type;
         string message;
 
-        public Packet()
+        public Packet(string type, string message)
         {
-
+            this.networkInfo = new NetworkInfo();
+            this.type = type;
+            this.message = message;
         }
 
-        public Packet(NetworkInfo networkInfo, string message)
+        public Packet(NetworkInfo networkInfo, string type, string message)
         {
             this.networkInfo = new NetworkInfo(networkInfo);
+            this.type = type;
             this.message = message;
         }
 
@@ -26,27 +30,7 @@ namespace ChessGame.Network
         { return networkInfo; }
         public string GetMessage()
         { return message; }
-    }
-
-    public class RequestPacket : Packet
-    {
-        public RequestPacket() : base()
-        {
-        }
-
-        public RequestPacket(NetworkInfo networkInfo, string message) : base(networkInfo, message)
-        {
-        }
-    }
-
-    public class ResponsePacket : Packet
-    {
-        public ResponsePacket() : base()
-        {
-        }
-
-        public ResponsePacket(NetworkInfo networkInfo, string message) : base(networkInfo, message)
-        {
-        }
+        public string GetType()
+        { return type; }
     }
 }

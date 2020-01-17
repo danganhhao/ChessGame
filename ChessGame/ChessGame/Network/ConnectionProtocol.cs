@@ -26,7 +26,7 @@ namespace ChessGame.Network
             return "";
         }
 
-        public virtual void SendPacket(NetworkInfo receiver, RequestPacket requestPacket)
+        public virtual void SendPacket(NetworkInfo receiver, Packet requestPacket)
         {
             
         }

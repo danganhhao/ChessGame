@@ -26,7 +26,7 @@ namespace ChessGame.Network
                     RemoteIpEndPoint = ListenForConnection();
                 }
                 catch
-                {
+                { 
                 }
             }
         }
@@ -57,12 +57,13 @@ namespace ChessGame.Network
 
         }
 
-        public override void SendPacket(NetworkInfo receiver, RequestPacket requestPacket)
+        public override void SendPacket(NetworkInfo receiver, Packet requestPacket)
         {
-            uClient.Connect(receiver.broadcastAddress, receiver.port);
-            Byte[] data = Encoding.UTF8.GetBytes("#" + thisPC.hostName + "#" + thisPC.broadcastAddress + ":" + thisPC.port + "#" + requestPacket.GetMessage());
-            uClient.Send(data, data.Length);
-            uClient.Close();
+            UdpClient udp = new UdpClient();
+            udp.Connect(receiver.broadcastAddress, thisPC.port);
+            Byte[] data = Encoding.UTF8.GetBytes("#" + requestPacket.GetType() + "#" + thisPC.broadcastAddress + "#" + thisPC.hostName + "#" + requestPacket.GetMessage());
+            udp.Send(data, data.Length);
+            udp.Close();
         }
 
         public override void Disconnect()
@@ -76,6 +77,16 @@ namespace ChessGame.Network
         public override Dictionary<string, string> AnalysisReceiveString(string message)
         {
             Dictionary<string, string> receivedString = new Dictionary<string, string>();
+            int iType = message.IndexOf('#');
+            int iReceiverIP = message.IndexOf('#', iType + 1);
+            int iReceiverName = message.IndexOf('#', iReceiverIP + 1);
+            int iMessage = message.IndexOf('#', iReceiverName + 1);
+
+            receivedString.Add("Type",message.Substring(0, iType));
+            receivedString.Add("ReceiverIP",message.Substring(iType + 1, iReceiverIP - iType - 1));
+            receivedString.Add("ReceiverName",message.Substring(iReceiverIP + 1, iReceiverName - iReceiverIP - 1));
+            receivedString.Add("Message",message.Substring(iReceiverName + 1, message.Length - iReceiverName - 1));
+
             return receivedString;
         }
     }

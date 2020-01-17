@@ -8,11 +8,12 @@ namespace ChessGame.Network
 {
     partial class NetworkManager
     {
-        public ConnectionState cState = ConnectionState.StandingBy;
+        public ConnectionState connectionState = ConnectionState.StandingBy;
         public PacketTranferState ptState = PacketTranferState.None;
-        NetworkInfo senderInfo = new NetworkInfo();
-        NetworkInfo receiverInfo;
-        CombineConnection connection;
+        public NetworkInfo senderInfo = new NetworkInfo();
+        public NetworkInfo receiverInfo;
+        public UDPConnection UDP;
+        public TCPConnection TCP;
 
         private NetworkManager() { }
         public static NetworkManager instance = null;
@@ -27,17 +28,17 @@ namespace ChessGame.Network
 
         public ConnectionState GetConnectionState()
         {
-            return cState;
+            return connectionState;
         }
 
         void ConnectTo(NetworkInfo receiverInfo)
         {
             ListenForConnection();
-            if (cState == ConnectionState.Listening)
+            if (connectionState == ConnectionState.Listening)
             {
                 if (receiverInfo != null)
                 {
-                    cState = ConnectionState.Connecting;
+                    connectionState = ConnectionState.Connecting;
                     this.receiverInfo = new NetworkInfo(receiverInfo);
                 }
             }
@@ -45,19 +46,19 @@ namespace ChessGame.Network
 
         void ListenForConnection()
         {
-            cState = ConnectionState.Listening;
+            connectionState = ConnectionState.Listening;
         }
 
         void Disconnect()
         {
             receiverInfo = null;
-            cState = ConnectionState.Disconnected;
+            connectionState = ConnectionState.Disconnected;
         }
 
        
-        public RequestPacket SendPacket(RequestPacket packet)
+        public Packet SendPacket(Packet packet)
         {
-            if (cState == ConnectionState.Connected)
+            if (connectionState == ConnectionState.Connected)
             {
                 ptState = PacketTranferState.Sending;
             }
@@ -65,9 +66,9 @@ namespace ChessGame.Network
         }
 
 
-        public ResponsePacket ReceivePacket()
+        public Packet ReceivePacket()
         {
-            if (cState == ConnectionState.Connected)
+            if (connectionState == ConnectionState.Connected)
             {
                 ptState = PacketTranferState.Receiving;
             }
@@ -78,7 +79,7 @@ namespace ChessGame.Network
         {
             if (receiverInfo == null)
             {
-                cState = ConnectionState.StandingBy;
+                connectionState = ConnectionState.StandingBy;
             }
             else
             {
@@ -88,7 +89,7 @@ namespace ChessGame.Network
 
         void ResetState()
         {
-            cState = ConnectionState.StandingBy;
+            connectionState = ConnectionState.StandingBy;
             ptState = PacketTranferState.None;
         }
 

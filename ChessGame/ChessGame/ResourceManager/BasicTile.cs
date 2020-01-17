@@ -15,7 +15,6 @@ namespace ChessGame.ResourceManager
         public override void SetAvalTileResource()
         {
             tiles.Add(TILE.AvalBlackTile, Resource1.BlackBishop);
-            tiles.Add(PIECE.WhiteBishop, Resource1.WhiteBishop);
         }
 
         public override void SetLastMoveResource()

@@ -56,7 +56,7 @@ namespace ChessGame.GameEngine
                 {
                     for (int j = 0; j < Const.ColCount; j++)
                     {
-                        Piece temp = BoardData.GetInstance().ArrPiece[i, j];
+                        Piece temp = BoardData.GetInstance().ArrPiece[j, i];
                         if (temp != null)
                         {
                             if (temp.Side == PieceSide.Black)
@@ -168,11 +168,31 @@ namespace ChessGame.GameEngine
 
         public void Update(Point src, Point des)
         {
+            PieceSide turn = Grid[src.Y][src.X].player;
+
+            // Update King
+            if (Grid[src.Y][src.X].piece == PieceType.King) {
+                Kings[turn] = new Position(des.X, des.Y);
+            }
+
+            // Update LastMove
+            LastMove[turn] = new Position(des.X, des.Y);
+
+            // Update Grid
             Grid[des.Y][des.X].lastPosition = new Position(src.Y, src.X);
             Grid[des.Y][des.X].piece = Grid[src.Y][src.X].piece;
             Grid[des.Y][des.X].player = Grid[src.Y][src.X].player;
-
             Grid[src.Y][src.X].piece = PieceType.None;
+
+            // Update piece list
+            for (int i =0; i< Pieces[turn].Count; i++)
+            {
+                if (Pieces[turn][i].letter == src.X && Pieces[turn][i].number == src.Y)
+                {
+                    Pieces[turn][i] = new Position(des.X, des.Y);
+                    break;
+                }
+            } 
         }
     }
 }

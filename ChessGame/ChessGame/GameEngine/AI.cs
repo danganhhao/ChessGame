@@ -11,7 +11,7 @@ namespace ChessGame.GameEngine
     public class AI
     {
         private bool firstCall = true;
-        public int DEPTH = 2;
+        public int DEPTH = 3;
         public bool RUNNING = false;
         public bool STOP = false;
         private PieceSide MAX = PieceSide.Black;

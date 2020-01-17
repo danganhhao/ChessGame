@@ -110,6 +110,17 @@ namespace ChessGame
             return color;
         }
 
+        internal void EndGame(PieceSide loseTurn)
+        {
+            this.SetBlockBoard(true);
+            string side = loseTurn == PieceSide.Black ? "Black chess " : "White chess ";
+            DialogResult res = MessageBox.Show(side + "is lose.\nPress OK to quit game", "End game", MessageBoxButtons.OK);
+            if (res == DialogResult.OK)
+            {
+                this.Close();
+            }
+        }
+
         internal void SetLabelClock(PieceSide turn, int v)
         {
             string s = FormatTime(v);
@@ -221,7 +232,6 @@ namespace ChessGame
             Tile tileSrc = tiles[src.X, src.Y];
             tileDes.Piece = tileSrc.Piece;
             tileSrc.Piece = null;
-            gameManager.SwitchTurn();
         }
 
         private void SetSelectTile(Tile clickedTile)

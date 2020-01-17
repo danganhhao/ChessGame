@@ -34,6 +34,8 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.btnSubmit = new System.Windows.Forms.Button();
+            this.cboListTime = new System.Windows.Forms.ComboBox();
+            this.lblChooseTime = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
@@ -100,7 +102,7 @@
             // 
             this.btnSubmit.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.btnSubmit.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSubmit.Location = new System.Drawing.Point(154, 249);
+            this.btnSubmit.Location = new System.Drawing.Point(154, 343);
             this.btnSubmit.Name = "btnSubmit";
             this.btnSubmit.Size = new System.Drawing.Size(87, 33);
             this.btnSubmit.TabIndex = 5;
@@ -108,11 +110,37 @@
             this.btnSubmit.UseVisualStyleBackColor = true;
             this.btnSubmit.Click += new System.EventHandler(this.btnSubmit_Click);
             // 
+            // cboListTime
+            // 
+            this.cboListTime.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboListTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cboListTime.FormattingEnabled = true;
+            this.cboListTime.Items.AddRange(new object[] {
+            "5 minutes",
+            "10 minutes",
+            "30 minutes"});
+            this.cboListTime.Location = new System.Drawing.Point(96, 280);
+            this.cboListTime.Name = "cboListTime";
+            this.cboListTime.Size = new System.Drawing.Size(202, 28);
+            this.cboListTime.TabIndex = 7;
+            // 
+            // lblChooseTime
+            // 
+            this.lblChooseTime.AutoSize = true;
+            this.lblChooseTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblChooseTime.Location = new System.Drawing.Point(93, 248);
+            this.lblChooseTime.Name = "lblChooseTime";
+            this.lblChooseTime.Size = new System.Drawing.Size(111, 20);
+            this.lblChooseTime.TabIndex = 6;
+            this.lblChooseTime.Text = "Choose Color";
+            // 
             // FormSelectMode
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(404, 304);
+            this.ClientSize = new System.Drawing.Size(404, 398);
+            this.Controls.Add(this.cboListTime);
+            this.Controls.Add(this.lblChooseTime);
             this.Controls.Add(this.btnSubmit);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.cboListColor);
@@ -134,5 +162,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button btnSubmit;
+        private System.Windows.Forms.ComboBox cboListTime;
+        private System.Windows.Forms.Label lblChooseTime;
     }
 }

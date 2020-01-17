@@ -19,11 +19,13 @@ namespace ChessGame.Data
         BoardData boardData = BoardData.GetInstance();
         Form1 ui;
         GameModeStrategy gameModeStrategy;
+        bool isEndGame = false;
 
         private Dictionary<PieceSide, int> timePerPlayer;
         public PieceSide Turn { get => turn; set => turn = value; }
         public PieceSide MySide { get => mySide; set => mySide = value; }
         public GameMode Mode { get => mode; set => SetMode(value); }
+        public int Time { get => time; set => time = value; }
 
         private static GameManager instance = null;
         public static GameManager GetInstance()
@@ -35,6 +37,7 @@ namespace ChessGame.Data
 
         internal void OnLoadUiDone()
         {
+            this.InitValue();
             this.InitTimer();
             this.ui.SetLabelClock(PieceSide.Black, timePerPlayer[PieceSide.Black]);
             this.ui.SetLabelClock(PieceSide.White, timePerPlayer[PieceSide.White]);
@@ -45,10 +48,9 @@ namespace ChessGame.Data
         private GameManager()
         {
             this.SetMode(GameMode.WithComputer);
-            this.InitFieldValue();
         }
 
-        private void InitFieldValue()
+        private void InitValue()
         {
             timePerPlayer = new Dictionary<PieceSide, int>();
             timePerPlayer.Add(PieceSide.Black, this.time);
@@ -109,16 +111,25 @@ namespace ChessGame.Data
             boardData.MovePiece(src, des);
             AI.GetInstance().UpdateBoard(src, des);
             ui.DoMove(src, des);
+            if (boardData.IsCheckmated(1 - turn))
+                EndGame(1 - turn);
+            else this.SwitchTurn();
+        }
+
+        private void EndGame(PieceSide loseTurn)
+        {
+            this.ui.EndGame(loseTurn);
+            isEndGame = true;
         }
 
         private void CountDown(object sender, EventArgs e)
         {
             this.timePerPlayer[turn] -= 1;
             this.ui.SetLabelClock(turn, this.timePerPlayer[turn]);
-            if (this.timePerPlayer[turn] <= 0)
+            if (this.timePerPlayer[turn] <= 0 || isEndGame)
             {
                 timer.Stop();
-                this.ui.SetBlockBoard(true);
+                this.EndGame(turn);
             }
         }
 

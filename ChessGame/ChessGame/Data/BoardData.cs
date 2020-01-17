@@ -102,7 +102,20 @@ namespace ChessGame.Data
 
         public bool IsCheckmated(PieceSide side)
         {
-            return false;
+            if (!IsChecked(side))
+                return false;
+            Point KingPosition = this.GetKingPosition(side);
+            for (int x = 0; x < 8; x++)
+                for (int y = 0; y < 8; y++)
+                {
+                    if (arrPiece[x, y] != null && arrPiece[x, y].Side == side) //Xét tất cả các quân bên phe đang xét
+                    {
+                        List<Point> listLegalMove = arrPiece[x, y].GetLegalMove();
+                        if (listLegalMove.Count > 0)
+                            return false;
+                    }
+                }
+            return true;
         }
 
         public bool IsLegalMove(Point src, Point des)

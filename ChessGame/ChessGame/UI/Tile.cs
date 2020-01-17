@@ -13,7 +13,6 @@ namespace ChessGame.UI
     {
         Piece piece;
         Color colorNormal, colorHighlight, colorAvailableMove;
-        Panel pnlPiece, pnlExtra, pnlBase;
         Point position = new Point(0,0);
         TileState state = TileState.Normal;
         internal Piece Piece { get => piece; set => SetPiece(value); }
@@ -22,9 +21,6 @@ namespace ChessGame.UI
 
         public Tile(TileColor color, Point pos)
         {
-            //Init resource base by color
-            //Set Base Normal
-
             this.position = pos;
             piece = null;
             if (color == TileColor.Black)
@@ -41,10 +37,6 @@ namespace ChessGame.UI
             }
             this.BackColor = this.colorNormal;
             Size = Const.TileSize;
-
-            Panel t = new Panel();
-            t.Size = Const.TileSize;
-            Controls.Add(t);
         }
 
         public void SetPiece(Piece piece)

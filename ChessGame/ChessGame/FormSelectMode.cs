@@ -1,4 +1,5 @@
 ﻿using ChessGame.Data;
+using ChessGame.ResourceManager;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -15,6 +16,7 @@ namespace ChessGame
     {
         GameManager gameManager = GameManager.GetInstance();
         int[] times = new int[] { 5, 10, 30 };
+        int[] skins = new int[] { 0, 1 };
         public FormSelectMode()
         {
             InitializeComponent();
@@ -33,6 +35,8 @@ namespace ChessGame
             this.gameManager.Mode = mode;
             this.gameManager.MySide = side;
             this.gameManager.Time = time * 60;
+            int skin = this.GetSkin();
+            UpdatePieceSkin(skin);
 
             if (mode != GameMode.OnLan)
             {
@@ -50,10 +54,30 @@ namespace ChessGame
             }
         }
 
+        private void UpdatePieceSkin(int skin)
+        {
+            switch (skin)
+            {
+                case 0: ResourceModule.GetInstance().UpdatePieceResource(new BasicPiece()); break;
+                case 1: ResourceModule.GetInstance().UpdatePieceResource(new ColorfulPiece()); break;
+                default :
+                    ResourceModule.GetInstance().UpdatePieceResource(new BasicPiece()); break;
+            }
+        }
+
         private int GetTime()
         {
             int index = cboListTime.SelectedIndex;
             return this.times[index];
+        }
+
+        private int GetSkin()
+        {
+            int index = cboSkin.SelectedIndex;
+            if (index < 0)
+                return this.skins[0];
+            else
+                return this.skins[index];
         }
 
         private bool NotChooseSomething()
@@ -74,6 +98,21 @@ namespace ChessGame
         private GameMode GetGameMode()
         {
             return (GameMode)cboListMode.SelectedIndex;
+        }
+
+        private void label4_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void cboListTime_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

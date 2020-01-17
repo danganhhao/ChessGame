@@ -77,5 +77,10 @@ namespace ChessGame.ResourceManager
             }
             return this.tileStrategy.GetTile(tileAdapt);
         }
+
+        public void UpdatePieceResource(CommonPiece commonPiece)
+        {
+            pieceStrategy.UpdatePieceResource(commonPiece);
+        }
     }
 }

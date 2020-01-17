@@ -36,6 +36,8 @@
             this.btnSubmit = new System.Windows.Forms.Button();
             this.cboListTime = new System.Windows.Forms.ComboBox();
             this.lblChooseTime = new System.Windows.Forms.Label();
+            this.cboSkin = new System.Windows.Forms.ComboBox();
+            this.label4 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
@@ -102,7 +104,7 @@
             // 
             this.btnSubmit.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.btnSubmit.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSubmit.Location = new System.Drawing.Point(154, 343);
+            this.btnSubmit.Location = new System.Drawing.Point(154, 429);
             this.btnSubmit.Name = "btnSubmit";
             this.btnSubmit.Size = new System.Drawing.Size(87, 33);
             this.btnSubmit.TabIndex = 5;
@@ -123,6 +125,7 @@
             this.cboListTime.Name = "cboListTime";
             this.cboListTime.Size = new System.Drawing.Size(202, 28);
             this.cboListTime.TabIndex = 7;
+            this.cboListTime.SelectedIndexChanged += new System.EventHandler(this.cboListTime_SelectedIndexChanged);
             // 
             // lblChooseTime
             // 
@@ -130,15 +133,42 @@
             this.lblChooseTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblChooseTime.Location = new System.Drawing.Point(93, 248);
             this.lblChooseTime.Name = "lblChooseTime";
-            this.lblChooseTime.Size = new System.Drawing.Size(111, 20);
+            this.lblChooseTime.Size = new System.Drawing.Size(108, 20);
             this.lblChooseTime.TabIndex = 6;
-            this.lblChooseTime.Text = "Choose Color";
+            this.lblChooseTime.Text = "Choose Time";
+            // 
+            // cboSkin
+            // 
+            this.cboSkin.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboSkin.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cboSkin.FormattingEnabled = true;
+            this.cboSkin.Items.AddRange(new object[] {
+            "Default",
+            "Colorful"});
+            this.cboSkin.Location = new System.Drawing.Point(97, 367);
+            this.cboSkin.Name = "cboSkin";
+            this.cboSkin.Size = new System.Drawing.Size(202, 28);
+            this.cboSkin.TabIndex = 9;
+            this.cboSkin.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(94, 335);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(150, 20);
+            this.label4.TabIndex = 8;
+            this.label4.Text = "Choose Skin Piece";
+            this.label4.Click += new System.EventHandler(this.label4_Click);
             // 
             // FormSelectMode
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(404, 398);
+            this.ClientSize = new System.Drawing.Size(404, 484);
+            this.Controls.Add(this.cboSkin);
+            this.Controls.Add(this.label4);
             this.Controls.Add(this.cboListTime);
             this.Controls.Add(this.lblChooseTime);
             this.Controls.Add(this.btnSubmit);
@@ -164,5 +194,7 @@
         private System.Windows.Forms.Button btnSubmit;
         private System.Windows.Forms.ComboBox cboListTime;
         private System.Windows.Forms.Label lblChooseTime;
+        private System.Windows.Forms.ComboBox cboSkin;
+        private System.Windows.Forms.Label label4;
     }
 }

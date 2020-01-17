@@ -21,7 +21,7 @@ namespace ChessGame.ResourceManager
             return commonTile.GetTile(type);
         }
 
-        public void UpdatePieceResource(CommonTile commonTile)
+        public void UpdateTileResource(CommonTile commonTile)
         {
             this.commonTile = commonTile;
         }

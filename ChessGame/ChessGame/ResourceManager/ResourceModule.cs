@@ -12,6 +12,7 @@ namespace ChessGame.ResourceManager
         private ResourceModule() { }
         public static ResourceModule instance = null;
         PieceStrategy pieceStrategy = new PieceStrategy(new BasicPiece());
+        TileStrategy tileStrategy = new TileStrategy(new BasicTile());
         public static ResourceModule GetInstance()
         {
             if (instance == null)
@@ -49,6 +50,32 @@ namespace ChessGame.ResourceManager
                 }
             }
             return this.pieceStrategy.GetPiece(pieceAdapt);
+        }
+
+        public Bitmap GetTileResource(TileState state, TileColor color)
+        {
+            TILE tileAdapt = TILE.NormalBlackTile;
+            if (color == TileColor.Black)
+            {
+                switch (state)
+                {
+                    case TileState.Normal: tileAdapt = TILE.NormalBlackTile; break;
+                    case TileState.Selected: tileAdapt = TILE.SelectBlackTile; break;
+                    case TileState.LastMove: tileAdapt = TILE.LastMoveBlackTile; break;
+                    case TileState.AvalableMove: tileAdapt = TILE.AvalBlackTile; break;
+                }
+            }
+            else
+            {
+                switch (state)
+                {
+                    case TileState.Normal: tileAdapt = TILE.NormalWhiteTile; break;
+                    case TileState.Selected: tileAdapt = TILE.SelectWhiteTile; break;
+                    case TileState.LastMove: tileAdapt = TILE.LastMoveWhiteTile; break;
+                    case TileState.AvalableMove: tileAdapt = TILE.AvalWhiteTile; break;
+                }
+            }
+            return this.tileStrategy.GetTile(tileAdapt);
         }
     }
 }

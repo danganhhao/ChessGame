@@ -101,7 +101,7 @@
     <Compile Include="Network\NetworkManager.cs" />
     <Compile Include="Network\Packet.cs" />
     <Compile Include="UI\BoardUi.cs" />
-    <Compile Include="UI\PieceUi.cs">
+    <Compile Include="UI\Tile.cs">
       <SubType>Component</SubType>
     </Compile>
     <EmbeddedResource Include="Form1.resx">

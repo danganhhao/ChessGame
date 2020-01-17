@@ -12,20 +12,29 @@ namespace ChessGame.UI
     class Tile : Panel
     {
         Piece piece;
+        TileColor color;
         Color colorNormal, colorHighlight, colorAvailableMove;
-        Panel pnlPiece, pnlExtra, pnlBase;
         Point position = new Point(0,0);
         TileState state = TileState.Normal;
+        private Action<object, MouseEventArgs> mouseClickHandler;
+
         internal Piece Piece { get => piece; set => SetPiece(value); }
         public Point Position { get => position;}
         public TileState State { get => state; }
 
-        public Tile(TileColor color, Point pos)
+        public Tile Clone()
         {
-            //Init resource base by color
-            //Set Base Normal
+            Tile tile = new Tile(this.color);
+            tile.colorNormal = this.colorNormal;
+            tile.colorHighlight = this.colorHighlight;
+            tile.colorAvailableMove = this.colorAvailableMove;
+            tile.SetMouseClickHandler(this.mouseClickHandler);
+            return tile;
+        }
 
-            this.position = pos;
+        public Tile(TileColor color)
+        {
+            this.color = color;
             piece = null;
             if (color == TileColor.Black)
             {
@@ -41,15 +50,15 @@ namespace ChessGame.UI
             }
             this.BackColor = this.colorNormal;
             Size = Const.TileSize;
+        }
 
-            Panel t = new Panel();
-            t.Size = Const.TileSize;
-            Controls.Add(t);
+        public void SetPosition(Point pos)
+        {
+            this.position = pos;
         }
 
         public void SetPiece(Piece piece)
         {
-            //Set Piece to pnlPiece
             this.piece = piece;
             if (piece == null)
             {
@@ -76,6 +85,12 @@ namespace ChessGame.UI
             else if (tileState == TileState.Selected)
                 this.BackColor = this.colorHighlight;
             else this.BackColor = this.colorNormal;
+        }
+
+        internal void SetMouseClickHandler(Action<object, MouseEventArgs> onClick)
+        {
+            this.mouseClickHandler = onClick;
+            this.MouseClick += new MouseEventHandler(onClick);
         }
     }
 }

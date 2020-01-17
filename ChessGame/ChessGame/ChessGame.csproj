@@ -69,11 +69,9 @@
     <Compile Include="FormSelectMode.Designer.cs">
       <DependentUpon>FormSelectMode.cs</DependentUpon>
     </Compile>
-    <Compile Include="GameEngine\Chess.cs" />
     <Compile Include="GameEngine\AI.cs" />
     <Compile Include="GameEngine\Helper.cs" />
     <Compile Include="GameEngine\LegalMoveSet.cs" />
-    <Compile Include="GameEngine\UIBoard.cs" />
     <Compile Include="Network\CombineConnection.cs" />
     <Compile Include="Network\ConnectionProtocol.cs" />
     <Compile Include="Network\ConnectionState.cs" />

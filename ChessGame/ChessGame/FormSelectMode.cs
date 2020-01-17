@@ -60,6 +60,8 @@ namespace ChessGame
             {
                 case 0: ResourceModule.GetInstance().UpdatePieceResource(new BasicPiece()); break;
                 case 1: ResourceModule.GetInstance().UpdatePieceResource(new ColorfulPiece()); break;
+                default :
+                    ResourceModule.GetInstance().UpdatePieceResource(new BasicPiece()); break;
             }
         }
 
@@ -72,12 +74,15 @@ namespace ChessGame
         private int GetSkin()
         {
             int index = cboSkin.SelectedIndex;
-            return this.skins[index];
+            if (index < 0)
+                return this.skins[0];
+            else
+                return this.skins[index];
         }
 
         private bool NotChooseSomething()
         {
-            return cboListMode.SelectedIndex < 0 || cboListMode.SelectedIndex < 0 || cboListColor.SelectedIndex < 0 || cboSkin.SelectedIndex < 0;
+            return cboListMode.SelectedIndex < 0 || cboListMode.SelectedIndex < 0 || cboListColor.SelectedIndex < 0;
         }
 
         private PieceSide GetSide()

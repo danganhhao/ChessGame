@@ -1,6 +1,7 @@
 ﻿using ChessGame.Data;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,18 +10,30 @@ namespace ChessGame.GameEngine
 {
     public class AI
     {
-        private static bool firstCall = true;
-        public static int DEPTH = 4;
-        public static bool RUNNING = false;
-        public static bool STOP = false;
-        private static PieceSide MAX = PieceSide.Black;
+        private bool firstCall = true;
+        public int DEPTH = 3;
+        public bool RUNNING = false;
+        public bool STOP = false;
+        private PieceSide MAX = PieceSide.Black;
+        public BoardHelper boardHelper = BoardHelper.GetInstance();
 
-        public static Move DoMove(BoardData board, PieceSide turn)
+        private AI() { }
+        private static AI instance = null;
+
+        public static AI GetInstance()
         {
-            BoardHelper.GetInstance().Config(firstCall);
-            return MiniMaxAB(BoardHelper.GetInstance(), turn);
+            if (instance == null)
+                instance = new AI();
+            return instance;
         }
-        private static Move MiniMaxAB(BoardHelper board, PieceSide turn)
+
+        public Move DoMove(BoardData board, PieceSide turn)
+        {
+            boardHelper.Config(firstCall, board, turn);
+            Move move = MiniMaxAB(boardHelper, turn);
+            return move;
+        }
+        private Move MiniMaxAB(BoardHelper board, PieceSide turn)
         {
             RUNNING = true; // we've started running
             STOP = false; // no interupt command sent
@@ -87,7 +100,7 @@ namespace ChessGame.GameEngine
             return m;
         }
          
-        private static int mimaab(BoardHelper board, PieceSide turn, int depth, int alpha, int beta)
+        private int mimaab(BoardHelper board, PieceSide turn, int depth, int alpha, int beta)
         {
             // base case, at maximum depth return board fitness
             if (depth >= DEPTH)
@@ -134,9 +147,20 @@ namespace ChessGame.GameEngine
                 }
             }
         }
-        public static void UpdateFirstCall(bool value)
+        public void UpdateFirstCall(bool value)
         {
             firstCall = value;
+        }
+
+        public void UpdateBoard(Point src, Point des)
+        {
+            if (!firstCall)
+                boardHelper.Update(src, des);
+        }
+
+        public BoardHelper getBoard()
+        {
+            return boardHelper;
         }
     }
 }

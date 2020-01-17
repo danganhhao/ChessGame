@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ChessGame.GameEngine;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -34,7 +35,7 @@ namespace ChessGame.Data
 
         private GameManager()
         {
-            this.SetMode(GameMode.TwoPlayers);
+            this.SetMode(GameMode.WithComputer);
             this.InitFieldValue();
             this.InitTimer();
         }
@@ -56,7 +57,7 @@ namespace ChessGame.Data
 
         private void SetMode(GameMode value)
         {
-            gameModeStrategy = new Mode2Players(this);
+            gameModeStrategy = new ModeWithComp(this);
         }
 
         internal BoardData GetBoardData()
@@ -96,6 +97,7 @@ namespace ChessGame.Data
         internal void DoMove(Point src, Point des)
         {
             boardData.MovePiece(src, des);
+            AI.GetInstance().UpdateBoard(src, des);
             ui.DoMove(src, des);
         }
 

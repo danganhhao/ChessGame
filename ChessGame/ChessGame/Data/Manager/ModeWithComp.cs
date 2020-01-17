@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ChessGame.GameEngine;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -27,15 +28,16 @@ namespace ChessGame.Data
             {
                 this.gameManager.SetBlockBoard(true);
                 Move move = GetAIMove();
-                //this.gameManager.ProcessMoveRequest(move);
+                this.gameManager.ProcessMoveRequest(new Point(move.from.letter, move.from.number), 
+                    new Point(move.to.letter, move.to.number));
             }
             else this.gameManager.SetBlockBoard(false);
         }
 
         private Move GetAIMove()
         {
-            return new Move();
-            //TODO: set AI return a Move
+            GameManager gameManager = GameManager.GetInstance();
+            return AI.GetInstance().DoMove(gameManager.GetBoardData(), gameManager.Turn);
         }
     }
 }

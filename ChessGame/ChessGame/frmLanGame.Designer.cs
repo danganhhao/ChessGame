@@ -37,8 +37,6 @@
             this.lstChatBox = new System.Windows.Forms.ListBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.pnlHost = new System.Windows.Forms.Panel();
-            this.pnlGuest = new System.Windows.Forms.Panel();
             this.btnLose = new System.Windows.Forms.Button();
             this.btnDraw = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
@@ -49,7 +47,7 @@
             // 
             this.btnExit.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnExit.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnExit.Location = new System.Drawing.Point(850, 497);
+            this.btnExit.Location = new System.Drawing.Point(687, 491);
             this.btnExit.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnExit.Name = "btnExit";
             this.btnExit.Size = new System.Drawing.Size(80, 35);
@@ -63,7 +61,7 @@
             this.btnPlay.Enabled = false;
             this.btnPlay.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnPlay.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.btnPlay.Location = new System.Drawing.Point(832, 20);
+            this.btnPlay.Location = new System.Drawing.Point(669, 14);
             this.btnPlay.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnPlay.Name = "btnPlay";
             this.btnPlay.Size = new System.Drawing.Size(89, 35);
@@ -77,7 +75,7 @@
             this.btnReady.Enabled = false;
             this.btnReady.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnReady.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
-            this.btnReady.Location = new System.Drawing.Point(684, 20);
+            this.btnReady.Location = new System.Drawing.Point(521, 14);
             this.btnReady.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnReady.Name = "btnReady";
             this.btnReady.Size = new System.Drawing.Size(92, 35);
@@ -95,7 +93,7 @@
             // 
             // btnChat
             // 
-            this.btnChat.Location = new System.Drawing.Point(883, 453);
+            this.btnChat.Location = new System.Drawing.Point(720, 447);
             this.btnChat.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnChat.Name = "btnChat";
             this.btnChat.Size = new System.Drawing.Size(58, 24);
@@ -106,17 +104,18 @@
             // 
             // txtchat
             // 
-            this.txtchat.Location = new System.Drawing.Point(661, 453);
+            this.txtchat.Location = new System.Drawing.Point(498, 447);
             this.txtchat.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txtchat.Name = "txtchat";
             this.txtchat.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.txtchat.Size = new System.Drawing.Size(209, 22);
             this.txtchat.TabIndex = 40;
+            this.txtchat.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtChat_KeyDown);
             // 
             // lstChatBox
             // 
             this.lstChatBox.FormattingEnabled = true;
-            this.lstChatBox.Location = new System.Drawing.Point(661, 73);
+            this.lstChatBox.Location = new System.Drawing.Point(498, 67);
             this.lstChatBox.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.lstChatBox.Name = "lstChatBox";
             this.lstChatBox.Size = new System.Drawing.Size(280, 368);
@@ -126,7 +125,7 @@
             // 
             this.panel1.Controls.Add(this.pictureBox1);
             this.panel1.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.panel1.Location = new System.Drawing.Point(175, 15);
+            this.panel1.Location = new System.Drawing.Point(12, 9);
             this.panel1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(460, 460);
@@ -142,27 +141,11 @@
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
             // 
-            // pnlHost
-            // 
-            this.pnlHost.BackColor = System.Drawing.Color.White;
-            this.pnlHost.Location = new System.Drawing.Point(13, 15);
-            this.pnlHost.Name = "pnlHost";
-            this.pnlHost.Size = new System.Drawing.Size(142, 209);
-            this.pnlHost.TabIndex = 49;
-            // 
-            // pnlGuest
-            // 
-            this.pnlGuest.BackColor = System.Drawing.Color.White;
-            this.pnlGuest.Location = new System.Drawing.Point(13, 268);
-            this.pnlGuest.Name = "pnlGuest";
-            this.pnlGuest.Size = new System.Drawing.Size(142, 209);
-            this.pnlGuest.TabIndex = 50;
-            // 
             // btnLose
             // 
             this.btnLose.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnLose.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnLose.Location = new System.Drawing.Point(755, 497);
+            this.btnLose.Location = new System.Drawing.Point(592, 491);
             this.btnLose.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnLose.Name = "btnLose";
             this.btnLose.Size = new System.Drawing.Size(80, 35);
@@ -175,7 +158,7 @@
             // 
             this.btnDraw.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnDraw.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnDraw.Location = new System.Drawing.Point(661, 497);
+            this.btnDraw.Location = new System.Drawing.Point(498, 491);
             this.btnDraw.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnDraw.Name = "btnDraw";
             this.btnDraw.Size = new System.Drawing.Size(80, 35);
@@ -188,11 +171,9 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(952, 536);
+            this.ClientSize = new System.Drawing.Size(797, 536);
             this.Controls.Add(this.btnDraw);
             this.Controls.Add(this.btnLose);
-            this.Controls.Add(this.pnlGuest);
-            this.Controls.Add(this.pnlHost);
             this.Controls.Add(this.btnExit);
             this.Controls.Add(this.btnPlay);
             this.Controls.Add(this.btnReady);
@@ -222,8 +203,6 @@
         private System.Windows.Forms.ListBox lstChatBox;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Panel pnlHost;
-        private System.Windows.Forms.Panel pnlGuest;
         private System.Windows.Forms.Button btnLose;
         private System.Windows.Forms.Button btnDraw;
     }

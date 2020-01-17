@@ -30,9 +30,9 @@ namespace ChessGame
 
         private void frmFindGame_Load(object sender, EventArgs e)
         {
-            networkManager.UDP.Disconnect();
             CheckForIllegalCrossThreadCalls = false;
 
+            txtHostVal.Text = networkManager.senderInfo.IPAddress+ ":" + networkManager.senderInfo.port;
             tListenForRequest = new Thread(new ThreadStart(ListenForRequest));
             tListenForRequest.IsBackground = true;
             tListenForRequest.Start();
@@ -42,12 +42,12 @@ namespace ChessGame
         {
             while (ActiveListener)
             {
-                string message = networkManager.UDP.ReceivePacket(broadCast);
+                string message = networkManager.ReceivePacket();
                 if (message != "")
                 {
                    
                     Dictionary<string, string> receivedString =
-                    networkManager.UDP.AnalysisReceiveString(message);
+                    networkManager.AnalysisReceiveString(message);
 
                     if (receivedString["ReceiverIP"] != networkManager.senderInfo.IPAddress ||
                         int.Parse(receivedString["ReceiverPort"]) != networkManager.senderInfo.port)
@@ -61,58 +61,30 @@ namespace ChessGame
                                     this.AlHost.Add(receivedString["ReceiverName"] + ":" + receivedString["ReceiverIP"] + ":" + receivedString["ReceiverPort"]);
                                 }
                                 break;
-                            case "CHAT":
-                                this.lstChat.Items.Insert(0, receivedString["ReceiverName"] + ": " + receivedString["Message"]);
-                                this.lstChat.SelectedIndex = 0;
-                                break;
                         }
                     }
                 }
             }
-        }
-
-        private void timerSendBroadcast_Tick(object sender, EventArgs e)
-        {
-            this.AlHost = new ArrayList();
-
-            Packet packet = new Packet("FINDHOST","");
-            networkManager.UDP.SendPacket(broadCast,packet);
-        }
-
-        private void btnSend_Click(object sender, EventArgs e)
-        {
-            if (txtChat.Text != "")
-            {
-                Packet packet = new Packet("CHAT", txtChat.Text);
-                networkManager.UDP.SendPacket(broadCast, packet);
-                this.lstChat.Items.Add(networkManager.senderInfo.IPAddress+":"+ networkManager.senderInfo.port + ": " + txtChat.Text);
-                this.lstChat.TopIndex = lstChat.Items.Count - 1;
-                txtChat.Clear();
-            }
-        }
+        } 
 
         private void btnHostGame_Click(object sender, EventArgs e)
         {
             this.ActiveListener = false;
             this.tListenForRequest.Abort();
-            timerSendBroadcast.Stop();
-            timerUpdateHost.Stop();
 
-            networkManager.UDP.Disconnect();
-            this.Hide();
             this.AlHost = new ArrayList();
-            lstHost.Items.Clear();
 
 
             ///Join Game
-            networkManager.role = NetworkManager.Role.Server;
-            frmLanGame frmLanGame = new frmLanGame();
-            frmLanGame.ShowDialog();
-            ///Escape Game
+            networkManager.ChangeRole(NetworkManager.Role.Server);
+            MessageBox.Show("Đang tìm kiếm đối thủ...", "Waitting");
+            networkManager.Connect(broadCast);
+            this.Hide();
+            frmLanGame LanGame = new frmLanGame();
+            LanGame.ShowDialog();
 
+            ///Escape Game
             this.Show();
-            timerSendBroadcast.Start();
-            timerUpdateHost.Start();
             this.ActiveListener = true;
             tListenForRequest = new Thread(new ThreadStart(ListenForRequest));
             tListenForRequest.IsBackground = true;
@@ -121,88 +93,32 @@ namespace ChessGame
 
         private void btnJoinGame_Click(object sender, EventArgs e)
         {
-            if (lstHost.SelectedItems.Count > 0)
+            networkManager.ChangeRole(NetworkManager.Role.Client);
+
+            if (txtIP.Text == "" || txtPort.Text == "")
             {
-                tListenForRequest.Abort();
-                this.ActiveListener = false;
-                timerSendBroadcast.Stop();
-                timerUpdateHost.Stop();
-                networkManager.UDP.Disconnect();
-
-                ListViewItem li = lstHost.SelectedItems[0];
-                string strHost = li.Text;
-                string[] arrHostEntry = strHost.Split(':');
-                networkManager.receiverInfo = new NetworkInfo(arrHostEntry[0], arrHostEntry[1], int.Parse(arrHostEntry[2]));
-
-                Packet packet = new Packet("JOIN", "");
-                networkManager.UDP.SendPacket(networkManager.receiverInfo, packet);
-                this.Hide();
-                this.AlHost = new ArrayList();
-                lstHost.Items.Clear();
-
-
-                ///Join Game
-                networkManager.role = NetworkManager.Role.Client;
-                Form1 frmlangame = new Form1();
-                frmlangame.ShowDialog();
-
-
-                ///Escape Game
-                this.Show();
-                this.ActiveListener = true;
-                timerSendBroadcast.Start();
-                timerUpdateHost.Start();
-                tListenForRequest = new Thread(new ThreadStart(ListenForRequest));
-                tListenForRequest.IsBackground = true;
-                tListenForRequest.Start();
+                MessageBox.Show("Vui nhập IP/Port ...", "Join Game");
             }
             else
             {
-                MessageBox.Show("Vui lòng chọn máy ...", "Join Game");
+                NetworkInfo server = new NetworkInfo(txtIP.Text, int.Parse(txtPort.Text));
+                networkManager.Connect(server);
+                networkManager.receiverInfo = server;
+                networkManager.SendPacket(new Packet("JOIN",""));
+                frmLanGame frmLanGame = new frmLanGame();
+                frmLanGame.ShowDialog();
             }
         }
 
         private void btnExit_Click(object sender, EventArgs e)
         {
             this.tListenForRequest.Abort();
-            networkManager.UDP.Disconnect();
             this.Close();
-        }
-
-        private void timerUpdateHost_Tick(object sender, EventArgs e)
-        {
-            //Remove Host
-            for (int i = 0; i < lstHost.Items.Count; i++)
-            {
-                if (this.AlHost.IndexOf(lstHost.Items[i].Text) == -1)
-                {
-                    lstHost.Items[i].Remove();
-                }
-            }
-            ///Add New Host
-            for (int i = 0; i < this.AlHost.Count; i++)
-            {
-                ListViewItem li = this.lstHost.Items[this.AlHost[i].ToString()];
-                if (li == null)
-                {
-                    li = new ListViewItem(this.AlHost[i].ToString(), 0);
-                    li.Name = this.AlHost[i].ToString();
-                    this.lstHost.Items.Add(li);
-                }
-            }
         }
 
         private void frmFindGame_FormClosing(object sender, FormClosingEventArgs e)
         {
-            networkManager.UDP.Disconnect(); ;
         }
 
-        private void txtChat_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Enter)
-            {
-                btnSend_Click(sender, e);
-            }
-        }
     }
 }

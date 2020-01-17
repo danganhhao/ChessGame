@@ -28,68 +28,21 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            this.lstHost = new System.Windows.Forms.ListView();
-            this.btnSend = new System.Windows.Forms.Button();
-            this.lstChat = new System.Windows.Forms.ListBox();
-            this.txtChat = new System.Windows.Forms.TextBox();
             this.btnJoinGame = new System.Windows.Forms.Button();
             this.btnHostGame = new System.Windows.Forms.Button();
-            this.lblRoomList = new System.Windows.Forms.Label();
-            this.lblMsg = new System.Windows.Forms.Label();
-            this.timerSendBroadcast = new System.Windows.Forms.Timer(this.components);
-            this.timerUpdateHost = new System.Windows.Forms.Timer(this.components);
+            this.lblIP = new System.Windows.Forms.Label();
+            this.txtIP = new System.Windows.Forms.TextBox();
+            this.lblPort = new System.Windows.Forms.Label();
+            this.txtPort = new System.Windows.Forms.TextBox();
+            this.lblHostIP = new System.Windows.Forms.Label();
+            this.txtHostVal = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
-            // 
-            // lstHost
-            // 
-            this.lstHost.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lstHost.FullRowSelect = true;
-            this.lstHost.GridLines = true;
-            this.lstHost.HideSelection = false;
-            this.lstHost.Location = new System.Drawing.Point(25, 47);
-            this.lstHost.MultiSelect = false;
-            this.lstHost.Name = "lstHost";
-            this.lstHost.Size = new System.Drawing.Size(206, 360);
-            this.lstHost.TabIndex = 21;
-            this.lstHost.UseCompatibleStateImageBehavior = false;
-            this.lstHost.View = System.Windows.Forms.View.Tile;
-            // 
-            // btnSend
-            // 
-            this.btnSend.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSend.Location = new System.Drawing.Point(605, 235);
-            this.btnSend.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.btnSend.Name = "btnSend";
-            this.btnSend.Size = new System.Drawing.Size(64, 22);
-            this.btnSend.TabIndex = 20;
-            this.btnSend.Text = "G&ửi";
-            this.btnSend.UseVisualStyleBackColor = true;
-            this.btnSend.Click += new System.EventHandler(this.btnSend_Click);
-            // 
-            // lstChat
-            // 
-            this.lstChat.FormattingEnabled = true;
-            this.lstChat.Location = new System.Drawing.Point(253, 272);
-            this.lstChat.Name = "lstChat";
-            this.lstChat.ScrollAlwaysVisible = true;
-            this.lstChat.Size = new System.Drawing.Size(416, 134);
-            this.lstChat.TabIndex = 19;
-            // 
-            // txtChat
-            // 
-            this.txtChat.Location = new System.Drawing.Point(253, 235);
-            this.txtChat.Name = "txtChat";
-            this.txtChat.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtChat.Size = new System.Drawing.Size(346, 22);
-            this.txtChat.TabIndex = 18;
-            this.txtChat.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtChat_KeyDown);
             // 
             // btnJoinGame
             // 
             this.btnJoinGame.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnJoinGame.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnJoinGame.Location = new System.Drawing.Point(385, 107);
+            this.btnJoinGame.Location = new System.Drawing.Point(252, 164);
             this.btnJoinGame.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnJoinGame.Name = "btnJoinGame";
             this.btnJoinGame.Size = new System.Drawing.Size(116, 51);
@@ -103,7 +56,7 @@
             // 
             this.btnHostGame.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnHostGame.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnHostGame.Location = new System.Drawing.Point(263, 107);
+            this.btnHostGame.Location = new System.Drawing.Point(252, 50);
             this.btnHostGame.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnHostGame.Name = "btnHostGame";
             this.btnHostGame.Size = new System.Drawing.Size(116, 51);
@@ -113,45 +66,71 @@
             this.btnHostGame.UseVisualStyleBackColor = true;
             this.btnHostGame.Click += new System.EventHandler(this.btnHostGame_Click);
             // 
-            // lblRoomList
+            // lblIP
             // 
-            this.lblRoomList.AutoSize = true;
-            this.lblRoomList.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblRoomList.Location = new System.Drawing.Point(22, 27);
-            this.lblRoomList.Name = "lblRoomList";
-            this.lblRoomList.Size = new System.Drawing.Size(116, 17);
-            this.lblRoomList.TabIndex = 22;
-            this.lblRoomList.Text = "Danh sách phòng";
+            this.lblIP.AutoSize = true;
+            this.lblIP.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblIP.Location = new System.Drawing.Point(12, 119);
+            this.lblIP.Name = "lblIP";
+            this.lblIP.Size = new System.Drawing.Size(64, 17);
+            this.lblIP.TabIndex = 23;
+            this.lblIP.Text = "IP phòng";
             // 
-            // lblMsg
+            // txtIP
             // 
-            this.lblMsg.AutoSize = true;
-            this.lblMsg.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblMsg.Location = new System.Drawing.Point(250, 215);
-            this.lblMsg.Name = "lblMsg";
-            this.lblMsg.Size = new System.Drawing.Size(120, 17);
-            this.lblMsg.TabIndex = 23;
-            this.lblMsg.Text = "Gửi tin nhắn LAN:";
+            this.txtIP.Location = new System.Drawing.Point(92, 119);
+            this.txtIP.Name = "txtIP";
+            this.txtIP.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txtIP.Size = new System.Drawing.Size(297, 22);
+            this.txtIP.TabIndex = 18;
             // 
-            // timerSendBroadcast
+            // lblPort
             // 
-            this.timerSendBroadcast.Tick += new System.EventHandler(this.timerSendBroadcast_Tick);
+            this.lblPort.AutoSize = true;
+            this.lblPort.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPort.Location = new System.Drawing.Point(408, 119);
+            this.lblPort.Name = "lblPort";
+            this.lblPort.Size = new System.Drawing.Size(34, 17);
+            this.lblPort.TabIndex = 24;
+            this.lblPort.Text = "Port";
             // 
-            // timerUpdateHost
+            // txtPort
             // 
-            this.timerUpdateHost.Tick += new System.EventHandler(this.timerUpdateHost_Tick);
+            this.txtPort.Location = new System.Drawing.Point(448, 119);
+            this.txtPort.Name = "txtPort";
+            this.txtPort.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txtPort.Size = new System.Drawing.Size(142, 22);
+            this.txtPort.TabIndex = 25;
+            // 
+            // lblHostIP
+            // 
+            this.lblHostIP.AutoSize = true;
+            this.lblHostIP.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblHostIP.Location = new System.Drawing.Point(12, 19);
+            this.lblHostIP.Name = "lblHostIP";
+            this.lblHostIP.Size = new System.Drawing.Size(53, 17);
+            this.lblHostIP.TabIndex = 26;
+            this.lblHostIP.Text = "IP Host";
+            // 
+            // txtHostVal
+            // 
+            this.txtHostVal.Location = new System.Drawing.Point(92, 14);
+            this.txtHostVal.Name = "txtHostVal";
+            this.txtHostVal.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.txtHostVal.Size = new System.Drawing.Size(297, 22);
+            this.txtHostVal.TabIndex = 28;
             // 
             // frmFindGame
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(684, 419);
-            this.Controls.Add(this.lblMsg);
-            this.Controls.Add(this.lblRoomList);
-            this.Controls.Add(this.lstHost);
-            this.Controls.Add(this.btnSend);
-            this.Controls.Add(this.lstChat);
-            this.Controls.Add(this.txtChat);
+            this.ClientSize = new System.Drawing.Size(605, 241);
+            this.Controls.Add(this.txtHostVal);
+            this.Controls.Add(this.lblHostIP);
+            this.Controls.Add(this.txtPort);
+            this.Controls.Add(this.lblPort);
+            this.Controls.Add(this.lblIP);
+            this.Controls.Add(this.txtIP);
             this.Controls.Add(this.btnJoinGame);
             this.Controls.Add(this.btnHostGame);
             this.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -164,16 +143,13 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.ListView lstHost;
-        private System.Windows.Forms.Button btnSend;
-        private System.Windows.Forms.ListBox lstChat;
-        private System.Windows.Forms.TextBox txtChat;
         private System.Windows.Forms.Button btnJoinGame;
         private System.Windows.Forms.Button btnHostGame;
-        private System.Windows.Forms.Label lblRoomList;
-        private System.Windows.Forms.Label lblMsg;
-        private System.Windows.Forms.Timer timerSendBroadcast;
-        private System.Windows.Forms.Timer timerUpdateHost;
+        private System.Windows.Forms.Label lblIP;
+        private System.Windows.Forms.TextBox txtIP;
+        private System.Windows.Forms.Label lblPort;
+        private System.Windows.Forms.TextBox txtPort;
+        private System.Windows.Forms.Label lblHostIP;
+        private System.Windows.Forms.TextBox txtHostVal;
     }
 }

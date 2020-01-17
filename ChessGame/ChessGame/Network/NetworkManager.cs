@@ -9,17 +9,13 @@ namespace ChessGame.Network
     partial class NetworkManager
     {
         public ConnectionState connectionState = ConnectionState.StandingBy;
-        public PacketTranferState ptState = PacketTranferState.None;
+        private RoleStategy roleStategy;
         public NetworkInfo senderInfo;
         public NetworkInfo receiverInfo;
         public Role role;
-        public UDPConnection UDP;
-        public TCPConnection TCP;
 
         private NetworkManager() {
             senderInfo = new NetworkInfo();
-            UDP = new UDPConnection(senderInfo);
-            TCP = new TCPConnection(senderInfo);
         }
         public static NetworkManager instance = null;
         public static NetworkManager GetInstance()
@@ -31,53 +27,53 @@ namespace ChessGame.Network
             return instance;
         }
 
+        public void ChangeRole(Role newRole)
+        {
+            role = newRole;
+            if (role == Role.Client)
+            {
+                roleStategy = new ClientStategy(senderInfo);
+            }
+            else
+            {
+                roleStategy = new ServerStategy(senderInfo);
+            }
+        }
+
         public ConnectionState GetConnectionState()
         {
             return connectionState;
         }
 
-        void ConnectTo(NetworkInfo receiverInfo)
+        public void Connect(NetworkInfo receiverInfo)
         {
-            ListenForConnection();
-            if (connectionState == ConnectionState.Listening)
-            {
-                if (receiverInfo != null)
-                {
-                    connectionState = ConnectionState.Connecting;
-                    this.receiverInfo = new NetworkInfo(receiverInfo);
-                }
-            }
+            roleStategy.Connect(receiverInfo);
+            connectionState = ConnectionState.Connected;
         }
 
-        void ListenForConnection()
+        public void Disconnect()
         {
-            connectionState = ConnectionState.Listening;
-        }
-
-        void Disconnect()
-        {
-            receiverInfo = null;
+            roleStategy.Disconnect();
             connectionState = ConnectionState.Disconnected;
         }
 
-       
-        public Packet SendPacket(Packet packet)
+
+        public void SendPacket(Packet packet)
         {
             if (connectionState == ConnectionState.Connected)
             {
-                ptState = PacketTranferState.Sending;
+                roleStategy.SendPacket(packet);
             }
-            return null;
         }
 
 
-        public Packet ReceivePacket()
+        public string ReceivePacket()
         {
             if (connectionState == ConnectionState.Connected)
             {
-                ptState = PacketTranferState.Receiving;
+                return roleStategy.ReceivePacket();
             }
-            return null;
+            return "";
         }
 
         public void CheckConnection()
@@ -95,12 +91,29 @@ namespace ChessGame.Network
         void ResetState()
         {
             connectionState = ConnectionState.StandingBy;
-            ptState = PacketTranferState.None;
         }
 
         public string GetMessageFromPackage(Packet packet)
         {
             return packet.GetMessage();
+        }
+
+        public Dictionary<string, string> AnalysisReceiveString(string message)
+        {
+            Dictionary<string, string> receivedString = new Dictionary<string, string>();
+            int iType = message.IndexOf('#');
+            int iReceiverIP = message.IndexOf('#', iType + 1);
+            int iReceiverPort = message.IndexOf('#', iReceiverIP + 1);
+            int iReceiverName = message.IndexOf('#', iReceiverPort + 1);
+            int iMessage = message.IndexOf('#', iReceiverName + 1);
+
+            receivedString.Add("Type", message.Substring(0, iType));
+            receivedString.Add("ReceiverIP", message.Substring(iType + 1, iReceiverIP - iType - 1));
+            receivedString.Add("ReceiverPort", message.Substring(iReceiverIP + 1, iReceiverPort - iReceiverIP - 1));
+            receivedString.Add("ReceiverName", message.Substring(iReceiverPort + 1, iReceiverName - iReceiverPort - 1));
+            receivedString.Add("Message", message.Substring(iReceiverName + 1, message.Length - iReceiverName - 1));
+
+            return receivedString;
         }
 
     }

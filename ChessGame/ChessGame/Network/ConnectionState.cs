@@ -2,6 +2,22 @@
 {
     partial class NetworkManager
     {
+        public RoleStategy RoleStategy
+        {
+            get => default(RoleStategy);
+            set
+            {
+            }
+        }
+
+        public NetworkInfo NetworkInfo
+        {
+            get => default(NetworkInfo);
+            set
+            {
+            }
+        }
+
         public enum ConnectionState
         {
             StandingBy,
@@ -10,15 +26,6 @@
             Connected,
             Disconnected,
 
-        }
-
-        public enum PacketTranferState
-        {
-            None,
-            Sending,
-            Sended,
-            Receiving,
-            Received,
         }
 
         public enum Role

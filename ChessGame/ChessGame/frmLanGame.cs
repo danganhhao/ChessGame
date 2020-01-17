@@ -26,7 +26,6 @@ namespace ChessGame
         public frmLanGame()
         {
             InitializeComponent();
-
         }
 
 
@@ -36,7 +35,7 @@ namespace ChessGame
             btnLose.Enabled = false;
 
             CheckForIllegalCrossThreadCalls = false;
-            networkManager.UDP.Disconnect();
+            networkManager.Disconnect();
 
             if (networkManager.role == NetworkManager.Role.Server)
             {
@@ -47,6 +46,7 @@ namespace ChessGame
                 MessageBox.Show("Đang tiến hành kết nối máy chủ...", "Waitting");
                 btnReady.Enabled = true;
             }
+
             this.ActiveListener = true;
             tRec = new Thread(new ThreadStart(ListenForRequest));
             tRec.IsBackground = true;
@@ -61,18 +61,13 @@ namespace ChessGame
                 {
                     Packet packet;
                     Dictionary<string, string> receivedString;
-                    string message = networkManager.UDP.ReceivePacket();
-                    if (message == "")
-                    {
-                        networkManager.TCP.AnalysisReceiveString(message);
-                        message = networkManager.TCP.ReceivePacket();
-                        receivedString =
-                        networkManager.TCP.AnalysisReceiveString(message);
-                    }
-                    else
-                    {
-                        receivedString = networkManager.UDP.AnalysisReceiveString(message);
-                    }
+                    string message = networkManager.ReceivePacket();
+                    networkManager.AnalysisReceiveString(message);
+                    message = networkManager.ReceivePacket();
+                    receivedString =
+                    networkManager.AnalysisReceiveString(message);
+
+
 
                     if (receivedString["ReceiverIP"] != networkManager.senderInfo.IPAddress ||
                         int.Parse(receivedString["ReceiverPort"]) != networkManager.senderInfo.port)
@@ -82,10 +77,10 @@ namespace ChessGame
                             case "FINDHOST":
                                 packet = new Packet("HOST", "");
                                 networkManager.receiverInfo = new NetworkInfo(receivedString["ReceiverName"], receivedString["ReceiverIP"], int.Parse(receivedString["ReceiverPort"]));
-                                networkManager.UDP.SendPacket(networkManager.receiverInfo, packet);
+                                networkManager.SendPacket(packet);
                                 break;
                             case "JOIN":
-  
+
                                 networkManager.receiverInfo = new NetworkInfo(receivedString["ReceiverName"], receivedString["ReceiverIP"], int.Parse(receivedString["ReceiverPort"]));
                                 btnReady.Enabled = true;
 
@@ -104,36 +99,13 @@ namespace ChessGame
                                 this.isGuestReady = true;
                                 if ((this.isReady) && (networkManager.role == NetworkManager.Role.Server))
                                 {
-                                    networkManager.TCP.Initial(networkManager.receiverInfo);
                                     StartGame();
                                 }
                                 break;
-
-                            case "SERVERREADY":
-                                ActiveListener = true;
-
-                                networkManager.receiverInfo = new NetworkInfo(receivedString["ReceiverName"], receivedString["ReceiverIP"], int.Parse(receivedString["ReceiverPort"]));
-                                networkManager.TCP.Initial(networkManager.receiverInfo);
-                                Thread.Sleep(5000);
-                                tRec = new Thread(new ThreadStart(ListenForRequest));
-                                tRec.IsBackground = true;
-                                tRec.Start();
-                                break;
-
-                            case "CLIENTREADY":
-                                this.ActiveListener = true;
-                                networkManager.receiverInfo = new NetworkInfo(receivedString["ReceiverName"], receivedString["ReceiverIP"], int.Parse(receivedString["ReceiverPort"]));
-
-                                tRec = new Thread(new ThreadStart(ListenForRequest));
-                                tRec.IsBackground = true;
-                                tRec.Start();
-
-                                Thread.Sleep(2000);
-                                break;
                             case "OUT":
                                 MessageBox.Show("Máy bạn mất kết nối với " + receivedString["ReceiverName"], "Mất kết nối");
-                                networkManager.UDP.Disconnect();
-                                networkManager.TCP.Disconnect();
+                                networkManager.Disconnect();
+                                networkManager.Disconnect();
 
                                 this.ActiveListener = false;
                                 tRec = new Thread(new ThreadStart(ListenForRequest));
@@ -156,14 +128,14 @@ namespace ChessGame
                                 if (drdraw == DialogResult.OK)
                                 {
                                     packet = new Packet("DRAWOK", "");
-                                    networkManager.UDP.SendPacket(networkManager.receiverInfo, packet);
+                                    networkManager.SendPacket(packet);
                                     MessageBox.Show("Bạn đã Hòa với " + networkManager.receiverInfo.hostName + ". Cố gắng thêm nhé.");
                                     panel1.Enabled = false;
                                 }
                                 else
                                 {
                                     packet = new Packet("DRAWCANCEL", "");
-                                    networkManager.UDP.SendPacket(networkManager.receiverInfo, packet);
+                                    networkManager.SendPacket(packet);
                                 }
                                 break;
                             case "DRAWOK":
@@ -203,29 +175,32 @@ namespace ChessGame
         {
 
             Packet packet = new Packet("OUT", "");
-            networkManager.UDP.SendPacket(networkManager.receiverInfo, packet);
+            networkManager.SendPacket(packet);
 
             tRec.Abort();
-            networkManager.UDP.Disconnect();
-            networkManager.TCP.Disconnect();
+            networkManager.Disconnect();
+            networkManager.Disconnect();
 
         }
 
         private void btnChat_Click(object sender, EventArgs e)
         {
-            lstChatBox.Items.Add(networkManager.senderInfo.hostName + ": " + txtchat.Text);
-            lstChatBox.TopIndex = lstChatBox.Items.Count - 1;
-            Packet packet = new Packet("CHAT", txtchat.Text);
-            switch (networkManager.connectionState)
+            if (txtchat.Text != "")
             {
-                case NetworkManager.ConnectionState.Connected:
-                    networkManager.TCP.SendPacket(networkManager.receiverInfo, packet);
-                    break;
-                default:
-                    networkManager.UDP.SendPacket(broadCast, packet);
-                    break;
+                lstChatBox.Items.Add(networkManager.senderInfo.hostName + ": " + txtchat.Text);
+                lstChatBox.TopIndex = lstChatBox.Items.Count - 1;
+                Packet packet = new Packet("CHAT", txtchat.Text);
+                switch (networkManager.connectionState)
+                {
+                    case NetworkManager.ConnectionState.Connected:
+                        networkManager.SendPacket(packet);
+                        break;
+                    default:
+                        networkManager.SendPacket(packet);
+                        break;
+                }
+                txtchat.Clear();
             }
-            txtchat.Clear();
         }
 
         private void btnReady_Click(object sender, EventArgs e)
@@ -235,10 +210,9 @@ namespace ChessGame
                 btnReady.Enabled = false;
                 isReady = true;
                 Packet packet = new Packet("READY", "");
-                networkManager.UDP.SendPacket(networkManager.receiverInfo, packet);
+                networkManager.SendPacket(packet);
                 if ((isGuestReady) && (networkManager.role == NetworkManager.Role.Server))
                 {
-                    networkManager.TCP.Initial(networkManager.receiverInfo);
                     StartGame();
                 }
             }else
@@ -258,13 +232,13 @@ namespace ChessGame
         private void btnDraw_Click(object sender, EventArgs e)
         {
             Packet packet = new Packet("DRAW", "");
-            networkManager.TCP.SendPacket(networkManager.receiverInfo, packet);
+            networkManager.SendPacket(packet);
         }
 
         private void btnLose_Click(object sender, EventArgs e)
         {
             Packet packet = new Packet("LOSE", "");
-            networkManager.TCP.SendPacket(networkManager.receiverInfo, packet);
+            networkManager.SendPacket(packet);
             MessageBox.Show("Bạn đã Thua " + networkManager.receiverInfo.hostName + ". Cố gắng thêm nhé.");
             panel1.Enabled = false;
         }
@@ -275,5 +249,12 @@ namespace ChessGame
                 this.Close();
         }
 
+        private void txtChat_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                btnChat_Click(sender, e);
+            }
+        }
     }
 }

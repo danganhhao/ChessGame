@@ -277,6 +277,12 @@ namespace ChessGame
             this.RefreshBoard();
         }
 
+        private void dToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ResourceModule.GetInstance().UpdatePieceResource(new _3DPiece());
+            this.RefreshBoard();
+        }
+
         private void DeselectSelectedTile()
         {
             if (selectedTile == null)

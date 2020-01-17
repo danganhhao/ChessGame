@@ -97,6 +97,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resource1.resx</DependentUpon>
     </Compile>
+    <Compile Include="ResourceManager\3DPiece.cs" />
     <Compile Include="ResourceManager\BasicTile.cs" />
     <Compile Include="ResourceManager\CommonTile.cs" />
     <Compile Include="ResourceManager\ResourceModule.cs" />
@@ -227,6 +228,41 @@
   <ItemGroup>
     <None Include="PieceChess\ColorfulPiece\GreenQueen.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="PieceChess\3DPiece\Black_B_3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="PieceChess\3DPiece\Black_K_3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="PieceChess\3DPiece\Black_N_3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="PieceChess\3DPiece\Black_P_3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="PieceChess\3DPiece\Black_Q_3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="PieceChess\3DPiece\Black_R_3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="PieceChess\3DPiece\White_B_3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="PieceChess\3DPiece\White_K_3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="PieceChess\3DPiece\White_N_3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="PieceChess\3DPiece\White_P_3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="PieceChess\3DPiece\White_Q_3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="PieceChess\3DPiece\White_R_3.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

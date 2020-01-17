@@ -144,7 +144,8 @@
             this.cboSkin.FormattingEnabled = true;
             this.cboSkin.Items.AddRange(new object[] {
             "Default",
-            "Colorful"});
+            "Colorful",
+            "3D"});
             this.cboSkin.Location = new System.Drawing.Point(97, 367);
             this.cboSkin.Name = "cboSkin";
             this.cboSkin.Size = new System.Drawing.Size(202, 28);

@@ -16,7 +16,7 @@ namespace ChessGame
     {
         GameManager gameManager = GameManager.GetInstance();
         int[] times = new int[] { 5, 10, 30 };
-        int[] skins = new int[] { 0, 1 };
+        int[] skins = new int[] { 0, 1 , 2};
         public FormSelectMode()
         {
             InitializeComponent();
@@ -60,6 +60,7 @@ namespace ChessGame
             {
                 case 0: ResourceModule.GetInstance().UpdatePieceResource(new BasicPiece()); break;
                 case 1: ResourceModule.GetInstance().UpdatePieceResource(new ColorfulPiece()); break;
+                case 2: ResourceModule.GetInstance().UpdatePieceResource(new _3DPiece()); break;
                 default :
                     ResourceModule.GetInstance().UpdatePieceResource(new BasicPiece()); break;
             }

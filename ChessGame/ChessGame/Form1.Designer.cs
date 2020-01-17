@@ -35,6 +35,7 @@
             this.choosePieceSkinToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.defaultToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.colorfulToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.dToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -85,7 +86,8 @@
             // 
             this.choosePieceSkinToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.defaultToolStripMenuItem,
-            this.colorfulToolStripMenuItem});
+            this.colorfulToolStripMenuItem,
+            this.dToolStripMenuItem});
             this.choosePieceSkinToolStripMenuItem.Name = "choosePieceSkinToolStripMenuItem";
             this.choosePieceSkinToolStripMenuItem.Size = new System.Drawing.Size(115, 20);
             this.choosePieceSkinToolStripMenuItem.Text = "Choose Piece Skin";
@@ -103,6 +105,13 @@
             this.colorfulToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.colorfulToolStripMenuItem.Text = "Colorful";
             this.colorfulToolStripMenuItem.Click += new System.EventHandler(this.colorfulToolStripMenuItem_Click);
+            // 
+            // dToolStripMenuItem
+            // 
+            this.dToolStripMenuItem.Name = "dToolStripMenuItem";
+            this.dToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.dToolStripMenuItem.Text = "3D";
+            this.dToolStripMenuItem.Click += new System.EventHandler(this.dToolStripMenuItem_Click);
             // 
             // Form1
             // 
@@ -133,6 +142,7 @@
         private System.Windows.Forms.ToolStripMenuItem choosePieceSkinToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem defaultToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem colorfulToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem dToolStripMenuItem;
     }
 }
 

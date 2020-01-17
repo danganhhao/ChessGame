@@ -24,13 +24,19 @@ namespace ChessGame
         BoardState state;
         PieceSide turn;
         bool isBlocked;
+        Dictionary<TileColor, Tile> tilePrototypes;
 
         public Form1()
         {
             InitializeComponent();
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
             InitFieldValue();
             InitBoardUi();
             LayoutComponent();
+            this.gameManager.OnLoadUiDone();
         }
 
         private void InitFieldValue()
@@ -45,6 +51,8 @@ namespace ChessGame
             lblClocks = new Dictionary<PieceSide, Label>();
             lblClocks.Add(PieceSide.Black, this.lblClockBlack);
             lblClocks.Add(PieceSide.White, this.lblClockWhite);
+
+            this.InitTilePrototype();
         }
 
         private void InitBoardUi()
@@ -57,15 +65,13 @@ namespace ChessGame
                 for (var y = 0; y < 8; y++)
                 {
                     TileColor color = GetTileColorAtCoor(x, y);
-                    Tile tile = new Tile(color, new Point(x, y));
+                    Tile tile = this.tilePrototypes[color].Clone();
+                    tile.SetPosition(new Point(x, y));
 
                     //Set position depend on My piece color
                     if (gameManager.MySide == PieceSide.Black)
                         tile.Location = new Point(Const.TileSize.Width * (7 - x), Const.TileSize.Height * y);
                     else tile.Location = new Point(Const.TileSize.Width * x, Const.TileSize.Height * (7 - y));
-
-                    //Set mouse click handler
-                    tile.MouseClick += new System.Windows.Forms.MouseEventHandler(this.OnClickTile);
 
                     //Set piece data
                     if (arrPiece[x, y] != null)
@@ -75,6 +81,19 @@ namespace ChessGame
                     pnlBoard.Controls.Add(tile);
                     tiles[x, y] = tile;
                 }
+        }
+
+        private void InitTilePrototype()
+        {
+            tilePrototypes = new Dictionary<TileColor, Tile>();
+
+            Tile BlackTile = new Tile(TileColor.Black);
+            BlackTile.SetMouseClickHandler(this.OnClickTile);
+            tilePrototypes.Add(TileColor.Black, BlackTile);
+
+            Tile WhiteTile = new Tile(TileColor.White);
+            WhiteTile.SetMouseClickHandler(this.OnClickTile);
+            tilePrototypes.Add(TileColor.White, WhiteTile);
         }
 
         internal void SetBlockBoard(bool block)
@@ -151,8 +170,8 @@ namespace ChessGame
             }
             else
             {
-                this.lblClockBlack.Location = new Point(xClock, yClockAbove);
-                this.lblClockWhite.Location = new Point(xClock, yClockBelow);
+                this.lblClockWhite.Location = new Point(xClock, yClockAbove);
+                this.lblClockBlack.Location = new Point(xClock, yClockBelow);
             }
 
             this.Width = pnlBoard.Location.X + marginRight + pnlBoard.Width;

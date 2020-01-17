@@ -30,7 +30,7 @@
         {
             this.label1 = new System.Windows.Forms.Label();
             this.cboListMode = new System.Windows.Forms.ComboBox();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.cboListColor = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.btnSubmit = new System.Windows.Forms.Button();
@@ -60,18 +60,18 @@
             this.cboListMode.Size = new System.Drawing.Size(202, 28);
             this.cboListMode.TabIndex = 1;
             // 
-            // comboBox1
+            // cboListColor
             // 
-            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Items.AddRange(new object[] {
+            this.cboListColor.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboListColor.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cboListColor.FormattingEnabled = true;
+            this.cboListColor.Items.AddRange(new object[] {
             "Black",
             "White"});
-            this.comboBox1.Location = new System.Drawing.Point(96, 195);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(202, 28);
-            this.comboBox1.TabIndex = 3;
+            this.cboListColor.Location = new System.Drawing.Point(96, 195);
+            this.cboListColor.Name = "cboListColor";
+            this.cboListColor.Size = new System.Drawing.Size(202, 28);
+            this.cboListColor.TabIndex = 3;
             // 
             // label2
             // 
@@ -115,7 +115,7 @@
             this.ClientSize = new System.Drawing.Size(404, 304);
             this.Controls.Add(this.btnSubmit);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.comboBox1);
+            this.Controls.Add(this.cboListColor);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.cboListMode);
             this.Controls.Add(this.label1);
@@ -130,7 +130,7 @@
 
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox cboListMode;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox cboListColor;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button btnSubmit;

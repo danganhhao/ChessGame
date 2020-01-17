@@ -12,16 +12,29 @@ namespace ChessGame.UI
     class Tile : Panel
     {
         Piece piece;
+        TileColor color;
         Color colorNormal, colorHighlight, colorAvailableMove;
         Point position = new Point(0,0);
         TileState state = TileState.Normal;
+        private Action<object, MouseEventArgs> mouseClickHandler;
+
         internal Piece Piece { get => piece; set => SetPiece(value); }
         public Point Position { get => position;}
         public TileState State { get => state; }
 
-        public Tile(TileColor color, Point pos)
+        public Tile Clone()
         {
-            this.position = pos;
+            Tile tile = new Tile(this.color);
+            tile.colorNormal = this.colorNormal;
+            tile.colorHighlight = this.colorHighlight;
+            tile.colorAvailableMove = this.colorAvailableMove;
+            tile.SetMouseClickHandler(this.mouseClickHandler);
+            return tile;
+        }
+
+        public Tile(TileColor color)
+        {
+            this.color = color;
             piece = null;
             if (color == TileColor.Black)
             {
@@ -39,9 +52,13 @@ namespace ChessGame.UI
             Size = Const.TileSize;
         }
 
+        public void SetPosition(Point pos)
+        {
+            this.position = pos;
+        }
+
         public void SetPiece(Piece piece)
         {
-            //Set Piece to pnlPiece
             this.piece = piece;
             if (piece == null)
             {
@@ -68,6 +85,12 @@ namespace ChessGame.UI
             else if (tileState == TileState.Selected)
                 this.BackColor = this.colorHighlight;
             else this.BackColor = this.colorNormal;
+        }
+
+        internal void SetMouseClickHandler(Action<object, MouseEventArgs> onClick)
+        {
+            this.mouseClickHandler = onClick;
+            this.MouseClick += new MouseEventHandler(onClick);
         }
     }
 }

@@ -7,11 +7,10 @@ using System.Threading.Tasks;
 
 namespace ChessGame
 {
-
     public enum PieceSide
     {
-        White = 0,
-        Black = 1
+        White = 1,
+        Black = 0
     }
 
     public enum TileColor

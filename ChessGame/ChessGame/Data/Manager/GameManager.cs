@@ -33,11 +33,19 @@ namespace ChessGame.Data
             return instance;
         }
 
+        internal void OnLoadUiDone()
+        {
+            this.InitTimer();
+            this.ui.SetLabelClock(PieceSide.Black, timePerPlayer[PieceSide.Black]);
+            this.ui.SetLabelClock(PieceSide.White, timePerPlayer[PieceSide.White]);
+            gameModeStrategy.SetTurn(turn);
+            this.ui.SetTurn(turn);
+        }
+
         private GameManager()
         {
             this.SetMode(GameMode.WithComputer);
             this.InitFieldValue();
-            this.InitTimer();
         }
 
         private void InitFieldValue()
@@ -47,7 +55,7 @@ namespace ChessGame.Data
             timePerPlayer.Add(PieceSide.White, this.time);
         }
 
-        private void InitTimer()
+        public void InitTimer()
         {
             timer = new Timer();
             timer.Interval = 1000;
@@ -57,7 +65,9 @@ namespace ChessGame.Data
 
         private void SetMode(GameMode value)
         {
-            gameModeStrategy = new ModeWithComp(this);
+            if (value == GameMode.WithComputer)
+                gameModeStrategy = new ModeWithComp(this);
+            else gameModeStrategy = new Mode2Players(this);
         }
 
         internal BoardData GetBoardData()

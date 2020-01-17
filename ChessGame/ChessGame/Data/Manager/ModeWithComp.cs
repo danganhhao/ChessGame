@@ -4,12 +4,14 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace ChessGame.Data
 {
     class ModeWithComp : GameModeStrategy
     {
+        private Move move;
         public ModeWithComp(GameManager gameManager) : base(gameManager)
         {
 
@@ -27,9 +29,7 @@ namespace ChessGame.Data
             if (turn != this.gameManager.MySide)
             {
                 this.gameManager.SetBlockBoard(true);
-                Move move = GetAIMove();
-                this.gameManager.ProcessMoveRequest(new Point(move.from.letter, move.from.number), 
-                    new Point(move.to.letter, move.to.number));
+                new Thread(RunAI).Start();
             }
             else this.gameManager.SetBlockBoard(false);
         }
@@ -38,6 +38,18 @@ namespace ChessGame.Data
         {
             GameManager gameManager = GameManager.GetInstance();
             return AI.GetInstance().DoMove(gameManager.GetBoardData(), gameManager.Turn);
+        }
+
+        private void RunAI()
+        {
+            while (AI.GetInstance().RUNNING)
+            {
+                Thread.Sleep(100);
+            }
+            this.move = GetAIMove();
+            this.gameManager.ProcessMoveRequest(new Point(move.from.letter, move.from.number),
+                    new Point(move.to.letter, move.to.number));
+            AI.GetInstance().RUNNING = false;
         }
     }
 }

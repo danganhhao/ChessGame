@@ -10,8 +10,8 @@ namespace ChessGame.Network
     {
         public string hostName;
         public string broadcastAddress;
-        public string port;
-        NetworkInfo defaultInfo = new NetworkInfo("","","");
+        public int port;
+        NetworkInfo defaultInfo = new NetworkInfo("","",0);
 
         public NetworkInfo()
         {
@@ -20,7 +20,7 @@ namespace ChessGame.Network
             this.port = defaultInfo.port;
         }
 
-        public NetworkInfo(string hostName, string broadcastAddress, string port)
+        public NetworkInfo(string hostName, string broadcastAddress, int port)
         {
             this.hostName = hostName;
             this.broadcastAddress = broadcastAddress;

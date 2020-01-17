@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ChessGame.Network
 {
-    class Packet
+    public class Packet
     {
         NetworkInfo networkInfo;
         string message;
@@ -28,7 +28,7 @@ namespace ChessGame.Network
         { return message; }
     }
 
-    class RequestPacket : Packet
+    public class RequestPacket : Packet
     {
         public RequestPacket() : base()
         {
@@ -39,7 +39,7 @@ namespace ChessGame.Network
         }
     }
 
-    class ResponsePacket : Packet
+    public class ResponsePacket : Packet
     {
         public ResponsePacket() : base()
         {

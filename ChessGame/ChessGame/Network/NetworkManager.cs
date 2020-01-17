@@ -8,8 +8,8 @@ namespace ChessGame.Network
 {
     partial class NetworkManager
     {
-        ConnectionState cState = ConnectionState.StandingBy;
-        PacketTranferState ptState = PacketTranferState.None;
+        public ConnectionState cState = ConnectionState.StandingBy;
+        public PacketTranferState ptState = PacketTranferState.None;
         NetworkInfo senderInfo = new NetworkInfo();
         NetworkInfo receiverInfo;
         CombineConnection connection;
@@ -25,7 +25,7 @@ namespace ChessGame.Network
             return instance;
         }
 
-        public ConnectionState GetConnectionStatus()
+        public ConnectionState GetConnectionState()
         {
             return cState;
         }

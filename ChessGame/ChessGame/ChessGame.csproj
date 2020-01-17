@@ -85,7 +85,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resource1.resx</DependentUpon>
     </Compile>
+    <Compile Include="ResourceManager\BasicTile.cs" />
+    <Compile Include="ResourceManager\CommonTile.cs" />
     <Compile Include="ResourceManager\ResourceModule.cs" />
+    <Compile Include="ResourceManager\TileStrategy.cs" />
     <Compile Include="TypeDefine.cs" />
     <Compile Include="ResourceManager\BasicPiece.cs" />
     <Compile Include="ResourceManager\ColorfulPiece.cs" />

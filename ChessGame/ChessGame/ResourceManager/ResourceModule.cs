@@ -49,7 +49,8 @@ namespace ChessGame.ResourceManager
                     case PieceType.Pawn: pieceAdapt = PIECE.WhitePawn; break;
                 }
             }
-            return this.pieceStrategy.GetPiece(pieceAdapt);
+            Bitmap bmp = this.pieceStrategy.GetPiece(pieceAdapt);
+            return new Bitmap(bmp, Const.TileSize);
         }
 
         public Bitmap GetTileResource(TileState state, TileColor color)
@@ -62,7 +63,7 @@ namespace ChessGame.ResourceManager
                     case TileState.Normal: tileAdapt = TILE.NormalBlackTile; break;
                     case TileState.Selected: tileAdapt = TILE.SelectBlackTile; break;
                     case TileState.LastMove: tileAdapt = TILE.LastMoveBlackTile; break;
-                    case TileState.AvalableMove: tileAdapt = TILE.AvalBlackTile; break;
+                    case TileState.AvailableMove: tileAdapt = TILE.AvalBlackTile; break;
                 }
             }
             else
@@ -72,10 +73,11 @@ namespace ChessGame.ResourceManager
                     case TileState.Normal: tileAdapt = TILE.NormalWhiteTile; break;
                     case TileState.Selected: tileAdapt = TILE.SelectWhiteTile; break;
                     case TileState.LastMove: tileAdapt = TILE.LastMoveWhiteTile; break;
-                    case TileState.AvalableMove: tileAdapt = TILE.AvalWhiteTile; break;
+                    case TileState.AvailableMove: tileAdapt = TILE.AvalWhiteTile; break;
                 }
             }
-            return this.tileStrategy.GetTile(tileAdapt);
+            Bitmap bmp = this.tileStrategy.GetTile(tileAdapt);
+            return new Bitmap(bmp, Const.TileSize);
         }
     }
 }

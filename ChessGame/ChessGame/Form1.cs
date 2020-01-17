@@ -65,8 +65,9 @@ namespace ChessGame
                     else tile.Location = new Point(Const.TileSize.Width * x, Const.TileSize.Height * (7 - y));
 
                     //Set mouse click handler
-                    tile.MouseClick += new System.Windows.Forms.MouseEventHandler(this.OnClickTile);
+                    tile.PnlPiece.MouseClick += new System.Windows.Forms.MouseEventHandler(this.OnClickTile);
 
+                    // Set tile
                     //Set piece data
                     if (arrPiece[x, y] != null)
                         tile.SetPiece(arrPiece[x, y]);
@@ -173,7 +174,7 @@ namespace ChessGame
                 if (clickedTile.State == TileState.Selected)
                     return;
 
-                if (clickedTile.State == TileState.AvalableMove)
+                if (clickedTile.State == TileState.AvailableMove)
                     gameManager.ProcessMoveRequest(selectedTile.Position, clickedTile.Position);
                 else
                 {
@@ -215,7 +216,7 @@ namespace ChessGame
             foreach (Point pos in legalMoves)
             {
                 Tile legalMoveTile = tiles[pos.X, pos.Y];
-                legalMoveTile.SetState(TileState.AvalableMove);
+                legalMoveTile.SetState(TileState.AvailableMove);
                 availableMoveTiles.Add(legalMoveTile);
             }
         }
